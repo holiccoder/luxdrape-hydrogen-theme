@@ -539,8 +539,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
   const [selectedColorSampleImage, setSelectedColorSampleImage] =
     useState(null);
   const [selectedHeaderStyle, setSelectedHeaderStyle] = useState(null);
-  const [selectedLining, setSelectedLining] = useState(liningOptions[1]);
-  const [selectedTieBack, setSelectedTieBack] = useState(tieBackOptions[0]);
+  const [selectedLining, setSelectedLining] = useState(null);
+  const [selectedTieBack, setSelectedTieBack] = useState(null);
   const [width, setWidth] = useState('50');
   const [height, setHeight] = useState('84');
   const [quantity, setQuantity] = useState(2);
@@ -564,8 +564,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
   const totalPrice = useMemo(() => {
     const basePrice = productPrice;
     const headerPrice = selectedHeaderStyle?.price || 0;
-    const liningPrice = selectedLining.price;
-    const tieBackPrice = selectedTieBack.price * quantity;
+    const liningPrice = Number(selectedLining?.price) || 0;
+    const tieBackPrice = (Number(selectedTieBack?.price) || 0) * quantity;
 
     const widthValue = parseFloat(width) || 50;
     const heightValue = parseFloat(height) || 84;
@@ -586,6 +586,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
 
   const colorOptions = productOptionsData?.color || productColors;
   const headerOptions = productOptionsData?.header || headerStyles;
+  const liningOptionsData = productOptionsData?.lining_options || liningOptions;
+  const tiebacksData = productOptionsData?.tiebacks || tieBackOptions;
 
   useEffect(() => {
     if (colorOptions.length > 0 && !selectedColor) {
@@ -599,6 +601,18 @@ const ProductDetailPage = ({product, productOptionsData}) => {
       setSelectedHeaderStyle(headerOptions[0]);
     }
   }, [headerOptions, selectedHeaderStyle]);
+
+  useEffect(() => {
+    if (liningOptionsData.length > 0 && !selectedLining) {
+      setSelectedLining(liningOptionsData[0]);
+    }
+  }, [liningOptionsData, selectedLining]);
+
+  useEffect(() => {
+    if (tiebacksData.length > 0 && !selectedTieBack) {
+      setSelectedTieBack(tiebacksData[0]);
+    }
+  }, [tiebacksData, selectedTieBack]);
 
   const displayImage =
     selectedColorSampleImage ||
@@ -948,28 +962,30 @@ const ProductDetailPage = ({product, productOptionsData}) => {
               {/* 4. Lining */}
               <CollapsibleSection
                 title="Lining Option"
-                subtitle={selectedLining.name}
+                subtitle={selectedLining?.name || 'Select lining'}
                 isOpen={openSections.includes('lining')}
                 onToggle={() => toggleSection('lining')}
               >
                 <div className="pt-4 space-y-3">
                   <RadioGroup
-                    value={selectedLining.id}
+                    value={selectedLining?.name}
                     onValueChange={(val) => {
-                      const lining = liningOptions.find((l) => l.id === val);
+                      const lining = liningOptionsData.find(
+                        (l) => l.name === val,
+                      );
                       if (lining) setSelectedLining(lining);
                     }}
                   >
                     <div className="space-y-2">
-                      {liningOptions.map((lining) => (
-                        <div key={lining.id}>
+                      {liningOptionsData.map((lining, idx) => (
+                        <div key={lining.name || idx}>
                           <RadioGroupItem
-                            value={lining.id}
-                            id={`lining-${lining.id}`}
+                            value={lining.name}
+                            id={`lining-${lining.name}`}
                             className="peer sr-only"
                           />
                           <Label
-                            htmlFor={`lining-${lining.id}`}
+                            htmlFor={`lining-${lining.name}`}
                             className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
                           >
                             <div>
@@ -981,7 +997,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                               </p>
                             </div>
                             <span className="text-sm font-medium text-gray-900">
-                              {lining.price > 0
+                              {Number(lining.price) > 0
                                 ? `+$${lining.price}`
                                 : 'Included'}
                             </span>
@@ -996,28 +1012,28 @@ const ProductDetailPage = ({product, productOptionsData}) => {
               {/* 5. Tie Backs */}
               <CollapsibleSection
                 title="Tie Backs"
-                subtitle={selectedTieBack.name}
+                subtitle={selectedTieBack?.name || 'Select tieback'}
                 isOpen={openSections.includes('tiebacks')}
                 onToggle={() => toggleSection('tiebacks')}
               >
                 <div className="pt-4 space-y-3">
                   <RadioGroup
-                    value={selectedTieBack.id}
+                    value={selectedTieBack?.name}
                     onValueChange={(val) => {
-                      const tieBack = tieBackOptions.find((t) => t.id === val);
+                      const tieBack = tiebacksData.find((t) => t.name === val);
                       if (tieBack) setSelectedTieBack(tieBack);
                     }}
                   >
                     <div className="space-y-2">
-                      {tieBackOptions.map((tieBack) => (
-                        <div key={tieBack.id}>
+                      {tiebacksData.map((tieBack, idx) => (
+                        <div key={tieBack.name || idx}>
                           <RadioGroupItem
-                            value={tieBack.id}
-                            id={`tieback-${tieBack.id}`}
+                            value={tieBack.name}
+                            id={`tieback-${tieBack.name}`}
                             className="peer sr-only"
                           />
                           <Label
-                            htmlFor={`tieback-${tieBack.id}`}
+                            htmlFor={`tieback-${tieBack.name}`}
                             className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
                           >
                             <div>
@@ -1029,7 +1045,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                               </p>
                             </div>
                             <span className="text-sm font-medium text-gray-900">
-                              {tieBack.price > 0
+                              {Number(tieBack.price) > 0
                                 ? `+$${tieBack.price}`
                                 : 'Included'}
                             </span>
