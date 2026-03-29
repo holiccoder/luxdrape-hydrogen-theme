@@ -18,7 +18,11 @@ export function ProductForm({productOptions, selectedVariant}) {
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
+          <div
+            className="product-options"
+            key={option.name}
+            style={{display: 'none'}}
+          >
             <h5>{option.name}</h5>
             <div className="product-options-grid">
               {option.optionValues.map((value) => {
@@ -109,6 +113,7 @@ export function ProductForm({productOptions, selectedVariant}) {
               ]
             : []
         }
+        className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-normal transition-all disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/20 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive not-disabled:hover:bg-primary/90 min-h-10 rounded-md has-[>svg]:px-4 h-14 px-8 bg-slate-800 hover:bg-slate-700 text-white text-lg"
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>

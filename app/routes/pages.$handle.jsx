@@ -1,5 +1,8 @@
 import {useLoaderData} from 'react-router';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import AboutTemplate from '~/components/page-templates/About';
+import InstallationGuideTemplate from '~/components/page-templates/installation-guide';
+import ContactTemplate from '~/components/page-templates/contact';
 
 /**
  * @type {Route.MetaFunction}
@@ -64,6 +67,21 @@ function loadDeferredData({context}) {
 export default function Page() {
   /** @type {LoaderReturnData} */
   const {page} = useLoaderData();
+
+  // Use custom template for brand-story page
+  if (page.handle === 'brand-story') {
+    return <AboutTemplate />;
+  }
+
+  // Use custom template for installation-guide page
+  if (page.handle === 'installation-guide') {
+    return <InstallationGuideTemplate />;
+  }
+
+  // Use custom template for contact page
+  if (page.handle === 'contact') {
+    return <ContactTemplate />;
+  }
 
   return (
     <div className="page">

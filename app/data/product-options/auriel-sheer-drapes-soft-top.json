@@ -3,47 +3,47 @@
   "color": [
     {
       "name": "Textured Ivory-895-1",
-      "sample_image": "//luxdrape.com/cdn/shop/files/128-116_98.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/128-116_98.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-1_156dafb8-f2c0-41ec-8f5f-798c7c55ebe2_1000x.jpg?v=1771059303"
     },
     {
       "name": "Linear Charm-895-2",
-      "sample_image": "//luxdrape.com/cdn/shop/files/108.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/108.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-2_ada0fbc5-8b8d-4ee5-894c-324c53e2429d_1000x.jpg?v=1771059303"
     },
     {
       "name": "Textured Lines-895-3",
-      "sample_image": "//luxdrape.com/cdn/shop/files/118-15.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/118-15.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-3_3f5c30b7-c349-4660-a985-b1ba70e59d7a_1000x.jpg?v=1771059304"
     },
     {
       "name": "Scallop White-895-4",
-      "sample_image": "//luxdrape.com/cdn/shop/files/118-76.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/118-76.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-4_e8c7e0cc-122e-46fe-9b27-40e7c9ec6e73_1000x.jpg?v=1771059305"
     },
     {
       "name": "Pure Linen-895-5",
-      "sample_image": "//luxdrape.com/cdn/shop/files/128-20.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/128-20.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-5_824feb9d-39ac-4ba2-b3f6-3956263fbc4e_1000x.jpg?v=1771059304"
     },
     {
       "name": "Textured Weave-895-6",
-      "sample_image": "//luxdrape.com/cdn/shop/files/128-36.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/128-36.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-6_1188abfc-fe32-4713-8554-8f89c64e1cfa_1000x.jpg?v=1771059306"
     },
     {
       "name": "Smooth Canvas-895-7",
-      "sample_image": "//luxdrape.com/cdn/shop/files/128-90.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/128-90.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-7_5ff2b77f-eebe-4a73-bd99-124234f61688_1000x.jpg?v=1771059307"
     },
     {
       "name": "Delicate Lines-895-8",
-      "sample_image": "//luxdrape.com/cdn/shop/files/198.jpg?crop=center&height=94&v=1742364756&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/198.jpg?crop=center&height=94&v=1742364756&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-8_1b66ed9b-d3e9-4760-b7d5-7440bfdba494_1000x.jpg?v=1771059307"
     },
     {
       "name": "Herringbone Ivory-895-9",
-      "sample_image": "//luxdrape.com/cdn/shop/files/09.png?crop=center&height=94&v=1751961741&width=94",
+      "sample_image": "//luxdrape.myshopify.com/cdn/shop/files/09.png?crop=center&height=94&v=1751961741&width=94",
       "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-9_90c5ed46-0fdb-4521-8fd0-966d5023799d_1000x.jpg?v=1771059307"
     }
   ],
@@ -52,28 +52,28 @@
       "name": "4-in-1",
       "price": "45",
       "fullness": "200%",
-      "image": "//luxdrape.com/cdn/shop/files/4in1.jpg?crop=center&height=108&v=1745829334&width=108",
+      "image": "//luxdrape.myshopify.com/cdn/shop/files/4in1.jpg?crop=center&height=108&v=1745829334&width=108",
       "description": "Versatile design featuring a hook belt, rod pocket, back tap, and clip ring compatibility. Offers ultimate flexibility with four hanging methods for a customizable, adaptive look."
     },
     {
       "name": "rod pocket",
       "price": "45",
       "fullness": "200%",
-      "image": "//luxdrape.com/cdn/shop/files/rodpocket.jpg?crop=center&height=108&v=1745829369&width=108",
+      "image": "//luxdrape.myshopify.com/cdn/shop/files/rodpocket.jpg?crop=center&height=108&v=1745829369&width=108",
       "description": "Classic 3-inch pocket design that allows the rod to slide through for a seamless fit. Provides a soft, gathered appearance for a cozy and effortless window treatment."
     },
     {
       "name": "back tap",
       "price": "45",
       "fullness": "200%",
-      "image": "//luxdrape.com/cdn/shop/files/back_tab.jpg?crop=center&height=108&v=1745829308&width=108",
+      "image": "//luxdrape.myshopify.com/cdn/shop/files/back_tab.jpg?crop=center&height=108&v=1745829308&width=108",
       "description": "Hidden tabs at the back create a clean, tailored look without visible hardware. Combines the ease of a rod pocket with the structured elegance of a pleated finish."
     },
     {
       "name": "flat hook",
       "price": "45",
       "fullness": "200%",
-      "image": "//luxdrape.com/cdn/shop/files/tabtop.jpg?crop=center&height=108&v=1745829208&width=108",
+      "image": "//luxdrape.myshopify.com/cdn/shop/files/tabtop.jpg?crop=center&height=108&v=1745829208&width=108",
       "description": "Clean, minimalist construction using adjustable plastic pin hooks for a structured drape. Delivers a neat and modern aesthetic that works perfectly with rods and rings."
     }
   ],

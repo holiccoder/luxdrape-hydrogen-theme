@@ -1,16 +1,8 @@
 import {useLoaderData} from 'react-router';
-import {
-  getSelectedProductOptions,
-  Analytics,
-  useOptimisticVariant,
-  getProductOptions,
-  getAdjacentAndFirstAvailableVariants,
-  useSelectedOptionInUrlParam,
-} from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
-import {ProductImage} from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
+import {getSelectedProductOptions} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import DefaultProductTemplate from '~/components/product-detail-page-templates/default';
+import {productOptionsIndex} from '~/data/product-options/index.js';
 
 /**
  * @type {Route.MetaFunction}
@@ -29,19 +21,13 @@ export const meta = ({data}) => {
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   return {...deferredData, ...criticalData};
 }
 
 /**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
+ * Load data necessary for rendering content above the fold.
  */
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
@@ -55,95 +41,40 @@ async function loadCriticalData({context, params, request}) {
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!product?.id) {
     throw new Response(null, {status: 404});
   }
 
-  // The API handle might be localized, so redirect to the localized handle
   redirectIfHandleIsLocalized(request, {handle, data: product});
+
+  const handleLower = handle.toLowerCase();
+  const productOptions =
+    productOptionsIndex[handleLower] || productOptionsIndex[handle] || null;
 
   return {
     product,
+    productOptions,
   };
 }
 
 /**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
+ * Load data for rendering content below the fold.
  */
-function loadDeferredData({context, params}) {
-  // Put any API calls that is not critical to be available on first page render
-  // For example: product reviews, product recommendations, social feeds.
-
+function loadDeferredData() {
   return {};
 }
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product} = useLoaderData();
-
-  // Optimistically selects a variant with given available variant information
-  const selectedVariant = useOptimisticVariant(
-    product.selectedOrFirstAvailableVariant,
-    getAdjacentAndFirstAvailableVariants(product),
-  );
-
-  // Sets the search param to the selected variant without navigation
-  // only when no search params are set in the url
-  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
-
-  // Get the product options array
-  const productOptions = getProductOptions({
-    ...product,
-    selectedOrFirstAvailableVariant: selectedVariant,
-  });
-
-  const {title, descriptionHtml} = product;
+  const {product, productOptions} = useLoaderData();
 
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
-      </div>
-      <Analytics.ProductView
-        data={{
-          products: [
-            {
-              id: product.id,
-              title: product.title,
-              price: selectedVariant?.price.amount || '0',
-              vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
-              quantity: 1,
-            },
-          ],
-        }}
-      />
-    </div>
+    <DefaultProductTemplate
+      product={product}
+      productOptionsData={productOptions}
+    />
   );
 }
 
@@ -194,6 +125,15 @@ const PRODUCT_FRAGMENT = `#graphql
     description
     encodedVariantExistence
     encodedVariantAvailability
+    images(first: 10) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
     options {
       name
       optionValues {
@@ -210,6 +150,24 @@ const PRODUCT_FRAGMENT = `#graphql
           }
         }
       }
+    }
+    metafields(identifiers: [
+      {namespace: "specifications", key: "materials"},
+      {namespace: "specifications", key: "width_range"},
+      {namespace: "specifications", key: "height_range"},
+      {namespace: "specifications", key: "header_styles"},
+      {namespace: "specifications", key: "lining_options"},
+      {namespace: "specifications", key: "hardware"},
+      {namespace: "specifications", key: "warranty"},
+      {namespace: "specifications", key: "production_time"},
+      {namespace: "specifications", key: "shipping"},
+      {namespace: "specifications", key: "returns"},
+      {namespace: "reviews", key: "rating"},
+      {namespace: "reviews", key: "rating_count"}
+    ]) {
+      namespace
+      key
+      value
     }
     selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant
