@@ -1,0 +1,221 @@
+{
+  "hero": {
+    "badge": "New to Custom Curtains?",
+    "title": "Your Complete Guide to Buying Custom Curtains",
+    "subtitle": "Everything you need to know to order perfectly fitted, beautifully crafted curtains for your home. From fabric selection to installation — we've got you covered.",
+    "ctaLabel": "Start Your Journey",
+    "swatchLabel": "Order Free Swatches First",
+    "swatchLink": "/products/swatches",
+    "backgroundImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+    "trustBadges": ["Perfect Fit", "Free Shipping $200+", "4.9/5 Rating"]
+  },
+  "steps": [
+    {
+      "number": "01",
+      "title": "Choose Your Fabric",
+      "description": "Browse our collection of premium fabrics. Order free swatches to see colors and textures in your home.",
+      "icon": "SwatchBook",
+      "action": "Order Free Swatches",
+      "link": "/products/swatches"
+    },
+    {
+      "number": "02",
+      "title": "Measure Your Windows",
+      "description": "Follow our simple measuring guides for perfect-fitting curtains every time. Takes just 10 minutes.",
+      "icon": "Ruler",
+      "action": "View Measuring Guide",
+      "link": "/measure-guide"
+    },
+    {
+      "number": "03",
+      "title": "Customize & Order",
+      "description": "Select your style, enter dimensions, and choose your perfect options. We handle the rest.",
+      "icon": "Sparkles",
+      "action": "Start Customizing",
+      "link": "/collections"
+    },
+    {
+      "number": "04",
+      "title": "We Craft & Deliver",
+      "description": "Your custom curtains are handcrafted and delivered to your door in 14 days. Free shipping over $200.",
+      "icon": "Truck",
+      "action": "View Delivery Info",
+      "link": "/policies"
+    }
+  ],
+  "layeringCombinations": [
+    {
+      "id": "day-night",
+      "title": "Day & Night Combo",
+      "subtitle": "Sheer + Blackout",
+      "description": "Perfect for bedrooms - sheer curtains for daytime privacy with natural light, blackout shades for complete darkness at night.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "curtainType": "Sheer Linen Curtains",
+      "shadeType": "Blackout Roller Shades",
+      "savings": "Save 15%",
+      "price": "From $298",
+      "features": ["Maximum light control", "Daytime privacy", "Sleep quality improvement"],
+      "link": "/collections?combo=day-night"
+    },
+    {
+      "id": "elegant-layer",
+      "title": "Elegant Layering",
+      "subtitle": "Drapes + Roman Shades",
+      "description": "Sophisticated combination for formal spaces. Roman shades provide clean lines while drapes add softness and luxury.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda",
+      "curtainType": "Velvet Drapes",
+      "shadeType": "Linen Roman Shades",
+      "savings": "Save 20%",
+      "price": "From $458",
+      "features": ["Luxurious aesthetic", "Insulation boost", "Sound dampening"],
+      "link": "/collections?combo=elegant"
+    },
+    {
+      "id": "modern-minimal",
+      "title": "Modern Minimalist",
+      "subtitle": "Curtains + Solar Shades",
+      "description": "Clean, contemporary look with solar shades to block UV rays and reduce heat while maintaining your view.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda",
+      "curtainType": "Cotton Canvas Curtains",
+      "shadeType": "Solar Roller Shades",
+      "savings": "Save 15%",
+      "price": "From $328",
+      "features": ["UV protection", "Energy efficiency", "Unobstructed views"],
+      "link": "/collections?combo=modern"
+    }
+  ],
+  "fabricGuide": [
+    {
+      "name": "Linen",
+      "description": "Natural, breathable, and timeless. Perfect for casual elegance.",
+      "bestFor": ["Living rooms", "Sunrooms", "Coastal homes"],
+      "care": "Dry clean recommended",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+      "priceRange": "$$"
+    },
+    {
+      "name": "Cotton",
+      "description": "Soft, versatile, and easy to care for. A practical choice for busy homes.",
+      "bestFor": ["Family rooms", "Kids rooms", "Kitchens"],
+      "care": "Machine washable",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda",
+      "priceRange": "$"
+    },
+    {
+      "name": "Velvet",
+      "description": "Luxurious, rich, and insulating. Adds drama and sophistication.",
+      "bestFor": ["Master bedrooms", "Formal dining", "Theaters"],
+      "care": "Professional cleaning",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda",
+      "priceRange": "$$$"
+    },
+    {
+      "name": "Silk",
+      "description": "Elegant sheen and beautiful drape. The ultimate luxury choice.",
+      "bestFor": ["Formal living", "Special occasions", "Luxury homes"],
+      "care": "Dry clean only",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d0cc4e03afad443e8155bdebc1dc3e72_ve_miaoda",
+      "priceRange": "$$$$"
+    }
+  ],
+  "roomGuides": [
+    {
+      "id": "living-room",
+      "title": "Living Room",
+      "description": "Create a welcoming space with light-filtering fabrics that offer privacy while letting natural light in.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "recommendations": ["Linen curtains for softness", "Sheer layers for flexibility", "Neutral tones for versatility"],
+      "productLink": "/collections?room=living",
+      "icon": "Home"
+    },
+    {
+      "id": "bedroom",
+      "title": "Bedroom",
+      "description": "Ensure restful sleep with blackout curtains that block 99% of light and reduce outside noise.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda",
+      "recommendations": ["Blackout lining essential", "Velvet for luxury feel", "Floor-length for elegance"],
+      "productLink": "/collections?room=bedroom",
+      "icon": "BedDouble"
+    },
+    {
+      "id": "dining-room",
+      "title": "Dining Room",
+      "description": "Elevate your dining experience with elegant drapery that complements your decor style.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda",
+      "recommendations": ["Silk for formal dining", "Rich colors for warmth", "Pinch pleat for classic look"],
+      "productLink": "/collections?room=dining",
+      "icon": "Utensils"
+    },
+    {
+      "id": "home-office",
+      "title": "Home Office",
+      "description": "Reduce glare on screens while maintaining a professional, polished appearance.",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d0cc4e03afad443e8155bdebc1dc3e72_ve_miaoda",
+      "recommendations": ["Light filtering for screen work", "Roller shades for minimal look", "Motorized for convenience"],
+      "productLink": "/collections?room=office",
+      "icon": "BookOpen"
+    }
+  ],
+  "measureTeaser": {
+    "badge": "Step 2",
+    "title": "Measuring Made Simple",
+    "subtitle": "Accurate measurements are the key to perfectly fitted curtains. Our detailed guides walk you through the process step by step.",
+    "points": [
+      "Easy-to-follow video tutorials",
+      "Printable measuring worksheets",
+      "Common mistakes to avoid",
+      "Expert support if you need help"
+    ],
+    "ctaLabel": "View Measuring Guide",
+    "ctaLink": "/measure-guide",
+    "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda"
+  },
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Sarah M.",
+      "location": "New York, NY",
+      "rating": 5,
+      "title": "Perfect first-time experience",
+      "content": "I was nervous about ordering custom curtains online, but the buying guide made it so easy. The swatches helped me pick the perfect color, and the measuring guide was spot on!"
+    },
+    {
+      "id": 2,
+      "name": "James K.",
+      "location": "Austin, TX",
+      "rating": 5,
+      "title": "Exceeded expectations",
+      "content": "The room-specific recommendations were incredibly helpful. I used the bedroom guide and my blackout curtains are perfect. Sleep has never been better!"
+    },
+    {
+      "id": 3,
+      "name": "Emily R.",
+      "location": "Seattle, WA",
+      "rating": 5,
+      "title": "Great value for custom",
+      "content": "The step-by-step process made ordering custom curtains less intimidating. The quality is amazing and the price is better than local options. Highly recommend!"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I know which fabric to choose?",
+      "answer": "Order our free fabric swatches! You can select up to 10 samples to see colors and textures in your actual lighting. Each fabric page also shows care instructions and best-use recommendations."
+    },
+    {
+      "question": "What if I measure wrong?",
+      "answer": "Don't worry! Our measuring guides include detailed instructions and common mistakes to avoid. If you're unsure, our customer service team can review your measurements before production."
+    },
+    {
+      "question": "How long does it take to receive my order?",
+      "answer": "Each order is custom-made and typically ships within 7-10 business days. Delivery takes an additional 3-5 business days. You'll receive tracking information as soon as your order ships."
+    },
+    {
+      "question": "Can I return my custom curtains?",
+      "answer": "Since each piece is custom-made to your specifications, we cannot accept returns. However, we offer free fabric swatches so you can be confident in your choice before ordering."
+    },
+    {
+      "question": "Do you offer installation services?",
+      "answer": "We provide detailed DIY installation guides with every order. Installation is straightforward with basic tools. For complex projects, we can recommend local installers in select areas."
+    }
+  ]
+}

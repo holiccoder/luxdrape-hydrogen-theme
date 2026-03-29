@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "badge": "For Design Professionals",
+    "title": "LuxDrape Trade Program",
+    "subtitle": "Join thousands of interior designers, decorators, and contractors who trust LuxDrape for premium custom window treatments. Exclusive pricing, dedicated support, and priority service."
+  },
+  "benefits": [
+    { "icon": "Percent", "title": "Exclusive Trade Discount", "description": "Save up to 25% on all custom curtains and shades with your trade account." },
+    { "icon": "Truck", "title": "Free Shipping", "description": "Complimentary shipping on all orders, no minimum required." },
+    { "icon": "Clock", "title": "Priority Production", "description": "Skip the queue with expedited 7-day production for trade members." },
+    { "icon": "Users", "title": "Dedicated Support", "description": "Access to our trade specialists for measurements and consultations." }
+  ],
+  "qualifications": [
+    "Interior Designers & Decorators",
+    "Architects & Builders",
+    "Contractors & Renovators",
+    "Property Developers",
+    "Hospitality Professionals",
+    "Home Stagers"
+  ],
+  "stats": [
+    { "value": "25%", "label": "Trade Discount" },
+    { "value": "7", "label": "Day Production" },
+    { "value": "5K+", "label": "Trade Members" },
+    { "value": "24/7", "label": "Support Access" }
+  ],
+  "testimonials": [
+    {
+      "quote": "LuxDrape has transformed how I source window treatments for my clients. The quality is exceptional and the trade pricing makes it profitable for my business.",
+      "author": "Sarah Mitchell",
+      "role": "Principal Designer, Mitchell Interiors",
+      "location": "New York, NY"
+    },
+    {
+      "quote": "The dedicated support team helped me with complex measurements for a high-rise project. Their expertise saved me time and ensured perfect fit.",
+      "author": "Michael Chen",
+      "role": "Founder, Chen Design Studio",
+      "location": "San Francisco, CA"
+    },
+    {
+      "quote": "My clients love the custom options and quick turnaround. I've used LuxDrape for over 50 projects and have never been disappointed.",
+      "author": "Jennifer Walsh",
+      "role": "Interior Designer",
+      "location": "Austin, TX"
+    }
+  ],
+  "businessTypes": [
+    { "value": "interior-designer", "label": "Interior Designer" },
+    { "value": "architect", "label": "Architect" },
+    { "value": "contractor", "label": "Contractor/Builder" },
+    { "value": "decorator", "label": "Decorator" },
+    { "value": "developer", "label": "Property Developer" },
+    { "value": "stager", "label": "Home Stager" },
+    { "value": "other", "label": "Other" }
+  ],
+  "yearsOptions": [
+    { "value": "0-2", "label": "Less than 2 years" },
+    { "value": "2-5", "label": "2-5 years" },
+    { "value": "5-10", "label": "5-10 years" },
+    { "value": "10+", "label": "10+ years" }
+  ],
+  "volumeOptions": [
+    { "value": "1-10", "label": "1-10 projects" },
+    { "value": "11-25", "label": "11-25 projects" },
+    { "value": "26-50", "label": "26-50 projects" },
+    { "value": "50+", "label": "50+ projects" }
+  ],
+  "faqTeaser": {
+    "title": "Questions?",
+    "subtitle": "Our trade team is here to help. Reach out for personalized assistance with your application or any questions about the program.",
+    "email": "trade@luxdrape.com",
+    "phone": "1-800-LUX-DRAPE ext. 2",
+    "hours": "Mon-Fri: 9AM - 6PM EST"
+  }
+}

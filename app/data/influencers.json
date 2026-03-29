@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "badge": "Influencer Program",
+    "title": "Create With Us",
+    "subtitle": "Join our community of home decor creators and share the beauty of custom window treatments with your audience. Get free products, earn commissions, and inspire others.",
+    "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda"
+  },
+  "benefits": [
+    {
+      "icon": "Gift",
+      "title": "Free Products",
+      "description": "Receive complimentary custom curtains for your home or projects valued up to $1,000"
+    },
+    {
+      "icon": "DollarSign",
+      "title": "Commission",
+      "description": "Earn 15% commission on every sale made through your unique referral link"
+    },
+    {
+      "icon": "Users",
+      "title": "Exclusive Access",
+      "description": "Early access to new collections and limited edition fabrics before public launch"
+    },
+    {
+      "icon": "Star",
+      "title": "Featured Content",
+      "description": "Get featured on our official Instagram and website reaching 500K+ followers"
+    }
+  ],
+  "requirements": [
+    "Minimum 10,000 followers on Instagram, TikTok, or YouTube",
+    "Active posting schedule with consistent engagement",
+    "Content focused on home decor, interior design, or lifestyle",
+    "High-quality photography or videography skills",
+    "Authentic voice that resonates with your audience",
+    "Willingness to create at least 2 pieces of content per quarter"
+  ],
+  "processSteps": [
+    { "step": "01", "title": "Apply", "description": "Fill out our simple application form with your social media handles and content samples" },
+    { "step": "02", "title": "Review", "description": "Our team reviews your application and audience alignment within 5-7 business days" },
+    { "step": "03", "title": "Welcome", "description": "Receive your welcome package with product selection guide and brand guidelines" },
+    { "step": "04", "title": "Create", "description": "Receive your custom curtains and start creating beautiful content for your audience" }
+  ],
+  "featuredCreators": [
+    {
+      "name": "Sarah Mitchell",
+      "handle": "@sarahshome",
+      "followers": "125K",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "quote": "LuxDrape transformed my living room. The quality is unmatched!"
+    },
+    {
+      "name": "James Chen",
+      "handle": "@modernminimal",
+      "followers": "89K",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+      "quote": "My followers love seeing these custom curtains in my designs"
+    },
+    {
+      "name": "Emma Wilson",
+      "handle": "@cozyabode",
+      "followers": "210K",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6d9f0df723de4f648a28c44f08db77d1_ve_miaoda",
+      "quote": "The commission program has been a great addition to my income"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "Is there a minimum contract period?",
+      "a": "No, our partnership is flexible. However, we do ask that you complete at least one collaboration within 3 months of acceptance to remain active."
+    },
+    {
+      "q": "How and when do I get paid commissions?",
+      "a": "Commissions are paid monthly via PayPal or direct deposit once you reach a $50 minimum threshold."
+    },
+    {
+      "q": "Can I choose which products to feature?",
+      "a": "Yes! Once approved, you will have access to our product catalog and can select items that best fit your aesthetic and audience."
+    },
+    {
+      "q": "Do I need to make a certain number of posts?",
+      "a": "We ask for at least 2 posts per quarter, but many of our partners choose to post more frequently because they genuinely love the products."
+    }
+  ]
+}

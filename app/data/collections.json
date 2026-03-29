@@ -1,0 +1,292 @@
+{
+  "banner": {
+    "badge": "Custom Made",
+    "title": "Curtains Collection",
+    "subtitle": "Handcrafted from premium fabrics. Designed for your unique windows. Free swatches available to see colors in your home.",
+    "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+    "shopNowLabel": "Shop Now",
+    "swatchLabel": "Order Swatches",
+    "swatchLink": "/collections/all"
+  },
+  "features": [
+    {
+      "icon": "SwatchBook",
+      "title": "Free Fabric Swatches",
+      "desc": "See colors and textures in your home before ordering. Free shipping on swatches."
+    },
+    {
+      "icon": "Star",
+      "title": "Custom Made to Order",
+      "desc": "Every curtain is handcrafted to your exact measurements. Perfect fit guaranteed."
+    },
+    {
+      "icon": "ShoppingBag",
+      "title": "14-Day Delivery",
+      "desc": "Quick turnaround without compromising quality. Free shipping on orders over $200."
+    }
+  ],
+  "productsSection": {
+    "title": "Shop Curtains",
+    "noResultsText": "No products match your filters",
+    "clearFiltersLabel": "Clear Filters",
+    "filtersLabel": "Filters",
+    "clearAllLabel": "Clear all",
+    "materialLabel": "Material",
+    "priceLabel": "Price Range",
+    "sortOptions": [
+      { "value": "featured", "label": "Featured" },
+      { "value": "price-low", "label": "Price: Low to High" },
+      { "value": "price-high", "label": "Price: High to Low" },
+      { "value": "rating", "label": "Top Rated" }
+    ],
+    "materialOptions": ["Linen", "Cotton", "Velvet", "Silk", "Wool Blend", "Sheer Linen"],
+    "maxPrice": 400
+  },
+  "products": [
+    {
+      "id": "1",
+      "handle": "belgian-linen-curtain",
+      "name": "Belgian Linen Curtain",
+      "price": 189,
+      "rating": 4.8,
+      "reviewCount": 324,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "hoverImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+      "material": "Linen",
+      "badge": "Best Seller",
+      "colors": [
+        { "name": "White", "hex": "#F8F8F8" },
+        { "name": "Cream", "hex": "#F5F5DC" },
+        { "name": "Natural", "hex": "#E8DCC4" },
+        { "name": "Oatmeal", "hex": "#E6DCC4" },
+        { "name": "Sage", "hex": "#9CAF88" },
+        { "name": "Charcoal", "hex": "#36454F" },
+        { "name": "Navy", "hex": "#1E3A5F" },
+        { "name": "Blush", "hex": "#F4C2C2" }
+      ]
+    },
+    {
+      "id": "2",
+      "handle": "herringbone-linen-drape",
+      "name": "Herringbone Linen Drape",
+      "price": 219,
+      "rating": 4.9,
+      "reviewCount": 256,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+      "hoverImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/6d9f0df723de4f648a28c44f08db77d1_ve_miaoda",
+      "material": "Linen",
+      "badge": "New",
+      "colors": [
+        { "name": "Ivory", "hex": "#FFFFF0" },
+        { "name": "Taupe", "hex": "#B8A89A" },
+        { "name": "Grey", "hex": "#808080" },
+        { "name": "Mocha", "hex": "#967969" },
+        { "name": "Slate", "hex": "#708090" },
+        { "name": "Forest", "hex": "#228B22" }
+      ]
+    },
+    {
+      "id": "3",
+      "handle": "cotton-canvas-curtain",
+      "name": "Cotton Canvas Curtain",
+      "price": 149,
+      "rating": 4.6,
+      "reviewCount": 189,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6d9f0df723de4f648a28c44f08db77d1_ve_miaoda",
+      "material": "Cotton",
+      "colors": [
+        { "name": "White", "hex": "#FFFFFF" },
+        { "name": "Cream", "hex": "#FFFDD0" },
+        { "name": "Beige", "hex": "#F5F5DC" },
+        { "name": "Grey", "hex": "#D3D3D3" },
+        { "name": "Navy", "hex": "#000080" },
+        { "name": "Black", "hex": "#000000" }
+      ]
+    },
+    {
+      "id": "4",
+      "handle": "velvet-luxe-drape",
+      "name": "Velvet Luxe Drape",
+      "price": 279,
+      "rating": 4.9,
+      "reviewCount": 412,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda",
+      "hoverImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/71c5a08726ba4857a88b02903542fc08_ve_miaoda",
+      "material": "Velvet",
+      "badge": "Premium",
+      "colors": [
+        { "name": "Emerald", "hex": "#50C878" },
+        { "name": "Sapphire", "hex": "#0F52BA" },
+        { "name": "Burgundy", "hex": "#800020" },
+        { "name": "Charcoal", "hex": "#36454F" },
+        { "name": "Gold", "hex": "#FFD700" },
+        { "name": "Rose", "hex": "#FF007F" },
+        { "name": "Teal", "hex": "#008080" },
+        { "name": "Plum", "hex": "#DDA0DD" }
+      ]
+    },
+    {
+      "id": "5",
+      "handle": "plaid-wool-curtain",
+      "name": "Plaid Wool Curtain",
+      "price": 239,
+      "rating": 4.7,
+      "reviewCount": 156,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/71c5a08726ba4857a88b02903542fc08_ve_miaoda",
+      "material": "Wool Blend",
+      "colors": [
+        { "name": "Tan Plaid", "hex": "#D2B48C" },
+        { "name": "Grey Plaid", "hex": "#A9A9A9" },
+        { "name": "Navy Plaid", "hex": "#4682B4" },
+        { "name": "Red Plaid", "hex": "#CD5C5C" }
+      ]
+    },
+    {
+      "id": "6",
+      "handle": "sheer-linen-panel",
+      "name": "Sheer Linen Panel",
+      "price": 129,
+      "rating": 4.5,
+      "reviewCount": 278,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda",
+      "material": "Sheer Linen",
+      "colors": [
+        { "name": "White", "hex": "#FFFAFA" },
+        { "name": "Ivory", "hex": "#FFFFF0" },
+        { "name": "Blush", "hex": "#FFE4E1" },
+        { "name": "Sage", "hex": "#C1E1C1" },
+        { "name": "Grey", "hex": "#D3D3D3" },
+        { "name": "Lavender", "hex": "#E6E6FA" }
+      ]
+    },
+    {
+      "id": "7",
+      "handle": "blackout-cotton-curtain",
+      "name": "Blackout Cotton Curtain",
+      "price": 169,
+      "rating": 4.7,
+      "reviewCount": 523,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/34013fff634f414ea6ff57ba2c97cf2b_ve_miaoda",
+      "material": "Cotton",
+      "badge": "Best Seller",
+      "colors": [
+        { "name": "White", "hex": "#F5F5F5" },
+        { "name": "Beige", "hex": "#F5F5DC" },
+        { "name": "Grey", "hex": "#808080" },
+        { "name": "Navy", "hex": "#191970" },
+        { "name": "Charcoal", "hex": "#2F4F4F" },
+        { "name": "Black", "hex": "#0A0A0A" }
+      ]
+    },
+    {
+      "id": "8",
+      "handle": "silk-dupioni-curtain",
+      "name": "Silk Dupioni Curtain",
+      "price": 329,
+      "rating": 4.8,
+      "reviewCount": 98,
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/4404b45f35da473c8fc6f026d2c13f56_ve_miaoda",
+      "hoverImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "material": "Silk",
+      "badge": "Luxury",
+      "colors": [
+        { "name": "Champagne", "hex": "#F7E7CE" },
+        { "name": "Silver", "hex": "#C0C0C0" },
+        { "name": "Gold", "hex": "#D4AF37" },
+        { "name": "Aubergine", "hex": "#614051" },
+        { "name": "Peacock", "hex": "#004953" },
+        { "name": "Coral", "hex": "#FF7F50" }
+      ]
+    }
+  ],
+  "shoppableVideos": {
+    "title": "Shop the Look",
+    "subtitle": "Watch styling tips, installation guides, and room transformations. Click any video to shop the featured products.",
+    "videos": [
+      {
+        "id": "v1",
+        "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+        "productHandle": "belgian-linen-curtain",
+        "productName": "Belgian Linen Curtain",
+        "duration": "0:45",
+        "title": "How to Measure Your Windows"
+      },
+      {
+        "id": "v2",
+        "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+        "productHandle": "velvet-luxe-drape",
+        "productName": "Velvet Luxe Drape",
+        "duration": "1:12",
+        "title": "Velvet Curtain Styling Tips"
+      },
+      {
+        "id": "v3",
+        "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda",
+        "productHandle": "blackout-cotton-curtain",
+        "productName": "Blackout Cotton Curtain",
+        "duration": "0:58",
+        "title": "Installing Blackout Curtains"
+      },
+      {
+        "id": "v4",
+        "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda",
+        "productHandle": "sheer-linen-panel",
+        "productName": "Sheer Linen Panel",
+        "duration": "0:36",
+        "title": "Layering Sheer & Blackout"
+      }
+    ]
+  },
+  "fabricSection": {
+    "title": "Find Your Perfect Fabric",
+    "description": "From breathable linen to luxurious velvet, our curated collection offers something for every style and space. Each fabric is carefully selected for quality, durability, and beautiful drape.",
+    "fabrics": [
+      "Linen - Natural & breathable",
+      "Cotton - Soft & versatile",
+      "Velvet - Rich & luxurious",
+      "Silk - Elegant & lustrous"
+    ],
+    "cta": "Order Free Swatches",
+    "ctaLink": "/collections/all",
+    "images": [
+      "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda"
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Got questions? We've got answers. If you don't find what you're looking for, feel free to contact our support team.",
+    "items": [
+      {
+        "question": "How do I choose the right fabric?",
+        "answer": "Consider the room's function: linen and cotton are great for living spaces due to their breathability, while velvet adds luxury to bedrooms. For high sun exposure, choose fade-resistant fabrics. Order free swatches to see colors in your actual lighting."
+      },
+      {
+        "question": "What sizes do you offer?",
+        "answer": "All our curtains are custom-made to your exact measurements. We can accommodate widths from 20\" to 300\" and lengths from 24\" to 144\". Simply enter your dimensions during checkout, and we'll craft the perfect fit."
+      },
+      {
+        "question": "How do I care for my curtains?",
+        "answer": "Most fabrics can be dry cleaned. Linen and cotton may be machine washed on gentle cycle in cold water. Always check the care label. Regular vacuuming with a brush attachment helps maintain freshness."
+      },
+      {
+        "question": "What's your delivery timeline?",
+        "answer": "Each order is handcrafted and takes 7-10 business days to produce. Shipping takes an additional 3-5 business days. You'll receive tracking information as soon as your order ships. Rush production available for a fee."
+      },
+      {
+        "question": "Can I return or exchange?",
+        "answer": "Since all items are custom-made to your specifications, we cannot accept returns. However, if there's a manufacturing defect, contact us within 30 days for a free replacement. We recommend ordering swatches first."
+      },
+      {
+        "question": "Do you offer installation?",
+        "answer": "We provide detailed DIY installation guides and video tutorials. Installation is straightforward with basic tools. For complex projects, we can recommend local installers in select metropolitan areas."
+      }
+    ]
+  },
+  "bottomCta": {
+    "title": "Not Sure Which Fabric?",
+    "subtitle": "Order free fabric swatches to see colors and textures in your own home. No commitment required.",
+    "cta": "Order Free Swatches",
+    "ctaLink": "/collections/all"
+  }
+}

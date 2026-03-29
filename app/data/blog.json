@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "badge": "Design Inspiration",
+    "title": "The LuxDrape Journal",
+    "subtitle": "Expert tips, design inspiration, and everything you need to know about custom window treatments.",
+    "searchPlaceholder": "Search articles..."
+  },
+  "categories": [
+    { "id": "all", "label": "All Articles", "icon": null },
+    { "id": "buying-guide", "label": "Buying Guides", "icon": "Lightbulb" },
+    { "id": "decor", "label": "Home Decor", "icon": "Home" },
+    { "id": "trends", "label": "Trends", "icon": "TrendingUp" },
+    { "id": "color", "label": "Color & Style", "icon": "Palette" }
+  ],
+  "featuredLabel": "Featured Articles",
+  "allArticlesLabel": "All Articles",
+  "noArticlesText": "No articles found",
+  "readArticleLabel": "Read Article",
+  "posts": [
+    {
+      "id": "1",
+      "slug": "how-to-choose-the-perfect-curtains",
+      "title": "How to Choose the Perfect Curtains for Every Room",
+      "excerpt": "A comprehensive guide to selecting the right fabric, length, and style for your living room, bedroom, kitchen, and more.",
+      "category": "buying-guide",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+      "readTime": "8 min read",
+      "date": "Mar 10, 2026",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "slug": "2026-window-treatment-trends",
+      "title": "2026 Window Treatment Trends You Need to Know",
+      "excerpt": "From natural textures to bold colors, discover the top curtain and shade trends shaping home interiors this year.",
+      "category": "trends",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+      "readTime": "5 min read",
+      "date": "Mar 8, 2026",
+      "featured": true
+    },
+    {
+      "id": "3",
+      "slug": "linen-vs-cotton",
+      "title": "Linen vs Cotton: Which Fabric is Right for You?",
+      "excerpt": "Compare the pros and cons of two popular curtain fabrics to make an informed decision for your home.",
+      "category": "buying-guide",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+      "readTime": "6 min read",
+      "date": "Mar 5, 2026",
+      "featured": false
+    },
+    {
+      "id": "4",
+      "slug": "small-space-solutions",
+      "title": "Small Space Solutions: Curtains That Make Rooms Look Bigger",
+      "excerpt": "Expert tips on using window treatments to create the illusion of more space in compact apartments and homes.",
+      "category": "decor",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda",
+      "readTime": "4 min read",
+      "date": "Mar 2, 2026",
+      "featured": false
+    },
+    {
+      "id": "5",
+      "slug": "psychology-of-color",
+      "title": "The Psychology of Color: Choosing Curtain Colors for Mood",
+      "excerpt": "Learn how different colors affect your mood and which shades work best for bedrooms, offices, and living spaces.",
+      "category": "color",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda",
+      "readTime": "7 min read",
+      "date": "Feb 28, 2026",
+      "featured": false
+    },
+    {
+      "id": "6",
+      "slug": "layering-window-treatments",
+      "title": "Layering Window Treatments: A Designer's Guide",
+      "excerpt": "Master the art of combining curtains with shades or blinds for a polished, high-end look.",
+      "category": "decor",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d0cc4e03afad443e8155bdebc1dc3e72_ve_miaoda",
+      "readTime": "6 min read",
+      "date": "Feb 25, 2026",
+      "featured": false
+    },
+    {
+      "id": "7",
+      "slug": "sustainable-fabrics",
+      "title": "Sustainable Fabrics: Eco-Friendly Curtain Options",
+      "excerpt": "Explore environmentally conscious fabric choices that don't compromise on style or quality.",
+      "category": "trends",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda",
+      "readTime": "5 min read",
+      "date": "Feb 22, 2026",
+      "featured": false
+    },
+    {
+      "id": "8",
+      "slug": "velvet-curtains",
+      "title": "Velvet Curtains: Adding Luxury to Your Home",
+      "excerpt": "Why velvet is making a comeback and how to incorporate this rich fabric into your interior design.",
+      "category": "color",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda",
+      "readTime": "5 min read",
+      "date": "Feb 18, 2026",
+      "featured": false
+    }
+  ],
+  "newsletter": {
+    "title": "Get Design Tips Delivered",
+    "subtitle": "Subscribe to our newsletter for exclusive design tips, new product alerts, and special offers.",
+    "placeholder": "Enter your email",
+    "cta": "Subscribe"
+  }
+}

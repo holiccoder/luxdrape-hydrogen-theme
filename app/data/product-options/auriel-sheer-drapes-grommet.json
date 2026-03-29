@@ -1,0 +1,1111 @@
+{
+  "handle": "auriel-sheer-drapes-grommet",
+  "color": [
+    {
+      "name": "Textured Ivory-895-1",
+      "sample_image": "//luxdrape.com/cdn/shop/files/128-116_98.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-1_a9676f60-12fa-462e-98f8-cf744596a263.jpg?v=1771059405"
+    },
+    {
+      "name": "Linear Charm-895-2",
+      "sample_image": "//luxdrape.com/cdn/shop/files/108.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-2_e8ffdd13-e407-4daa-8214-52477730f916.jpg?v=1771059405"
+    },
+    {
+      "name": "Textured Lines-895-3",
+      "sample_image": "//luxdrape.com/cdn/shop/files/118-15.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-3_98897bbd-c743-4d63-9148-b9a4141524ba.jpg?v=1771059406"
+    },
+    {
+      "name": "Scallop White-895-4",
+      "sample_image": "//luxdrape.com/cdn/shop/files/118-76.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-4_62379c75-a9d9-48de-812f-86c6a1e4a319.jpg?v=1771059407"
+    },
+    {
+      "name": "Pure Linen-895-5",
+      "sample_image": "//luxdrape.com/cdn/shop/files/128-20.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-5_377fb95c-ecf3-4692-9d70-b9bdf3541283.jpg?v=1771059407"
+    },
+    {
+      "name": "Textured Weave-895-6",
+      "sample_image": "//luxdrape.com/cdn/shop/files/128-36.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-6_ccd63f87-ed89-4879-9eea-1a5d96609e30.jpg?v=1771059407"
+    },
+    {
+      "name": "Smooth Canvas-895-7",
+      "sample_image": "//luxdrape.com/cdn/shop/files/128-90.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-7.jpg?v=1771059408"
+    },
+    {
+      "name": "Delicate Lines-895-8",
+      "sample_image": "//luxdrape.com/cdn/shop/files/198.jpg?crop=center&height=94&v=1742364756&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-8.jpg?v=1771059778"
+    },
+    {
+      "name": "Herringbone Ivory-895-9",
+      "sample_image": "//luxdrape.com/cdn/shop/files/09.png?crop=center&height=94&v=1751961741&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/895-9.jpg?v=1771059410"
+    }
+  ],
+  "header": [
+    {
+      "name": "grommet color bright silver",
+      "price": "60",
+      "fullness": "200% | Size: 1.6\" ID",
+      "image": "//luxdrape.com/cdn/shop/files/0564f7cebd48c40a8510d355d2fa94dd.jpg?crop=center&height=108&v=1745829923&width=108",
+      "description": "Polished chrome finish with a 1.6-inch inner diameter for a sleek, modern metallic glow. Features the smallest stack back among all styles to maximize your window's natural light."
+    },
+    {
+      "name": "grommet color antique silver",
+      "price": "60",
+      "fullness": "200% | Size: 1.6\" ID",
+      "image": "//luxdrape.com/cdn/shop/files/0564f7cebd48c40a8510d355d2fa94dd2.jpg?crop=center&height=108&v=1745829658&width=108",
+      "description": "Refined brushed silver finish with a 1.6-inch inner diameter for a sophisticated, matte look. Features the smallest stack back among all styles to maximize your window's natural light."
+    },
+    {
+      "name": "grommet color antique bronze",
+      "price": "60",
+      "fullness": "200% | Size: 1.6\" ID",
+      "image": "//luxdrape.com/cdn/shop/files/0564f7cebd48c40a8510d355d2fa94dd1.jpg?crop=center&height=108&v=1745829626&width=108",
+      "description": "Rich, weathered bronze finish with a 1.6-inch inner diameter for a classic, rustic appeal. Features the smallest stack back among all styles to maximize your window's natural light."
+    },
+    {
+      "name": "grommet color gold",
+      "price": "60",
+      "fullness": "200% | Size: 1.6\" ID",
+      "image": "//luxdrape.com/cdn/shop/files/0564f7cebd48c40a8510d355d2fa94dd3.jpg?crop=center&height=108&v=1745829953&width=108",
+      "description": "Lustrous warm gold finish with a 1.6-inch inner diameter for an effortless, high-end feel. Features the smallest stack back among all styles to maximize your window's natural light."
+    }
+  ],
+  "width": [
+    {
+      "key": "18",
+      "price": "0"
+    },
+    {
+      "key": "19",
+      "price": "0"
+    },
+    {
+      "key": "20",
+      "price": "2"
+    },
+    {
+      "key": "21",
+      "price": "2"
+    },
+    {
+      "key": "22",
+      "price": "2"
+    },
+    {
+      "key": "23",
+      "price": "2"
+    },
+    {
+      "key": "24",
+      "price": "4"
+    },
+    {
+      "key": "25",
+      "price": "4"
+    },
+    {
+      "key": "26",
+      "price": "4"
+    },
+    {
+      "key": "27",
+      "price": "4"
+    },
+    {
+      "key": "28",
+      "price": "6"
+    },
+    {
+      "key": "29",
+      "price": "6"
+    },
+    {
+      "key": "30",
+      "price": "6"
+    },
+    {
+      "key": "31",
+      "price": "8"
+    },
+    {
+      "key": "32",
+      "price": "8"
+    },
+    {
+      "key": "33",
+      "price": "8"
+    },
+    {
+      "key": "34",
+      "price": "8"
+    },
+    {
+      "key": "35",
+      "price": "10"
+    },
+    {
+      "key": "36",
+      "price": "10"
+    },
+    {
+      "key": "37",
+      "price": "10"
+    },
+    {
+      "key": "38",
+      "price": "10"
+    },
+    {
+      "key": "39",
+      "price": "12"
+    },
+    {
+      "key": "40",
+      "price": "12"
+    },
+    {
+      "key": "41",
+      "price": "12"
+    },
+    {
+      "key": "42",
+      "price": "14"
+    },
+    {
+      "key": "43",
+      "price": "14"
+    },
+    {
+      "key": "44",
+      "price": "14"
+    },
+    {
+      "key": "45",
+      "price": "14"
+    },
+    {
+      "key": "46",
+      "price": "16"
+    },
+    {
+      "key": "47",
+      "price": "16"
+    },
+    {
+      "key": "48",
+      "price": "16"
+    },
+    {
+      "key": "49",
+      "price": "18"
+    },
+    {
+      "key": "50",
+      "price": "18"
+    },
+    {
+      "key": "51",
+      "price": "18"
+    },
+    {
+      "key": "52",
+      "price": "18"
+    },
+    {
+      "key": "53",
+      "price": "20"
+    },
+    {
+      "key": "54",
+      "price": "20"
+    },
+    {
+      "key": "55",
+      "price": "20"
+    },
+    {
+      "key": "56",
+      "price": "20"
+    },
+    {
+      "key": "57",
+      "price": "22"
+    },
+    {
+      "key": "58",
+      "price": "22"
+    },
+    {
+      "key": "59",
+      "price": "22"
+    },
+    {
+      "key": "60",
+      "price": "24"
+    },
+    {
+      "key": "61",
+      "price": "24"
+    },
+    {
+      "key": "62",
+      "price": "24"
+    },
+    {
+      "key": "63",
+      "price": "24"
+    },
+    {
+      "key": "64",
+      "price": "26"
+    },
+    {
+      "key": "65",
+      "price": "26"
+    },
+    {
+      "key": "66",
+      "price": "26"
+    },
+    {
+      "key": "67",
+      "price": "26"
+    },
+    {
+      "key": "68",
+      "price": "28"
+    },
+    {
+      "key": "69",
+      "price": "28"
+    },
+    {
+      "key": "70",
+      "price": "28"
+    },
+    {
+      "key": "71",
+      "price": "30"
+    },
+    {
+      "key": "72",
+      "price": "30"
+    },
+    {
+      "key": "73",
+      "price": "30"
+    },
+    {
+      "key": "74",
+      "price": "30"
+    },
+    {
+      "key": "75",
+      "price": "32"
+    },
+    {
+      "key": "76",
+      "price": "32"
+    },
+    {
+      "key": "77",
+      "price": "32"
+    },
+    {
+      "key": "78",
+      "price": "32"
+    },
+    {
+      "key": "79",
+      "price": "34"
+    },
+    {
+      "key": "80",
+      "price": "34"
+    },
+    {
+      "key": "81",
+      "price": "34"
+    },
+    {
+      "key": "82",
+      "price": "36"
+    },
+    {
+      "key": "83",
+      "price": "36"
+    },
+    {
+      "key": "84",
+      "price": "36"
+    },
+    {
+      "key": "85",
+      "price": "36"
+    },
+    {
+      "key": "86",
+      "price": "38"
+    },
+    {
+      "key": "87",
+      "price": "38"
+    },
+    {
+      "key": "88",
+      "price": "38"
+    },
+    {
+      "key": "89",
+      "price": "40"
+    },
+    {
+      "key": "90",
+      "price": "40"
+    },
+    {
+      "key": "91",
+      "price": "40"
+    },
+    {
+      "key": "92",
+      "price": "40"
+    },
+    {
+      "key": "93",
+      "price": "42"
+    },
+    {
+      "key": "94",
+      "price": "42"
+    },
+    {
+      "key": "95",
+      "price": "42"
+    },
+    {
+      "key": "96",
+      "price": "42"
+    },
+    {
+      "key": "97",
+      "price": "44"
+    },
+    {
+      "key": "98",
+      "price": "44"
+    },
+    {
+      "key": "99",
+      "price": "44"
+    },
+    {
+      "key": "100",
+      "price": "46"
+    },
+    {
+      "key": "101",
+      "price": "46"
+    },
+    {
+      "key": "102",
+      "price": "46"
+    },
+    {
+      "key": "103",
+      "price": "46"
+    },
+    {
+      "key": "104",
+      "price": "48"
+    },
+    {
+      "key": "105",
+      "price": "48"
+    },
+    {
+      "key": "106",
+      "price": "48"
+    },
+    {
+      "key": "107",
+      "price": "48"
+    },
+    {
+      "key": "108",
+      "price": "50"
+    },
+    {
+      "key": "109",
+      "price": "50"
+    },
+    {
+      "key": "110",
+      "price": "50"
+    },
+    {
+      "key": "111",
+      "price": "52"
+    },
+    {
+      "key": "112",
+      "price": "52"
+    },
+    {
+      "key": "113",
+      "price": "52"
+    },
+    {
+      "key": "114",
+      "price": "52"
+    },
+    {
+      "key": "115",
+      "price": "54"
+    },
+    {
+      "key": "116",
+      "price": "54"
+    },
+    {
+      "key": "117",
+      "price": "54"
+    },
+    {
+      "key": "118",
+      "price": "54"
+    },
+    {
+      "key": "119",
+      "price": "56"
+    },
+    {
+      "key": "120",
+      "price": "56"
+    },
+    {
+      "key": "121",
+      "price": "56"
+    },
+    {
+      "key": "122",
+      "price": "58"
+    },
+    {
+      "key": "123",
+      "price": "58"
+    },
+    {
+      "key": "124",
+      "price": "58"
+    },
+    {
+      "key": "125",
+      "price": "58"
+    },
+    {
+      "key": "126",
+      "price": "60"
+    },
+    {
+      "key": "127",
+      "price": "60"
+    },
+    {
+      "key": "128",
+      "price": "60"
+    },
+    {
+      "key": "129",
+      "price": "60"
+    },
+    {
+      "key": "130",
+      "price": "62"
+    },
+    {
+      "key": "131",
+      "price": "62"
+    },
+    {
+      "key": "132",
+      "price": "62"
+    },
+    {
+      "key": "133",
+      "price": "64"
+    },
+    {
+      "key": "134",
+      "price": "64"
+    },
+    {
+      "key": "135",
+      "price": "64"
+    },
+    {
+      "key": "136",
+      "price": "64"
+    },
+    {
+      "key": "137",
+      "price": "66"
+    },
+    {
+      "key": "138",
+      "price": "66"
+    },
+    {
+      "key": "139",
+      "price": "66"
+    },
+    {
+      "key": "140",
+      "price": "68"
+    },
+    {
+      "key": "141",
+      "price": "68"
+    },
+    {
+      "key": "142",
+      "price": "68"
+    },
+    {
+      "key": "143",
+      "price": "68"
+    },
+    {
+      "key": "144",
+      "price": "70"
+    },
+    {
+      "key": "145",
+      "price": "70"
+    },
+    {
+      "key": "146",
+      "price": "70"
+    },
+    {
+      "key": "147",
+      "price": "70"
+    },
+    {
+      "key": "148",
+      "price": "72"
+    },
+    {
+      "key": "149",
+      "price": "72"
+    },
+    {
+      "key": "150",
+      "price": "72"
+    },
+    {
+      "key": "151",
+      "price": "74"
+    },
+    {
+      "key": "152",
+      "price": "74"
+    },
+    {
+      "key": "153",
+      "price": "74"
+    },
+    {
+      "key": "154",
+      "price": "74"
+    },
+    {
+      "key": "155",
+      "price": "76"
+    },
+    {
+      "key": "156",
+      "price": "76"
+    },
+    {
+      "key": "157",
+      "price": "76"
+    },
+    {
+      "key": "158",
+      "price": "76"
+    },
+    {
+      "key": "159",
+      "price": "78"
+    },
+    {
+      "key": "160",
+      "price": "78"
+    },
+    {
+      "key": "161",
+      "price": "78"
+    },
+    {
+      "key": "162",
+      "price": "80"
+    },
+    {
+      "key": "163",
+      "price": "80"
+    },
+    {
+      "key": "164",
+      "price": "80"
+    },
+    {
+      "key": "165",
+      "price": "80"
+    },
+    {
+      "key": "166",
+      "price": "82"
+    },
+    {
+      "key": "167",
+      "price": "82"
+    },
+    {
+      "key": "168",
+      "price": "82"
+    },
+    {
+      "key": "169",
+      "price": "82"
+    },
+    {
+      "key": "170",
+      "price": "84"
+    },
+    {
+      "key": "171",
+      "price": "84"
+    },
+    {
+      "key": "172",
+      "price": "84"
+    },
+    {
+      "key": "173",
+      "price": "86"
+    },
+    {
+      "key": "174",
+      "price": "86"
+    },
+    {
+      "key": "175",
+      "price": "86"
+    },
+    {
+      "key": "176",
+      "price": "86"
+    },
+    {
+      "key": "177",
+      "price": "88"
+    },
+    {
+      "key": "178",
+      "price": "88"
+    },
+    {
+      "key": "179",
+      "price": "88"
+    },
+    {
+      "key": "180",
+      "price": "90"
+    },
+    {
+      "key": "181",
+      "price": "90"
+    },
+    {
+      "key": "182",
+      "price": "90"
+    },
+    {
+      "key": "183",
+      "price": "90"
+    },
+    {
+      "key": "184",
+      "price": "92"
+    },
+    {
+      "key": "185",
+      "price": "92"
+    },
+    {
+      "key": "186",
+      "price": "92"
+    },
+    {
+      "key": "187",
+      "price": "92"
+    },
+    {
+      "key": "188",
+      "price": "94"
+    },
+    {
+      "key": "189",
+      "price": "94"
+    },
+    {
+      "key": "190",
+      "price": "94"
+    },
+    {
+      "key": "191",
+      "price": "96"
+    },
+    {
+      "key": "192",
+      "price": "96"
+    },
+    {
+      "key": "193",
+      "price": "96"
+    },
+    {
+      "key": "194",
+      "price": "96"
+    },
+    {
+      "key": "195",
+      "price": "98"
+    },
+    {
+      "key": "196",
+      "price": "98"
+    },
+    {
+      "key": "197",
+      "price": "98"
+    },
+    {
+      "key": "198",
+      "price": "98"
+    },
+    {
+      "key": "199",
+      "price": "100"
+    },
+    {
+      "key": "200",
+      "price": "100"
+    }
+  ],
+  "length": [
+    {
+      "key": "30",
+      "price": "7"
+    },
+    {
+      "key": "31",
+      "price": "8"
+    },
+    {
+      "key": "32",
+      "price": "9"
+    },
+    {
+      "key": "33",
+      "price": "10"
+    },
+    {
+      "key": "34",
+      "price": "11"
+    },
+    {
+      "key": "35",
+      "price": "12"
+    },
+    {
+      "key": "36",
+      "price": "13"
+    },
+    {
+      "key": "37",
+      "price": "14"
+    },
+    {
+      "key": "38",
+      "price": "15"
+    },
+    {
+      "key": "39",
+      "price": "16"
+    },
+    {
+      "key": "40",
+      "price": "17"
+    },
+    {
+      "key": "41",
+      "price": "18"
+    },
+    {
+      "key": "42",
+      "price": "20"
+    },
+    {
+      "key": "43",
+      "price": "21"
+    },
+    {
+      "key": "44",
+      "price": "22"
+    },
+    {
+      "key": "45",
+      "price": "23"
+    },
+    {
+      "key": "46",
+      "price": "24"
+    },
+    {
+      "key": "47",
+      "price": "25"
+    },
+    {
+      "key": "48",
+      "price": "26"
+    },
+    {
+      "key": "49",
+      "price": "27"
+    },
+    {
+      "key": "50",
+      "price": "28"
+    },
+    {
+      "key": "51",
+      "price": "29"
+    },
+    {
+      "key": "52",
+      "price": "30"
+    },
+    {
+      "key": "53",
+      "price": "31"
+    },
+    {
+      "key": "54",
+      "price": "32"
+    },
+    {
+      "key": "55",
+      "price": "33"
+    },
+    {
+      "key": "56",
+      "price": "34"
+    },
+    {
+      "key": "57",
+      "price": "35"
+    },
+    {
+      "key": "58",
+      "price": "36"
+    },
+    {
+      "key": "59",
+      "price": "37"
+    },
+    {
+      "key": "60",
+      "price": "38"
+    },
+    {
+      "key": "61",
+      "price": "39"
+    },
+    {
+      "key": "62",
+      "price": "40"
+    },
+    {
+      "key": "63",
+      "price": "41"
+    },
+    {
+      "key": "64",
+      "price": "42"
+    },
+    {
+      "key": "65",
+      "price": "43"
+    },
+    {
+      "key": "66",
+      "price": "44"
+    },
+    {
+      "key": "67",
+      "price": "46"
+    },
+    {
+      "key": "68",
+      "price": "47"
+    },
+    {
+      "key": "69",
+      "price": "48"
+    },
+    {
+      "key": "70",
+      "price": "49"
+    },
+    {
+      "key": "71",
+      "price": "50"
+    },
+    {
+      "key": "72",
+      "price": "51"
+    },
+    {
+      "key": "73",
+      "price": "52"
+    },
+    {
+      "key": "74",
+      "price": "53"
+    },
+    {
+      "key": "75",
+      "price": "54"
+    },
+    {
+      "key": "76",
+      "price": "55"
+    },
+    {
+      "key": "77",
+      "price": "56"
+    },
+    {
+      "key": "78",
+      "price": "57"
+    },
+    {
+      "key": "79",
+      "price": "58"
+    },
+    {
+      "key": "80",
+      "price": "59"
+    },
+    {
+      "key": "81",
+      "price": "60"
+    },
+    {
+      "key": "82",
+      "price": "61"
+    },
+    {
+      "key": "83",
+      "price": "62"
+    },
+    {
+      "key": "84",
+      "price": "63"
+    },
+    {
+      "key": "85",
+      "price": "64"
+    },
+    {
+      "key": "86",
+      "price": "65"
+    },
+    {
+      "key": "87",
+      "price": "66"
+    },
+    {
+      "key": "88",
+      "price": "67"
+    },
+    {
+      "key": "89",
+      "price": "68"
+    },
+    {
+      "key": "90",
+      "price": "70"
+    },
+    {
+      "key": "91",
+      "price": "71"
+    },
+    {
+      "key": "92",
+      "price": "72"
+    },
+    {
+      "key": "93",
+      "price": "73"
+    },
+    {
+      "key": "94",
+      "price": "74"
+    },
+    {
+      "key": "95",
+      "price": "75"
+    },
+    {
+      "key": "96",
+      "price": "76"
+    },
+    {
+      "key": "97",
+      "price": "77"
+    },
+    {
+      "key": "98",
+      "price": "78"
+    },
+    {
+      "key": "99",
+      "price": "79"
+    },
+    {
+      "key": "100",
+      "price": "80"
+    },
+    {
+      "key": "101",
+      "price": "81"
+    },
+    {
+      "key": "102",
+      "price": "82"
+    }
+  ],
+  "lining_options": [],
+  "tiebacks": [],
+  "shaping_options": []
+}

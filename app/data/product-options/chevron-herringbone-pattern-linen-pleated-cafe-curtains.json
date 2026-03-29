@@ -1,0 +1,636 @@
+{
+  "handle": "chevron-herringbone-pattern-linen-pleated-cafe-curtains",
+  "color": [
+    {
+      "name": "Army Green-901-9",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-9.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/Army_Green_Pleated_5f9ee2ff-e822-41ed-a91f-9cc90370ddad_1000x.png?v=1771059897"
+    },
+    {
+      "name": "Snow White-901-0",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-0.png?crop=center&height=94&v=1742623691&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/chevron_pleated_901-0_square_1000x.png?v=1771059898"
+    },
+    {
+      "name": "Ivory-901-1",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-1.png?crop=center&height=94&v=1742799175&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-1-pleat_1000x.jpg?v=1771059356"
+    },
+    {
+      "name": "Light Beige-901-2",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-2.png?crop=center&height=94&v=1742799485&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-2-pleat_1000x.jpg?v=1771059357"
+    },
+    {
+      "name": "Ash Taupe-901-3",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-3.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-3-pleat_1000x.jpg?v=1771059357"
+    },
+    {
+      "name": "Deep Brown-901-4",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-4.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-4-pleat_1000x.jpg?v=1771059357"
+    },
+    {
+      "name": "Copper-901-5",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-5.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-5-pleat_1000x.jpg?v=1771059358"
+    },
+    {
+      "name": "Light Brown-901-24",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-24.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-24-pleat_1000x.jpg?v=1771059358"
+    },
+    {
+      "name": "Lemon-901-7",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-7.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-7-pleat_1000x.jpg?v=1771059359"
+    },
+    {
+      "name": "Brownish Yellow-901-8",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-8.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-8-pleat_1000x.jpg?v=1771059360"
+    },
+    {
+      "name": "Neutral Gray-901-43",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-43.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-43-pleat_1000x.jpg?v=1771059360"
+    },
+    {
+      "name": "Teal Green-901-16",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-16.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-16-pleat_1000x.jpg?v=1771059361"
+    },
+    {
+      "name": "Light Blue-901-36",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-18.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-36-pleat_1000x.jpg?v=1771059362"
+    },
+    {
+      "name": "Blush Pink-901-20",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-20.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-20-pleat_1000x.jpg?v=1771059362"
+    },
+    {
+      "name": "Soft Gray-901-26",
+      "sample_image": "//luxdrape.com/cdn/shop/files/BLJ17-26.png?crop=center&height=94&v=1742799652&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/901-26-pleat_1000x.jpg?v=1771059363"
+    }
+  ],
+  "header": [
+    {
+      "name": "pinch pleat",
+      "price": "60",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/pinch.jpg?crop=center&height=108&v=1764830513&width=108",
+      "description": "Classic double-finger design with permanent sewn-in pleats for a luxurious, gathered look. Timeless and elegant, it works perfectly with tracks or poles with rings."
+    },
+    {
+      "name": "tailor pleat",
+      "price": "60",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/Tailor_Pleat.jpg?crop=center&height=108&v=1764832712&width=108",
+      "description": "Modern streamlined look with sophisticated, precisely spaced pleats for a structured drape. Delivers a crisp and professional aesthetic for contemporary and minimalist interiors."
+    },
+    {
+      "name": "triple pleat",
+      "price": "75",
+      "fullness": "230% - 250%",
+      "image": "//luxdrape.com/cdn/shop/files/Triple_Pleat.jpg?crop=center&height=108&v=1764831191&width=108",
+      "description": "Three-finger pinch for maximum fullness and a high-end, voluminous finish. Creates a grand, formal appearance that is the gold standard for traditional spaces."
+    },
+    {
+      "name": "inverted box pleat",
+      "price": "70",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/Inverted.jpg?crop=center&height=108&v=1764833179&width=108",
+      "description": "Symmetrical folds that create a smooth, flat surface for a neat and tailored profile. A minimalist choice that highlights fabric patterns with architectural precision."
+    },
+    {
+      "name": "pinch pleat with back tab",
+      "price": "70",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/pinch_with_back_tab.jpg?crop=center&height=108&v=1764834705&width=108",
+      "description": "Traditional pinch pleats combined with back tabs for versatile, hardware-free hanging. A clean and adaptable solution that offers two distinct hanging styles."
+    },
+    {
+      "name": "goblet pleat",
+      "price": "70",
+      "fullness": "230%",
+      "image": "//luxdrape.com/cdn/shop/files/Goblet.png?crop=center&height=108&v=1764836058&width=108",
+      "description": "Deep, wine-glass-shaped pleats that provide a dramatic and architectural silhouette. Ideal for formal dining or living rooms seeking a regal and decorative touch."
+    },
+    {
+      "name": "pencil pleat",
+      "price": "75",
+      "fullness": "220%",
+      "image": "//luxdrape.com/cdn/shop/files/pencil.jpg?crop=center&height=108&v=1764835299&width=108",
+      "description": "Tightly gathered uniform folds that resemble a row of pencils for a soft, textured look. A delicate and casual-chic style that pairs beautifully with lightweight linen fabrics."
+    }
+  ],
+  "width": [
+    {
+      "key": "12",
+      "price": "12"
+    },
+    {
+      "key": "13",
+      "price": "12"
+    },
+    {
+      "key": "14",
+      "price": "12"
+    },
+    {
+      "key": "15",
+      "price": "12"
+    },
+    {
+      "key": "16",
+      "price": "12"
+    },
+    {
+      "key": "17",
+      "price": "12"
+    },
+    {
+      "key": "18",
+      "price": "12"
+    },
+    {
+      "key": "19",
+      "price": "12"
+    },
+    {
+      "key": "20",
+      "price": "13"
+    },
+    {
+      "key": "21",
+      "price": "13"
+    },
+    {
+      "key": "22",
+      "price": "13"
+    },
+    {
+      "key": "23",
+      "price": "13"
+    },
+    {
+      "key": "24",
+      "price": "15"
+    },
+    {
+      "key": "25",
+      "price": "15"
+    },
+    {
+      "key": "26",
+      "price": "15"
+    },
+    {
+      "key": "27",
+      "price": "15"
+    },
+    {
+      "key": "28",
+      "price": "17"
+    },
+    {
+      "key": "29",
+      "price": "17"
+    },
+    {
+      "key": "30",
+      "price": "17"
+    },
+    {
+      "key": "31",
+      "price": "17"
+    },
+    {
+      "key": "32",
+      "price": "17"
+    },
+    {
+      "key": "33",
+      "price": "17"
+    },
+    {
+      "key": "34",
+      "price": "20"
+    },
+    {
+      "key": "35",
+      "price": "20"
+    },
+    {
+      "key": "36",
+      "price": "20"
+    },
+    {
+      "key": "37",
+      "price": "20"
+    },
+    {
+      "key": "38",
+      "price": "22"
+    },
+    {
+      "key": "39",
+      "price": "22"
+    },
+    {
+      "key": "40",
+      "price": "22"
+    },
+    {
+      "key": "41",
+      "price": "25"
+    },
+    {
+      "key": "42",
+      "price": "25"
+    },
+    {
+      "key": "43",
+      "price": "27"
+    },
+    {
+      "key": "44",
+      "price": "27"
+    },
+    {
+      "key": "45",
+      "price": "29"
+    },
+    {
+      "key": "46",
+      "price": "29"
+    },
+    {
+      "key": "47",
+      "price": "29"
+    },
+    {
+      "key": "48",
+      "price": "32"
+    },
+    {
+      "key": "49",
+      "price": "32"
+    },
+    {
+      "key": "50",
+      "price": "32"
+    },
+    {
+      "key": "51",
+      "price": "32"
+    },
+    {
+      "key": "52",
+      "price": "34"
+    },
+    {
+      "key": "53",
+      "price": "34"
+    },
+    {
+      "key": "54",
+      "price": "34"
+    },
+    {
+      "key": "55",
+      "price": "36"
+    },
+    {
+      "key": "56",
+      "price": "36"
+    },
+    {
+      "key": "57",
+      "price": "36"
+    },
+    {
+      "key": "58",
+      "price": "39"
+    },
+    {
+      "key": "59",
+      "price": "39"
+    },
+    {
+      "key": "60",
+      "price": "41"
+    },
+    {
+      "key": "61",
+      "price": "41"
+    },
+    {
+      "key": "62",
+      "price": "41"
+    },
+    {
+      "key": "63",
+      "price": "43"
+    },
+    {
+      "key": "64",
+      "price": "45"
+    },
+    {
+      "key": "65",
+      "price": "46"
+    },
+    {
+      "key": "66",
+      "price": "47"
+    },
+    {
+      "key": "67",
+      "price": "48"
+    },
+    {
+      "key": "68",
+      "price": "50"
+    },
+    {
+      "key": "69",
+      "price": "51"
+    },
+    {
+      "key": "70",
+      "price": "52"
+    }
+  ],
+  "length": [
+    {
+      "key": "20",
+      "price": "39"
+    },
+    {
+      "key": "21",
+      "price": "40"
+    },
+    {
+      "key": "22",
+      "price": "40"
+    },
+    {
+      "key": "23",
+      "price": "40"
+    },
+    {
+      "key": "24",
+      "price": "40"
+    },
+    {
+      "key": "25",
+      "price": "40"
+    },
+    {
+      "key": "26",
+      "price": "40"
+    },
+    {
+      "key": "27",
+      "price": "41"
+    },
+    {
+      "key": "28",
+      "price": "41"
+    },
+    {
+      "key": "29",
+      "price": "41"
+    },
+    {
+      "key": "30",
+      "price": "42"
+    },
+    {
+      "key": "31",
+      "price": "42"
+    },
+    {
+      "key": "32",
+      "price": "42"
+    },
+    {
+      "key": "33",
+      "price": "42"
+    },
+    {
+      "key": "34",
+      "price": "42"
+    },
+    {
+      "key": "35",
+      "price": "43"
+    },
+    {
+      "key": "36",
+      "price": "43"
+    },
+    {
+      "key": "37",
+      "price": "43"
+    },
+    {
+      "key": "38",
+      "price": "43"
+    },
+    {
+      "key": "39",
+      "price": "44"
+    },
+    {
+      "key": "40",
+      "price": "44"
+    },
+    {
+      "key": "41",
+      "price": "44"
+    },
+    {
+      "key": "42",
+      "price": "44"
+    },
+    {
+      "key": "43",
+      "price": "45"
+    },
+    {
+      "key": "44",
+      "price": "45"
+    },
+    {
+      "key": "45",
+      "price": "47"
+    },
+    {
+      "key": "46",
+      "price": "47"
+    },
+    {
+      "key": "47",
+      "price": "47"
+    },
+    {
+      "key": "48",
+      "price": "47"
+    },
+    {
+      "key": "49",
+      "price": "48"
+    },
+    {
+      "key": "50",
+      "price": "48"
+    },
+    {
+      "key": "51",
+      "price": "49"
+    },
+    {
+      "key": "52",
+      "price": "49"
+    },
+    {
+      "key": "53",
+      "price": "50"
+    },
+    {
+      "key": "54",
+      "price": "50"
+    },
+    {
+      "key": "55",
+      "price": "52"
+    },
+    {
+      "key": "56",
+      "price": "52"
+    },
+    {
+      "key": "57",
+      "price": "53"
+    },
+    {
+      "key": "58",
+      "price": "55"
+    },
+    {
+      "key": "59",
+      "price": "55"
+    },
+    {
+      "key": "60",
+      "price": "56"
+    },
+    {
+      "key": "61",
+      "price": "57"
+    },
+    {
+      "key": "62",
+      "price": "57"
+    },
+    {
+      "key": "63",
+      "price": "58"
+    },
+    {
+      "key": "64",
+      "price": "58"
+    },
+    {
+      "key": "65",
+      "price": "60"
+    },
+    {
+      "key": "66",
+      "price": "60"
+    },
+    {
+      "key": "67",
+      "price": "60"
+    },
+    {
+      "key": "68",
+      "price": "64"
+    },
+    {
+      "key": "69",
+      "price": "64"
+    },
+    {
+      "key": "70",
+      "price": "66"
+    }
+  ],
+  "lining_options": [
+    {
+      "name": "Unlined",
+      "price": "0",
+      "description": "No additional lining model. It maintains the fabric's natural drape and maximizes light and air circulation."
+    },
+    {
+      "name": "Soft Shade",
+      "price": "19.99",
+      "description": "893-1 model lining, 60% shading rate, 90gsm microfiber. Lightweight and soft, it offers moderate light control while maintaining a bright, airy feel."
+    },
+    {
+      "name": "Light Dim",
+      "price": "29.99",
+      "description": "893-2 model lining, 70% shading rate, 117gsm cotton. Light and breathable, it provides gentle light filtering to create a cozy and relaxed ambiance."
+    },
+    {
+      "name": "Deep Dim",
+      "price": "39.99",
+      "description": "893-3 model lining, 75% shading rate, 140gsm polyester. Medium-weight and durable, it balances privacy and light control without completely blocking sunlight."
+    },
+    {
+      "name": "Enhanced Dark",
+      "price": "49.99",
+      "description": "893-4 model lining, 90% shading rate, 220gsm triple-weave polyester. Substantially heavy, it blocks most light for superior privacy and comfort in bedrooms."
+    },
+    {
+      "name": "Complete Block",
+      "price": "59.99",
+      "description": "893-5 model lining, 100% shading rate, 150gsm 2-pass coated microfiber. Dense and structured, it effectively eliminates all light for a dark, undisturbed sleep."
+    },
+    {
+      "name": "Thermal Shield",
+      "price": "109.99",
+      "description": "893-6 model lining, 100% shading rate, 250gsm 3-pass coated microfiber. Heavyweight and thick, it provides total blackout with high-performance thermal insulation."
+    }
+  ],
+  "tiebacks": [
+    {
+      "name": "None",
+      "price": "0",
+      "description": "Clean, straight hanging panels."
+    },
+    {
+      "name": "Matching Fabric Tiebacks",
+      "price": "3",
+      "description": "Made from the same premium fabric as your drapes."
+    }
+  ],
+  "shaping_options": [
+    {
+      "name": "Standard",
+      "price": "0",
+      "description": "Drapes hang naturally with soft, variable movement."
+    },
+    {
+      "name": "ShapeLock Memory Shaping",
+      "price": "99",
+      "description": "Expert steam-treated pleats for a superior drape and refined silhouette."
+    }
+  ]
+}

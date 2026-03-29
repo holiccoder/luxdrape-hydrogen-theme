@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help. Reach out and we'll get back to you within 24 hours."
+  },
+  "contactCards": [
+    {
+      "icon": "Mail",
+      "title": "Email Us",
+      "description": "For general inquiries and support",
+      "value": "support@luxdrape.com",
+      "href": "mailto:support@luxdrape.com"
+    },
+    {
+      "icon": "Phone",
+      "title": "Call Us",
+      "description": "Mon-Fri, 9AM-6PM EST",
+      "value": "1-800-LUX-DRAPE",
+      "href": "tel:1-800-LUX-DRAPE"
+    },
+    {
+      "icon": "MessageCircle",
+      "title": "Live Chat",
+      "description": "Get instant help from our team",
+      "value": "Start Chat",
+      "href": null
+    }
+  ],
+  "formSubjects": [
+    { "value": "order", "label": "Order Inquiry" },
+    { "value": "product", "label": "Product Question" },
+    { "value": "measurement", "label": "Measurement Help" },
+    { "value": "installation", "label": "Installation Support" },
+    { "value": "returns", "label": "Returns & Exchanges" },
+    { "value": "business", "label": "Business Inquiry" },
+    { "value": "other", "label": "Other" }
+  ],
+  "supportHours": [
+    { "day": "Monday - Friday", "hours": "9:00 AM - 6:00 PM EST" },
+    { "day": "Saturday", "hours": "10:00 AM - 4:00 PM EST" },
+    { "day": "Sunday", "hours": "Closed" }
+  ],
+  "officeAddress": {
+    "company": "LuxDrape Inc.",
+    "street": "123 Design District",
+    "suite": "Suite 400",
+    "city": "New York, NY 10001"
+  },
+  "quickLinks": [
+    { "label": "How to Measure", "href": "/measure-guide" },
+    { "label": "Installation Guide", "href": "/install-guide" },
+    { "label": "Shipping & Delivery", "href": "/policies" },
+    { "label": "Returns & Exchanges", "href": "/policies" },
+    { "label": "Fabric Care", "href": "/buying-guide" }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "hero": {
+    "title": "Installation Guide",
+    "subtitle": "Professional results with DIY simplicity. Follow our step-by-step instructions for a perfect installation every time."
+  },
+  "installMethods": [
+    {
+      "id": "inside",
+      "title": "Inside Mount",
+      "description": "Install within the window frame for a clean, built-in look. Best for windows with sufficient depth.",
+      "pros": ["Clean, streamlined appearance", "Shows off window trim", "Takes up less wall space"],
+      "cons": ["Requires minimum 2\" window depth", "May allow some light leakage on sides"],
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda"
+    },
+    {
+      "id": "outside",
+      "title": "Outside Mount",
+      "description": "Install on the wall above the window frame. Provides maximum light blocking and makes windows appear larger.",
+      "pros": ["Maximum light blocking", "Makes windows appear larger", "Hides unattractive window frames", "Works with any window depth"],
+      "cons": ["Requires more wall space", "Visible mounting brackets"],
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda"
+    }
+  ],
+  "toolsList": [
+    { "name": "Power Drill", "essential": true },
+    { "name": "Phillips Head Screwdriver", "essential": true },
+    { "name": "Measuring Tape", "essential": true },
+    { "name": "Pencil", "essential": true },
+    { "name": "Level", "essential": true },
+    { "name": "Stud Finder", "essential": false },
+    { "name": "Step Ladder", "essential": true },
+    { "name": "Drywall Anchors", "essential": false }
+  ],
+  "videoTutorials": [
+    {
+      "id": "v1",
+      "title": "Inside Mount Installation",
+      "duration": "5:32",
+      "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda"
+    },
+    {
+      "id": "v2",
+      "title": "Outside Mount Installation",
+      "duration": "6:15",
+      "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda"
+    },
+    {
+      "id": "v3",
+      "title": "Troubleshooting Common Issues",
+      "duration": "4:48",
+      "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda"
+    }
+  ],
+  "proTip": "Always double-check your measurements before drilling. It's easier to adjust a pencil mark than to fill unnecessary holes. If you're unsure, order our installation template for perfect bracket placement every time."
+}

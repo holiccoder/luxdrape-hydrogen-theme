@@ -1,0 +1,190 @@
+{
+  "hero": {
+    "title": "How to Measure",
+    "subtitle": "Accurate measurements are essential for custom-fit curtains and shades. Follow our step-by-step guides to ensure a perfect fit every time.",
+    "buttons": {
+      "downloadPdf": "Download PDF Guide",
+      "watchVideo": "Watch Video Tutorial"
+    }
+  },
+  "productTypes": {
+    "title": "Choose Your Product Type",
+    "subtitle": "Different products require different measurement approaches. Select the guide that matches your needs.",
+    "products": [
+      {
+        "id": "curtains",
+        "title": "Curtains & Drapes",
+        "description": "Measure for inside mount, outside mount, or ceiling mount installations. Includes fullness calculations for various pleat styles.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+        "features": [
+          "Width and height measurements",
+          "Rod placement guidelines",
+          "Fullness ratios for each style"
+        ],
+        "scrollTo": "curtains-guide",
+        "buttonText": "View Curtains Guide"
+      },
+      {
+        "id": "shades",
+        "title": "Roller & Roman Shades",
+        "description": "Precise measurements for inside mount and outside mount shade installations. Critical depth requirements included.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+        "features": [
+          "Inside vs outside mount",
+          "Window depth requirements",
+          "Deduction calculations"
+        ],
+        "scrollTo": "shades-guide",
+        "buttonText": "View Roller Guide"
+      }
+    ]
+  },
+  "curtainsGuide": {
+    "title": "Curtains Measurement Guide",
+    "subtitle": "Follow these steps carefully for accurate curtain measurements.",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Determine Mount Type",
+        "description": "Decide between inside mount (within window frame) or outside mount (wall above window). Outside mount is recommended for better light control and to make windows appear larger.",
+        "tip": {
+          "label": "Tip:",
+          "text": "For outside mount, add 6-12 inches to window width for optimal coverage."
+        }
+      },
+      {
+        "number": 2,
+        "title": "Measure Width",
+        "description": "Measure the width of your window in three places: top, middle, and bottom. Use the widest measurement for outside mount, or the narrowest for inside mount.",
+        "items": [
+          "Use a steel tape measure for accuracy",
+          "Measure to the nearest 1/8 inch",
+          "Record all three measurements"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Measure Height",
+        "description": "For floor-length curtains, measure from where the rod will be mounted to the floor. Subtract 1/2 inch for clearance, or add extra for a pooling effect.",
+        "styles": [
+          {"name": "Floating", "value": "1/2\" above floor"},
+          {"name": "Kissing", "value": "Just touching floor"},
+          {"name": "Breaking", "value": "1-2\" on floor"},
+          {"name": "Pooling", "value": "3-8\" on floor"}
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Calculate Fullness",
+        "description": "Different pleat styles require different fullness ratios:",
+        "ratios": [
+          "Pinch Pleat: 2x width",
+          "Triple Pleat: 2.5x width",
+          "Tailor Pleat: 1.8x width",
+          "Rod Pocket: 2x width"
+        ]
+      }
+    ],
+    "diagram": {
+      "title": "Measurement Diagram",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d5da9e382c034ee7afb544a0e56cda09_ve_miaoda",
+      "specs": [
+        {"label": "Rod Height", "value": "4-6\" above window frame"},
+        {"label": "Side Extension", "value": "3-6\" beyond window"},
+        {"label": "Bottom Clearance", "value": "1/2\" or pooling"}
+      ]
+    }
+  },
+  "shadesGuide": {
+    "title": "Shades Measurement Guide",
+    "subtitle": "Precise measurements are critical for custom shades. Follow these steps exactly.",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Check Window Depth (Inside Mount)",
+        "description": "Measure the depth of your window frame from the glass to the outer edge. You need at least 2 inches of depth for inside mount roller shades.",
+        "warning": {
+          "label": "Critical:",
+          "text": "Less than 2\" depth requires outside mount."
+        }
+      },
+      {
+        "number": 2,
+        "title": "Measure Width",
+        "insideMount": "For inside mount: Measure the exact width of the window opening at the top, middle, and bottom. Record the narrowest measurement. Round down to the nearest 1/8\".",
+        "outsideMount": "For outside mount: Measure the window width and add 3-4 inches to each side (6-8 inches total) for optimal light control."
+      },
+      {
+        "number": 3,
+        "title": "Measure Height",
+        "insideMount": "For inside mount: Measure the exact height of the window opening on the left, center, and right. Record the longest measurement.",
+        "outsideMount": "For outside mount: Measure from where you want the top of the shade to where you want it to end. Add 2-3 inches above the window frame for mounting."
+      },
+      {
+        "number": 4,
+        "title": "Note Obstructions",
+        "description": "Check for window cranks, handles, locks, or alarm sensors that might interfere with shade operation. Measure their depth if present."
+      }
+    ],
+    "compare": {
+      "title": "Inside vs Outside Mount",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+      "inside": {
+        "title": "Inside Mount",
+        "items": [
+          "Clean, built-in look",
+          "Requires 2\"+ depth",
+          "Light gaps possible",
+          "Measure width top/middle/bottom"
+        ]
+      },
+      "outside": {
+        "title": "Outside Mount",
+        "items": [
+          "Better light blocking",
+          "No depth requirements",
+          "Covers window trim",
+          "Add 3-4\" to each side"
+        ]
+      }
+    }
+  },
+  "commonMistakes": {
+    "title": "Common Mistakes to Avoid",
+    "subtitle": "Learn from others' mistakes to ensure perfect measurements.",
+    "mistakes": [
+      {
+        "title": "Using a Cloth Tape",
+        "description": "Cloth measuring tapes can stretch and provide inaccurate measurements. Always use a rigid steel tape measure."
+      },
+      {
+        "title": "Measuring Only Once",
+        "description": "Windows are rarely perfectly square. Measure width and height in multiple places to account for variations."
+      },
+      {
+        "title": "Ignoring Depth Requirements",
+        "description": "Inside mount shades need adequate window depth. Always measure depth before choosing inside mount."
+      },
+      {
+        "title": "Forgetting Obstructions",
+        "description": "Window handles, cranks, and locks can prevent proper operation. Always note these when measuring."
+      },
+      {
+        "title": "Rounding Up Measurements",
+        "description": "For inside mount, always round down to the nearest 1/8\". Rounding up can make the shade too large to fit."
+      },
+      {
+        "title": "Measuring Old Treatments",
+        "description": "Never measure existing curtains or shades. Always measure the actual window opening for best results."
+      }
+    ]
+  },
+  "needHelp": {
+    "title": "Still Need Help?",
+    "description": "Our measurement experts are here to assist you. Schedule a free video consultation or send us photos of your windows for personalized guidance.",
+    "buttons": {
+      "schedule": "Schedule Consultation",
+      "contact": "Contact Support"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "hero": {
+    "label": "Our Story",
+    "title": "Creating Beautiful Spaces,",
+    "titleHighlight": "One Window at a Time",
+    "subtitle": "We believe that custom curtains are more than just window coverings—they are the finishing touch that transforms a house into a home."
+  },
+  "brandStory": {
+    "label": "Our Heritage",
+    "title": "Crafted with Passion, Designed for You",
+    "subtitle": "Since 2015, we've been transforming windows into works of art",
+    "description": "DrapeStyle began with a simple belief: every window deserves curtains as unique as the home it adorns. Founded in Los Angeles by a team of interior designers and master craftsmen, we set out to revolutionize the custom curtain industry by combining traditional tailoring techniques with modern design sensibilities.",
+    "secondParagraph": "What started as a small workshop has grown into a trusted name in American homes, serving thousands of families who share our passion for quality and personalized style. Every curtain we create is a testament to our commitment to excellence and our love for beautiful living spaces.",
+    "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/374fd1c04ee445b2a6f8e62b5b3933ea_ve_miaoda",
+    "stats": [
+      { "value": "9+", "label": "Years of Excellence" },
+      { "value": "50K+", "label": "Happy Customers" },
+      { "value": "100%", "label": "Made in USA" }
+    ]
+  },
+  "craftsmanship": {
+    "label": "Our Process",
+    "title": "The Art of Custom Curtains",
+    "subtitle": "Every curtain we create goes through a meticulous four-step process, ensuring the highest quality and perfect fit for your windows.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Premium Selection",
+        "description": "We source only the finest fabrics from certified mills around the world, ensuring every material meets our rigorous quality standards.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/4404b45f35da473c8fc6f026d2c13f56_ve_miaoda"
+      },
+      {
+        "number": "02",
+        "title": "Precision Cutting",
+        "description": "Each panel is measured and cut with computer-guided precision to ensure perfect dimensions for your custom order.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/18c82e1fd4c74d7a9a8b1f676ef57916_ve_miaoda"
+      },
+      {
+        "number": "03",
+        "title": "Expert Sewing",
+        "description": "Our master seamstresses bring decades of experience, crafting each curtain with meticulous attention to detail and finishing.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda"
+      },
+      {
+        "number": "04",
+        "title": "Quality Inspection",
+        "description": "Every piece undergoes rigorous quality control checks before carefully packaging for safe delivery to your home.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/71c5a08726ba4857a88b02903542fc08_ve_miaoda"
+      }
+    ]
+  },
+  "qualityPromises": {
+    "label": "Our Promise",
+    "title": "Quality You Can Trust",
+    "subtitle": "We stand behind every curtain we create with comprehensive guarantees designed to give you complete peace of mind.",
+    "promises": [
+      {
+        "icon": "Award",
+        "title": "Lifetime Quality Guarantee",
+        "description": "We stand behind every curtain with our comprehensive quality guarantee. If you're not completely satisfied, we'll make it right.",
+        "highlight": "100% Satisfaction"
+      },
+      {
+        "icon": "Clock",
+        "title": "On-Time Delivery Promise",
+        "description": "We understand the excitement of home transformation. Your custom curtains will arrive within the promised timeframe, guaranteed.",
+        "highlight": "Fast Turnaround"
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "5-Year Warranty",
+        "description": "Every curtain comes with our exclusive 5-year warranty covering craftsmanship and hardware, giving you peace of mind.",
+        "highlight": "5 Year Coverage"
+      },
+      {
+        "icon": "RefreshCw",
+        "title": "30-Day Free Returns",
+        "description": "Changed your mind? No problem. We offer hassle-free returns within 30 days of delivery, no questions asked.",
+        "highlight": "Easy Returns"
+      }
+    ]
+  },
+  "testimonials": {
+    "label": "Customer Love",
+    "title": "What Our Customers Say",
+    "subtitle": "Don't just take our word for it—hear from the thousands of happy homeowners who've transformed their spaces with DrapeStyle.",
+    "items": [
+      {
+        "id": 1,
+        "name": "Sarah Mitchell",
+        "location": "New York, NY",
+        "rating": 5,
+        "text": "The quality exceeded my expectations. These curtains transformed my living room completely. The custom fit is perfect!",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/58c5b1e0bea9442eb4d1ea59746e3978_ve_miaoda"
+      },
+      {
+        "id": 2,
+        "name": "Michael Chen",
+        "location": "San Francisco, CA",
+        "rating": 5,
+        "text": "From fabric selection to installation, the entire process was seamless. The blackout curtains are exactly what we needed.",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/7b849f6ee3bf42e885b324dd0907336b_ve_miaoda"
+      },
+      {
+        "id": 3,
+        "name": "Emily Rodriguez",
+        "location": "Austin, TX",
+        "rating": 5,
+        "text": "I've ordered from DrapeStyle three times now. Each experience has been wonderful. The customer service is outstanding!",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/45a1634fb4224db88c7dd3607cc2bbeb_ve_miaoda"
+      }
+    ]
+  },
+  "contact": {
+    "label": "Get in Touch",
+    "title": "We'd Love to Hear From You",
+    "subtitle": "Have questions about our products or services? Our friendly team is here to help you find the perfect curtains for your home.",
+    "items": [
+      {
+        "icon": "Mail",
+        "label": "Email Us",
+        "value": "hello@drapestyle.com",
+        "description": "We'll respond within 24 hours"
+      },
+      {
+        "icon": "Phone",
+        "label": "Call Us",
+        "value": "1-800-DRAPE-STYLE",
+        "description": "Mon-Fri, 9am-6pm PST"
+      },
+      {
+        "icon": "MapPin",
+        "label": "Visit Us",
+        "value": "Los Angeles, CA",
+        "description": "By appointment only"
+      }
+    ],
+    "ctaLabel": "Start Your Custom Order",
+    "ctaLink": "/collections"
+  }
+}

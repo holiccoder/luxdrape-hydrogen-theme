@@ -1,0 +1,81 @@
+{
+  "fabrics": [
+    {
+      "id": "natural-linen",
+      "name": "Natural Linen",
+      "description": "100% pure linen, breathable and elegant",
+      "priceMultiplier": 1,
+      "lightTransmission": "Sheer",
+      "texture": "Natural weave",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/4404b45f35da473c8fc6f026d2c13f56_ve_miaoda"
+    },
+    {
+      "id": "cream-velvet",
+      "name": "Cream Velvet",
+      "description": "Luxurious velvet with soft touch",
+      "priceMultiplier": 1.4,
+      "lightTransmission": "Blackout",
+      "texture": "Plush",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/18c82e1fd4c74d7a9a8b1f676ef57916_ve_miaoda"
+    },
+    {
+      "id": "white-sheer",
+      "name": "White Sheer",
+      "description": "Light and airy, filters natural light",
+      "priceMultiplier": 0.8,
+      "lightTransmission": "Sheer",
+      "texture": "Delicate",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/4e475ac2c1334bc5ad8c6230d0dae59e_ve_miaoda"
+    },
+    {
+      "id": "charcoal-blackout",
+      "name": "Charcoal Blackout",
+      "description": "Complete light blocking, thermal insulated",
+      "priceMultiplier": 1.2,
+      "lightTransmission": "Blackout",
+      "texture": "Thick weave",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/34013fff634f414ea6ff57ba2c97cf2b_ve_miaoda"
+    },
+    {
+      "id": "botanical-print",
+      "name": "Botanical Print",
+      "description": "Elegant floral pattern on cotton blend",
+      "priceMultiplier": 1.3,
+      "lightTransmission": "Light-filtering",
+      "texture": "Printed cotton",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda"
+    },
+    {
+      "id": "raw-cotton",
+      "name": "Raw Cotton",
+      "description": "Organic cotton with natural texture",
+      "priceMultiplier": 1.1,
+      "lightTransmission": "Light-filtering",
+      "texture": "Slub weave",
+      "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/71c5a08726ba4857a88b02903542fc08_ve_miaoda"
+    }
+  ],
+  "roomBackgrounds": [
+    { "id": "living-room", "name": "Living Room", "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/58c5b1e0bea9442eb4d1ea59746e3978_ve_miaoda" },
+    { "id": "bedroom", "name": "Bedroom", "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/7b849f6ee3bf42e885b324dd0907336b_ve_miaoda" },
+    { "id": "dining-room", "name": "Dining Room", "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/ef5c765748204a14b6ad03baebd04785_ve_miaoda" },
+    { "id": "office", "name": "Home Office", "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/cd2fb6ff06674ea6bc31045cd9354193_ve_miaoda" }
+  ],
+  "liningOptions": [
+    { "id": "standard", "name": "Standard Lining", "price": 0, "description": "Basic protection and drape" },
+    { "id": "blackout", "name": "Blackout Lining", "price": 25, "description": "Blocks 99% of light" },
+    { "id": "thermal", "name": "Thermal Lining", "price": 35, "description": "Insulates against heat/cold" }
+  ],
+  "mountingOptions": [
+    { "id": "rod-pocket", "name": "Rod Pocket", "description": "Classic gathered look" },
+    { "id": "grommet", "name": "Grommet", "description": "Modern and easy to slide" },
+    { "id": "back-tab", "name": "Back Tab", "description": "Clean, tailored appearance" }
+  ],
+  "steps": [
+    { "id": 1, "label": "Choose Fabric", "icon": "Palette" },
+    { "id": 2, "label": "Enter Dimensions", "icon": "Ruler" },
+    { "id": 3, "label": "Select Lining", "icon": "Layers" },
+    { "id": 4, "label": "Review & Order", "icon": "ShoppingBag" }
+  ],
+  "basePricePerSqFt": 12
+}

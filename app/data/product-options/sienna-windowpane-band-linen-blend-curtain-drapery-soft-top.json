@@ -1,0 +1,1398 @@
+{
+  "handle": "sienna-windowpane-band-linen-blend-curtain-drapery-soft-top",
+  "color": [
+    {
+      "name": "Plaid pattern ivory beige-902-1",
+      "sample_image": "//luxdrape.com/cdn/shop/files/W16.jpg?crop=center&height=94&v=1742794195&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/W16_8b36e7d0-a2ca-4ab2-9e93-7d3267a4f100_1000x.jpg?v=1771059453"
+    },
+    {
+      "name": "Plaid pattern dusty gray-902-2",
+      "sample_image": "//luxdrape.com/cdn/shop/files/Plaid_pattern_dusty_gray-902-2.jpg?crop=center&height=94&v=1756808612&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/w84_e3c93b02-8486-445c-89d1-a6bef2eec6e5_1000x.jpg?v=1771059453"
+    },
+    {
+      "name": "Plaid pattern gray beige-902-3",
+      "sample_image": "//luxdrape.com/cdn/shop/files/W61.jpg?crop=center&height=94&v=1742797499&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/W61_269310dc-e93f-48b6-a44b-ac112e57b33f_1000x.jpg?v=1771059455"
+    },
+    {
+      "name": "Plaid pattern ivory carbon-902-4",
+      "sample_image": "//luxdrape.com/cdn/shop/files/W118.jpg?crop=center&height=94&v=1742797546&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/W118_719e3330-2d75-4eb1-afca-c62f6fd7c5df_1000x.jpg?v=1771059454"
+    },
+    {
+      "name": "Double Plaid pattern dusty khaki-902-5",
+      "sample_image": "//luxdrape.com/cdn/shop/files/DW84.jpg?crop=center&height=94&v=1742797786&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/dw84_297efaf9-73c5-4c3c-89e5-e04d9a2e7926_1000x.jpg?v=1771059456"
+    },
+    {
+      "name": "Double Plaid pattern sepia-902-6",
+      "sample_image": "//luxdrape.com/cdn/shop/files/DW48.jpg?crop=center&height=94&v=1742797868&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/DW48_20eba78a-6866-4fb5-bb47-e566c625b8e1_1000x.jpg?v=1771059456"
+    },
+    {
+      "name": "Double Plaid pattern khaki ivory-902-7",
+      "sample_image": "//luxdrape.com/cdn/shop/files/DW40.jpg?crop=center&height=94&v=1742797893&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/DW40_9ceb454c-3521-4381-bd32-94a5eed9e90b_1000x.jpg?v=1771059457"
+    },
+    {
+      "name": "Broad Band gray white gray-902-8",
+      "sample_image": "//luxdrape.com/cdn/shop/files/WS16.jpg?crop=center&height=94&v=1742797951&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/ws16_9d0cd4cc-b0af-4626-8ea0-adc84bcf87a9_1000x.jpg?v=1771059457"
+    },
+    {
+      "name": "Broad Band beige khaki-902-9",
+      "sample_image": "//luxdrape.com/cdn/shop/files/WS84.jpg?crop=center&height=94&v=1742797996&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/WS84_2581af3f-dbdb-48e7-8531-e27597fdb763_1000x.jpg?v=1771059458"
+    },
+    {
+      "name": "Broad Band gray white-902-10",
+      "sample_image": "//luxdrape.com/cdn/shop/files/WS61.jpg?crop=center&height=94&v=1742798025&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/WS61_6b361961-be11-43ca-b961-4bbb3adb1a79_1000x.jpg?v=1771059458"
+    },
+    {
+      "name": "Broad Band Frost Haze-902-11",
+      "sample_image": "//luxdrape.com/cdn/shop/files/WS118.jpg?crop=center&height=94&v=1742798068&width=94",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/WS118_ad73de64-5d15-4959-aea5-c08f2c62a225_1000x.jpg?v=1771059458"
+    }
+  ],
+  "header": [
+    {
+      "name": "4-in-1",
+      "price": "45",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/4in1.jpg?crop=center&height=108&v=1745829334&width=108",
+      "description": "Versatile design featuring a hook belt, rod pocket, back tap, and clip ring compatibility. Offers ultimate flexibility with four hanging methods for a customizable, adaptive look."
+    },
+    {
+      "name": "rod pocket",
+      "price": "45",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/rodpocket.jpg?crop=center&height=108&v=1745829369&width=108",
+      "description": "Classic 3-inch pocket design that allows the rod to slide through for a seamless fit. Provides a soft, gathered appearance for a cozy and effortless window treatment."
+    },
+    {
+      "name": "back tap",
+      "price": "45",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/back_tab.jpg?crop=center&height=108&v=1745829308&width=108",
+      "description": "Hidden tabs at the back create a clean, tailored look without visible hardware. Combines the ease of a rod pocket with the structured elegance of a pleated finish."
+    },
+    {
+      "name": "top tap",
+      "price": "45",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/tabtop.jpg?crop=center&height=108&v=1745829208&width=108",
+      "description": "Evenly spaced 4-inch tabs designed for easy installation directly onto the curtain rod. Creates a casual, relaxed atmosphere ideal for both indoor and outdoor living spaces."
+    },
+    {
+      "name": "flat hook",
+      "price": "45",
+      "fullness": "200%",
+      "image": "//luxdrape.com/cdn/shop/files/Flat_Hook_0_720x_9597b8ba-8b9b-4239-977d-4989f1c20d91.jpg?crop=center&height=108&v=1745829260&width=108",
+      "description": "Clean, minimalist construction using adjustable plastic pin hooks for a structured drape. Delivers a neat and modern aesthetic that works perfectly with rods and rings."
+    }
+  ],
+  "width": [
+    {
+      "key": "20",
+      "price": "0"
+    },
+    {
+      "key": "21",
+      "price": "0"
+    },
+    {
+      "key": "22",
+      "price": "0"
+    },
+    {
+      "key": "23",
+      "price": "0"
+    },
+    {
+      "key": "24",
+      "price": "0"
+    },
+    {
+      "key": "25",
+      "price": "0"
+    },
+    {
+      "key": "26",
+      "price": "0"
+    },
+    {
+      "key": "27",
+      "price": "2"
+    },
+    {
+      "key": "28",
+      "price": "2"
+    },
+    {
+      "key": "29",
+      "price": "2"
+    },
+    {
+      "key": "30",
+      "price": "4"
+    },
+    {
+      "key": "31",
+      "price": "4"
+    },
+    {
+      "key": "32",
+      "price": "4"
+    },
+    {
+      "key": "33",
+      "price": "4"
+    },
+    {
+      "key": "34",
+      "price": "4"
+    },
+    {
+      "key": "35",
+      "price": "6"
+    },
+    {
+      "key": "36",
+      "price": "6"
+    },
+    {
+      "key": "37",
+      "price": "6"
+    },
+    {
+      "key": "38",
+      "price": "6"
+    },
+    {
+      "key": "39",
+      "price": "6"
+    },
+    {
+      "key": "40",
+      "price": "8"
+    },
+    {
+      "key": "41",
+      "price": "8"
+    },
+    {
+      "key": "42",
+      "price": "8"
+    },
+    {
+      "key": "43",
+      "price": "8"
+    },
+    {
+      "key": "44",
+      "price": "8"
+    },
+    {
+      "key": "45",
+      "price": "10"
+    },
+    {
+      "key": "46",
+      "price": "10"
+    },
+    {
+      "key": "47",
+      "price": "14"
+    },
+    {
+      "key": "48",
+      "price": "14"
+    },
+    {
+      "key": "49",
+      "price": "14"
+    },
+    {
+      "key": "50",
+      "price": "16"
+    },
+    {
+      "key": "51",
+      "price": "16"
+    },
+    {
+      "key": "52",
+      "price": "18"
+    },
+    {
+      "key": "53",
+      "price": "18"
+    },
+    {
+      "key": "54",
+      "price": "20"
+    },
+    {
+      "key": "55",
+      "price": "20"
+    },
+    {
+      "key": "56",
+      "price": "24"
+    },
+    {
+      "key": "57",
+      "price": "24"
+    },
+    {
+      "key": "58",
+      "price": "26"
+    },
+    {
+      "key": "59",
+      "price": "30"
+    },
+    {
+      "key": "60",
+      "price": "30"
+    },
+    {
+      "key": "61",
+      "price": "32"
+    },
+    {
+      "key": "62",
+      "price": "34"
+    },
+    {
+      "key": "63",
+      "price": "34"
+    },
+    {
+      "key": "64",
+      "price": "36"
+    },
+    {
+      "key": "65",
+      "price": "36"
+    },
+    {
+      "key": "66",
+      "price": "40"
+    },
+    {
+      "key": "67",
+      "price": "40"
+    },
+    {
+      "key": "68",
+      "price": "44"
+    },
+    {
+      "key": "69",
+      "price": "44"
+    },
+    {
+      "key": "70",
+      "price": "48"
+    },
+    {
+      "key": "71",
+      "price": "48"
+    },
+    {
+      "key": "72",
+      "price": "52"
+    },
+    {
+      "key": "73",
+      "price": "52"
+    },
+    {
+      "key": "74",
+      "price": "56"
+    },
+    {
+      "key": "75",
+      "price": "56"
+    },
+    {
+      "key": "76",
+      "price": "60"
+    },
+    {
+      "key": "77",
+      "price": "60"
+    },
+    {
+      "key": "78",
+      "price": "64"
+    },
+    {
+      "key": "79",
+      "price": "64"
+    },
+    {
+      "key": "80",
+      "price": "68"
+    },
+    {
+      "key": "81",
+      "price": "68"
+    },
+    {
+      "key": "82",
+      "price": "72"
+    },
+    {
+      "key": "83",
+      "price": "72"
+    },
+    {
+      "key": "84",
+      "price": "76"
+    },
+    {
+      "key": "85",
+      "price": "76"
+    },
+    {
+      "key": "86",
+      "price": "80"
+    },
+    {
+      "key": "87",
+      "price": "80"
+    },
+    {
+      "key": "88",
+      "price": "84"
+    },
+    {
+      "key": "89",
+      "price": "84"
+    },
+    {
+      "key": "90",
+      "price": "88"
+    },
+    {
+      "key": "91",
+      "price": "88"
+    },
+    {
+      "key": "92",
+      "price": "92"
+    },
+    {
+      "key": "93",
+      "price": "92"
+    },
+    {
+      "key": "94",
+      "price": "96"
+    },
+    {
+      "key": "95",
+      "price": "96"
+    },
+    {
+      "key": "96",
+      "price": "100"
+    },
+    {
+      "key": "97",
+      "price": "100"
+    },
+    {
+      "key": "98",
+      "price": "104"
+    },
+    {
+      "key": "99",
+      "price": "104"
+    },
+    {
+      "key": "100",
+      "price": "108"
+    },
+    {
+      "key": "101",
+      "price": "108"
+    },
+    {
+      "key": "102",
+      "price": "112"
+    },
+    {
+      "key": "103",
+      "price": "112"
+    },
+    {
+      "key": "104",
+      "price": "116"
+    },
+    {
+      "key": "105",
+      "price": "116"
+    },
+    {
+      "key": "106",
+      "price": "120"
+    },
+    {
+      "key": "107",
+      "price": "120"
+    },
+    {
+      "key": "108",
+      "price": "124"
+    },
+    {
+      "key": "109",
+      "price": "124"
+    },
+    {
+      "key": "110",
+      "price": "128"
+    },
+    {
+      "key": "111",
+      "price": "128"
+    },
+    {
+      "key": "112",
+      "price": "132"
+    },
+    {
+      "key": "113",
+      "price": "132"
+    },
+    {
+      "key": "114",
+      "price": "136"
+    },
+    {
+      "key": "115",
+      "price": "136"
+    },
+    {
+      "key": "116",
+      "price": "140"
+    },
+    {
+      "key": "117",
+      "price": "146"
+    },
+    {
+      "key": "118",
+      "price": "152"
+    },
+    {
+      "key": "119",
+      "price": "156"
+    },
+    {
+      "key": "120",
+      "price": "160"
+    },
+    {
+      "key": "121",
+      "price": "168"
+    },
+    {
+      "key": "122",
+      "price": "172"
+    },
+    {
+      "key": "123",
+      "price": "172"
+    },
+    {
+      "key": "124",
+      "price": "176"
+    },
+    {
+      "key": "125",
+      "price": "180"
+    },
+    {
+      "key": "126",
+      "price": "184"
+    },
+    {
+      "key": "127",
+      "price": "184"
+    },
+    {
+      "key": "128",
+      "price": "188"
+    },
+    {
+      "key": "129",
+      "price": "190"
+    },
+    {
+      "key": "130",
+      "price": "192"
+    },
+    {
+      "key": "131",
+      "price": "196"
+    },
+    {
+      "key": "132",
+      "price": "196"
+    },
+    {
+      "key": "133",
+      "price": "200"
+    },
+    {
+      "key": "134",
+      "price": "204"
+    },
+    {
+      "key": "135",
+      "price": "208"
+    },
+    {
+      "key": "136",
+      "price": "208"
+    },
+    {
+      "key": "137",
+      "price": "212"
+    },
+    {
+      "key": "138",
+      "price": "216"
+    },
+    {
+      "key": "139",
+      "price": "220"
+    },
+    {
+      "key": "140",
+      "price": "224"
+    },
+    {
+      "key": "141",
+      "price": "228"
+    },
+    {
+      "key": "142",
+      "price": "232"
+    },
+    {
+      "key": "143",
+      "price": "236"
+    },
+    {
+      "key": "144",
+      "price": "236"
+    },
+    {
+      "key": "145",
+      "price": "240"
+    },
+    {
+      "key": "146",
+      "price": "242"
+    },
+    {
+      "key": "147",
+      "price": "244"
+    },
+    {
+      "key": "148",
+      "price": "248"
+    },
+    {
+      "key": "149",
+      "price": "250"
+    },
+    {
+      "key": "150",
+      "price": "252"
+    },
+    {
+      "key": "151",
+      "price": "254"
+    },
+    {
+      "key": "152",
+      "price": "256"
+    },
+    {
+      "key": "153",
+      "price": "256"
+    },
+    {
+      "key": "154",
+      "price": "258"
+    },
+    {
+      "key": "155",
+      "price": "260"
+    },
+    {
+      "key": "156",
+      "price": "262"
+    },
+    {
+      "key": "157",
+      "price": "264"
+    },
+    {
+      "key": "158",
+      "price": "266"
+    },
+    {
+      "key": "159",
+      "price": "268"
+    },
+    {
+      "key": "160",
+      "price": "270"
+    },
+    {
+      "key": "161",
+      "price": "272"
+    },
+    {
+      "key": "162",
+      "price": "274"
+    },
+    {
+      "key": "163",
+      "price": "276"
+    },
+    {
+      "key": "164",
+      "price": "278"
+    },
+    {
+      "key": "165",
+      "price": "280"
+    },
+    {
+      "key": "166",
+      "price": "282"
+    },
+    {
+      "key": "167",
+      "price": "284"
+    },
+    {
+      "key": "168",
+      "price": "286"
+    },
+    {
+      "key": "169",
+      "price": "288"
+    },
+    {
+      "key": "170",
+      "price": "290"
+    },
+    {
+      "key": "171",
+      "price": "292"
+    },
+    {
+      "key": "172",
+      "price": "294"
+    },
+    {
+      "key": "173",
+      "price": "296"
+    },
+    {
+      "key": "174",
+      "price": "298"
+    },
+    {
+      "key": "175",
+      "price": "300"
+    },
+    {
+      "key": "176",
+      "price": "302"
+    },
+    {
+      "key": "177",
+      "price": "304"
+    },
+    {
+      "key": "178",
+      "price": "306"
+    },
+    {
+      "key": "179",
+      "price": "308"
+    },
+    {
+      "key": "180",
+      "price": "310"
+    },
+    {
+      "key": "181",
+      "price": "312"
+    },
+    {
+      "key": "182",
+      "price": "314"
+    },
+    {
+      "key": "183",
+      "price": "316"
+    },
+    {
+      "key": "184",
+      "price": "318"
+    },
+    {
+      "key": "185",
+      "price": "320"
+    },
+    {
+      "key": "186",
+      "price": "322"
+    },
+    {
+      "key": "187",
+      "price": "324"
+    },
+    {
+      "key": "188",
+      "price": "324"
+    },
+    {
+      "key": "189",
+      "price": "326"
+    },
+    {
+      "key": "190",
+      "price": "326"
+    },
+    {
+      "key": "191",
+      "price": "328"
+    },
+    {
+      "key": "192",
+      "price": "328"
+    },
+    {
+      "key": "193",
+      "price": "330"
+    },
+    {
+      "key": "194",
+      "price": "330"
+    },
+    {
+      "key": "195",
+      "price": "336"
+    },
+    {
+      "key": "196",
+      "price": "336"
+    },
+    {
+      "key": "197",
+      "price": "340"
+    },
+    {
+      "key": "198",
+      "price": "340"
+    },
+    {
+      "key": "199",
+      "price": "344"
+    },
+    {
+      "key": "200",
+      "price": "344"
+    },
+    {
+      "key": "201",
+      "price": "348"
+    },
+    {
+      "key": "202",
+      "price": "348"
+    },
+    {
+      "key": "203",
+      "price": "352"
+    },
+    {
+      "key": "204",
+      "price": "352"
+    },
+    {
+      "key": "205",
+      "price": "356"
+    },
+    {
+      "key": "206",
+      "price": "356"
+    },
+    {
+      "key": "207",
+      "price": "360"
+    },
+    {
+      "key": "208",
+      "price": "360"
+    },
+    {
+      "key": "209",
+      "price": "364"
+    },
+    {
+      "key": "210",
+      "price": "364"
+    },
+    {
+      "key": "211",
+      "price": "368"
+    },
+    {
+      "key": "212",
+      "price": "368"
+    },
+    {
+      "key": "213",
+      "price": "370"
+    },
+    {
+      "key": "214",
+      "price": "370"
+    },
+    {
+      "key": "215",
+      "price": "372"
+    },
+    {
+      "key": "216",
+      "price": "372"
+    },
+    {
+      "key": "217",
+      "price": "376"
+    },
+    {
+      "key": "218",
+      "price": "376"
+    },
+    {
+      "key": "219",
+      "price": "380"
+    },
+    {
+      "key": "220",
+      "price": "382"
+    },
+    {
+      "key": "221",
+      "price": "384"
+    },
+    {
+      "key": "222",
+      "price": "386"
+    },
+    {
+      "key": "223",
+      "price": "388"
+    },
+    {
+      "key": "224",
+      "price": "390"
+    },
+    {
+      "key": "225",
+      "price": "392"
+    },
+    {
+      "key": "226",
+      "price": "394"
+    },
+    {
+      "key": "227",
+      "price": "396"
+    },
+    {
+      "key": "228",
+      "price": "398"
+    },
+    {
+      "key": "229",
+      "price": "404"
+    },
+    {
+      "key": "230",
+      "price": "410"
+    },
+    {
+      "key": "231",
+      "price": "412"
+    },
+    {
+      "key": "232",
+      "price": "414"
+    },
+    {
+      "key": "233",
+      "price": "416"
+    },
+    {
+      "key": "234",
+      "price": "418"
+    },
+    {
+      "key": "235",
+      "price": "420"
+    },
+    {
+      "key": "236",
+      "price": "422"
+    },
+    {
+      "key": "237",
+      "price": "424"
+    },
+    {
+      "key": "238",
+      "price": "426"
+    },
+    {
+      "key": "239",
+      "price": "428"
+    },
+    {
+      "key": "240",
+      "price": "430"
+    }
+  ],
+  "length": [
+    {
+      "key": "20",
+      "price": "39"
+    },
+    {
+      "key": "21",
+      "price": "40"
+    },
+    {
+      "key": "22",
+      "price": "40"
+    },
+    {
+      "key": "23",
+      "price": "40"
+    },
+    {
+      "key": "24",
+      "price": "40"
+    },
+    {
+      "key": "25",
+      "price": "40"
+    },
+    {
+      "key": "26",
+      "price": "40"
+    },
+    {
+      "key": "27",
+      "price": "41"
+    },
+    {
+      "key": "28",
+      "price": "41"
+    },
+    {
+      "key": "29",
+      "price": "41"
+    },
+    {
+      "key": "30",
+      "price": "42"
+    },
+    {
+      "key": "31",
+      "price": "42"
+    },
+    {
+      "key": "32",
+      "price": "42"
+    },
+    {
+      "key": "33",
+      "price": "42"
+    },
+    {
+      "key": "34",
+      "price": "42"
+    },
+    {
+      "key": "35",
+      "price": "43"
+    },
+    {
+      "key": "36",
+      "price": "43"
+    },
+    {
+      "key": "37",
+      "price": "43"
+    },
+    {
+      "key": "38",
+      "price": "43"
+    },
+    {
+      "key": "39",
+      "price": "44"
+    },
+    {
+      "key": "40",
+      "price": "44"
+    },
+    {
+      "key": "41",
+      "price": "44"
+    },
+    {
+      "key": "42",
+      "price": "44"
+    },
+    {
+      "key": "43",
+      "price": "45"
+    },
+    {
+      "key": "44",
+      "price": "45"
+    },
+    {
+      "key": "45",
+      "price": "47"
+    },
+    {
+      "key": "46",
+      "price": "47"
+    },
+    {
+      "key": "47",
+      "price": "47"
+    },
+    {
+      "key": "48",
+      "price": "47"
+    },
+    {
+      "key": "49",
+      "price": "48"
+    },
+    {
+      "key": "50",
+      "price": "48"
+    },
+    {
+      "key": "51",
+      "price": "49"
+    },
+    {
+      "key": "52",
+      "price": "49"
+    },
+    {
+      "key": "53",
+      "price": "50"
+    },
+    {
+      "key": "54",
+      "price": "50"
+    },
+    {
+      "key": "55",
+      "price": "52"
+    },
+    {
+      "key": "56",
+      "price": "52"
+    },
+    {
+      "key": "57",
+      "price": "53"
+    },
+    {
+      "key": "58",
+      "price": "55"
+    },
+    {
+      "key": "59",
+      "price": "55"
+    },
+    {
+      "key": "60",
+      "price": "56"
+    },
+    {
+      "key": "61",
+      "price": "57"
+    },
+    {
+      "key": "62",
+      "price": "57"
+    },
+    {
+      "key": "63",
+      "price": "58"
+    },
+    {
+      "key": "64",
+      "price": "58"
+    },
+    {
+      "key": "65",
+      "price": "60"
+    },
+    {
+      "key": "66",
+      "price": "60"
+    },
+    {
+      "key": "67",
+      "price": "60"
+    },
+    {
+      "key": "68",
+      "price": "64"
+    },
+    {
+      "key": "69",
+      "price": "64"
+    },
+    {
+      "key": "70",
+      "price": "66"
+    },
+    {
+      "key": "71",
+      "price": "68"
+    },
+    {
+      "key": "72",
+      "price": "68"
+    },
+    {
+      "key": "73",
+      "price": "70"
+    },
+    {
+      "key": "74",
+      "price": "70"
+    },
+    {
+      "key": "75",
+      "price": "72"
+    },
+    {
+      "key": "76",
+      "price": "72"
+    },
+    {
+      "key": "77",
+      "price": "74"
+    },
+    {
+      "key": "78",
+      "price": "74"
+    },
+    {
+      "key": "79",
+      "price": "74"
+    },
+    {
+      "key": "80",
+      "price": "76"
+    },
+    {
+      "key": "81",
+      "price": "76"
+    },
+    {
+      "key": "82",
+      "price": "78"
+    },
+    {
+      "key": "83",
+      "price": "78"
+    },
+    {
+      "key": "84",
+      "price": "80"
+    },
+    {
+      "key": "85",
+      "price": "80"
+    },
+    {
+      "key": "86",
+      "price": "82"
+    },
+    {
+      "key": "87",
+      "price": "82"
+    },
+    {
+      "key": "88",
+      "price": "84"
+    },
+    {
+      "key": "89",
+      "price": "84"
+    },
+    {
+      "key": "90",
+      "price": "86"
+    },
+    {
+      "key": "91",
+      "price": "86"
+    },
+    {
+      "key": "92",
+      "price": "88"
+    },
+    {
+      "key": "93",
+      "price": "88"
+    },
+    {
+      "key": "94",
+      "price": "88"
+    },
+    {
+      "key": "95",
+      "price": "90"
+    },
+    {
+      "key": "96",
+      "price": "90"
+    },
+    {
+      "key": "97",
+      "price": "92"
+    },
+    {
+      "key": "98",
+      "price": "92"
+    },
+    {
+      "key": "99",
+      "price": "94"
+    },
+    {
+      "key": "100",
+      "price": "94"
+    },
+    {
+      "key": "101",
+      "price": "96"
+    },
+    {
+      "key": "102",
+      "price": "96"
+    },
+    {
+      "key": "103",
+      "price": "98"
+    },
+    {
+      "key": "104",
+      "price": "98"
+    },
+    {
+      "key": "105",
+      "price": "98"
+    },
+    {
+      "key": "106",
+      "price": "100"
+    },
+    {
+      "key": "107",
+      "price": "100"
+    }
+  ],
+  "lining_options": [
+    {
+      "name": "Unlined",
+      "price": "0",
+      "description": "No additional lining model. It maintains the fabric's natural drape and maximizes light and air circulation."
+    },
+    {
+      "name": "Soft Shade",
+      "price": "19.99",
+      "description": "893-1 model lining, 60% shading rate, 90gsm microfiber. Lightweight and soft, it offers moderate light control while maintaining a bright, airy feel."
+    },
+    {
+      "name": "Light Dim",
+      "price": "29.99",
+      "description": "893-2 model lining, 70% shading rate, 117gsm cotton. Light and breathable, it provides gentle light filtering to create a cozy and relaxed ambiance."
+    },
+    {
+      "name": "Deep Dim",
+      "price": "39.99",
+      "description": "893-3 model lining, 75% shading rate, 140gsm polyester. Medium-weight and durable, it balances privacy and light control without completely blocking sunlight."
+    },
+    {
+      "name": "Enhanced Dark",
+      "price": "49.99",
+      "description": "893-4 model lining, 90% shading rate, 220gsm triple-weave polyester. Substantially heavy, it blocks most light for superior privacy and comfort in bedrooms."
+    },
+    {
+      "name": "Complete Block",
+      "price": "59.99",
+      "description": "893-5 model lining, 100% shading rate, 150gsm 2-pass coated microfiber. Dense and structured, it effectively eliminates all light for a dark, undisturbed sleep."
+    },
+    {
+      "name": "Thermal Shield",
+      "price": "109.99",
+      "description": "893-6 model lining, 100% shading rate, 250gsm 3-pass coated microfiber. Heavyweight and thick, it provides total blackout with high-performance thermal insulation."
+    }
+  ],
+  "tiebacks": [
+    {
+      "name": "None",
+      "price": "0",
+      "description": "Clean, straight hanging panels."
+    },
+    {
+      "name": "Matching Fabric Tiebacks",
+      "price": "3",
+      "description": "Made from the same premium fabric as your drapes."
+    }
+  ],
+  "shaping_options": [
+    {
+      "name": "Standard",
+      "price": "0",
+      "description": "Drapes hang naturally with soft, variable movement."
+    },
+    {
+      "name": "ShapeLock Memory Shaping",
+      "price": "99",
+      "description": "Expert steam-treated pleats for a superior drape and refined silhouette."
+    }
+  ]
+}

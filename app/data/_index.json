@@ -1,0 +1,387 @@
+{
+  "hero": {
+    "slides": [
+      {
+        "id": 1,
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19banner1.webp?v=1773907665",
+        "title": "The Perfect Fit, Guaranteed",
+        "subtitle": "Free alterations if your curtains don't fit. Plus free shipping over $200.",
+        "cta": "Start Customizing",
+        "link": "/collections/all"
+      },
+      {
+        "id": 2,
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19banner2.webp?v=1773907793",
+        "title": "Custom Made for Your Home",
+        "subtitle": "Premium fabrics, precise measurements, and expert craftsmanship.",
+        "cta": "Shop Now",
+        "link": "/collections/all"
+      }
+    ],
+    "autoPlayInterval": 6000
+  },
+  "trust": {
+    "factors": [
+      {
+        "icon": "Award",
+        "title": "Expert Service",
+        "desc": "Design consultants since 2005"
+      },
+      {
+        "icon": "Truck",
+        "title": "Quick Delivery",
+        "desc": "14-day turnaround guaranteed"
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Lifetime Support",
+        "desc": "We stand behind every product"
+      },
+      {
+        "icon": "Ruler",
+        "title": "Perfect Fit Promise",
+        "desc": "Free remake if size is wrong"
+      }
+    ]
+  },
+  "popularStyles": {
+    "title": "Our Signature Collection",
+    "subtitle": "Three timeless styles, crafted to perfection for your home.",
+    "items": [
+      {
+        "id": "pleated",
+        "name": "Pleated Drapes",
+        "subtitle": "Classic Elegance",
+        "description": "Timeless pinch pleat design that adds sophistication to any room. Available in various fabrics from light-filtering to blackout.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19drapes1.webp?v=1773906430",
+        "href": "/collections/all",
+        "price": "From $249",
+        "feature": "Custom pleat spacing"
+      },
+      {
+        "id": "roman",
+        "name": "Roman Shades",
+        "subtitle": "Timeless Style",
+        "description": "Soft fabric folds create an elegant look. Choose from flat, hobbled, or relaxed styles in premium fabrics.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19kitchenromanshades2_1.webp?v=1773906409",
+        "href": "/collections/all",
+        "price": "From $199",
+        "feature": "Cordless option available"
+      },
+      {
+        "id": "bamboo",
+        "name": "Bamboo Woven Shades",
+        "subtitle": "Natural Beauty",
+        "description": "Handcrafted from sustainable materials, bringing organic warmth and texture to your windows.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/vita.at.home_B1-9_nodrill_inside_39x69_unlined_neb__1.jpg?v=1773216694",
+        "href": "/collections/all",
+        "price": "From $179",
+        "feature": "Eco-friendly materials"
+      }
+    ]
+  },
+  "customizationSteps": {
+    "title": "Customize in 3 Easy Steps",
+    "subtitle": "We've simplified the process so you can focus on creating your perfect space.",
+    "cta": "Start Customizing",
+    "ctaLink": "/collections/all",
+    "steps": [
+      {
+        "step": 1,
+        "icon": "Palette",
+        "title": "Choose Your Style",
+        "desc": "Browse our collection and select the perfect fabric and design for your space."
+      },
+      {
+        "step": 2,
+        "icon": "ClipboardList",
+        "title": "Enter Dimensions",
+        "desc": "Provide your window measurements using our simple guide. We'll handle the rest."
+      },
+      {
+        "step": 3,
+        "icon": "PackageCheck",
+        "title": "Receive & Install",
+        "desc": "Your custom curtains arrive in 14 days with easy DIY installation instructions."
+      }
+    ]
+  },
+  "forEveryNeed": {
+    "title": "Features You'll Love",
+    "subtitle": "Smart solutions for modern living.",
+    "items": [
+      {
+        "id": "motorized",
+        "name": "Motorized",
+        "subtitle": "Smart Control",
+        "desc": "Control your shades with a remote, app, or voice commands. Compatible with Alexa, Google Home, and Apple HomeKit.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19.bedroom_romanshades1.webp?v=1773903653",
+        "href": "/collections/all",
+        "feature": "Smart Home Ready"
+      },
+      {
+        "id": "blackout",
+        "name": "Blackout Lining",
+        "subtitle": "Total Darkness",
+        "desc": "Block 99% of light for complete darkness. Perfect for bedrooms, nurseries, and media rooms.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19marvenapimper_898-1_PP_66x132_unlined_23a.png?v=1773906854",
+        "href": "/collections/all",
+        "feature": "Sleep Better"
+      },
+      {
+        "id": "no-drill",
+        "name": "No-Drill Install",
+        "subtitle": "Renter Friendly",
+        "desc": "Transform your windows without damaging walls. Tension-mounted options install in minutes, no tools needed.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/B1-9_half_2d6d488e-7ace-413c-af5c-df3ea1f5eac6.png?v=1771059867",
+        "href": "/collections/all",
+        "feature": "Tool-Free Setup"
+      },
+      {
+        "id": "cordless",
+        "name": "Cordless Safety",
+        "subtitle": "Child & Pet Safe",
+        "desc": "No exposed cords means no strangulation hazards. WCSC certified design keeps your little ones safe.",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19.bedroom_romanshades1.webp?v=1773903653",
+        "href": "/collections/all",
+        "feature": "Certified Safe"
+      }
+    ]
+  },
+  "shopByRoom": {
+    "title": "Shop By Room",
+    "subtitle": "Find the perfect window treatment for every space in your home.",
+    "rooms": [
+      {
+        "id": "living",
+        "name": "Living Room",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19.livingroom_romanshades1.webp?v=1773904109",
+        "href": "/collections/all",
+        "count": "42 Styles"
+      },
+      {
+        "id": "bedroom",
+        "name": "Bedroom",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19.bedroom_bambooshades1.webp?v=1773904040",
+        "href": "/collections/all",
+        "count": "38 Styles"
+      },
+      {
+        "id": "kitchen",
+        "name": "Kitchen",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19kitchenroomshades1.webp?v=1773904743",
+        "href": "/collections/all",
+        "count": "24 Styles"
+      },
+      {
+        "id": "dining",
+        "name": "Dining Room",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19.diningroom_drapes.webp?v=1773903918",
+        "href": "/collections/all",
+        "count": "31 Styles"
+      },
+      {
+        "id": "office",
+        "name": "Home Office",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/5f1c29353ab3f1e6e23f1ac6daa70ecd.png?v=1771059836",
+        "href": "/collections/all",
+        "count": "28 Styles"
+      },
+      {
+        "id": "nursery",
+        "name": "Nursery",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/florence_linen_curtains_for_nursery_room.png?v=1751016947",
+        "href": "/collections/all",
+        "count": "19 Styles"
+      },
+      {
+        "id": "bathroom",
+        "name": "Bathroom",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda",
+        "href": "/collections/all",
+        "count": "16 Styles"
+      },
+      {
+        "id": "media",
+        "name": "Media Room",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+        "href": "/collections/all",
+        "count": "22 Styles"
+      }
+    ]
+  },
+  "samples": {
+    "badge": "Free Shipping on Samples",
+    "title": "Order Free Samples",
+    "subtitle": "See and feel the fabric before you buy. Up to 10 samples free.",
+    "browseAllLabel": "Browse All Samples",
+    "browseAllLink": "/collections/all",
+    "fabrics": [
+      {
+        "id": 1,
+        "name": "Linen Collection",
+        "colors": 12,
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+        "href": "/collections/all"
+      },
+      {
+        "id": 2,
+        "name": "Velvet Series",
+        "colors": 8,
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/4404b45f35da473c8fc6f026d2c13f56_ve_miaoda",
+        "href": "/collections/all"
+      },
+      {
+        "id": 3,
+        "name": "Cotton Essentials",
+        "colors": 15,
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda",
+        "href": "/collections/all"
+      },
+      {
+        "id": 4,
+        "name": "Sheer Elegance",
+        "colors": 10,
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/6d9f0df723de4f648a28c44f08db77d1_ve_miaoda",
+        "href": "/collections/all"
+      }
+    ]
+  },
+  "videoShoppable": {
+    "title": "Shop the Look",
+    "subtitle": "Real homes, real inspiration. Tap to shop products from our community.",
+    "videos": [
+      {
+        "id": 1,
+        "title": "Living Room Makeover",
+        "author": "@homeinspo",
+        "views": "12.5K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d6e513cd18d543ba880d3432113b8457_ve_miaoda",
+        "product": "Pleated Drapes"
+      },
+      {
+        "id": 2,
+        "title": "Bedroom Roman Shades",
+        "author": "@sleepwell",
+        "views": "8.2K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/7b849f6ee3bf42e885b324dd0907336b_ve_miaoda",
+        "product": "Roman Shades"
+      },
+      {
+        "id": 3,
+        "title": "Natural Bamboo Look",
+        "author": "@brightspaces",
+        "views": "15.1K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda",
+        "product": "Bamboo Woven"
+      },
+      {
+        "id": 4,
+        "title": "Office Productivity",
+        "author": "@workfromhome",
+        "views": "6.8K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda",
+        "product": "Roller Shades"
+      },
+      {
+        "id": 5,
+        "title": "Dining Room Elegance",
+        "author": "@elegantliving",
+        "views": "9.7K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d0cc4e03afad443e8155bdebc1dc3e72_ve_miaoda",
+        "product": "Pleated Drapes"
+      },
+      {
+        "id": 6,
+        "title": "Nursery Safety First",
+        "author": "@newmomlife",
+        "views": "22.3K",
+        "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda",
+        "product": "Cordless Shades"
+      }
+    ]
+  },
+  "reviews": {
+    "title": "What Our Customers Say",
+    "items": [
+      {
+        "id": 1,
+        "name": "Jennifer M.",
+        "location": "Portland, OR",
+        "rating": 5,
+        "text": "The in-store consultation made all the difference. Expert guidance and perfect results.",
+        "product": "Pleated Drapes"
+      },
+      {
+        "id": 2,
+        "name": "Michael T.",
+        "location": "Austin, TX",
+        "rating": 5,
+        "text": "Free in-home measurement was professional and quick. Curtains fit perfectly.",
+        "product": "Roman Shades"
+      },
+      {
+        "id": 3,
+        "name": "Sarah L.",
+        "location": "Denver, CO",
+        "rating": 5,
+        "text": "The bamboo shades add such warmth to our living room. Beautiful craftsmanship.",
+        "product": "Bamboo Woven"
+      },
+      {
+        "id": 4,
+        "name": "David K.",
+        "location": "Seattle, WA",
+        "rating": 5,
+        "text": "Quality exceeded expectations. The blackout feature works perfectly for our nursery.",
+        "product": "Blackout Shades"
+      },
+      {
+        "id": 5,
+        "name": "Emily R.",
+        "location": "Chicago, IL",
+        "rating": 5,
+        "text": "Easy to measure, easy to install. Looks like we paid a fortune for custom work.",
+        "product": "Pleated Drapes"
+      },
+      {
+        "id": 6,
+        "name": "James W.",
+        "location": "Boston, MA",
+        "rating": 5,
+        "text": "Customer service was outstanding. They helped me choose the perfect color.",
+        "product": "Roman Shades"
+      }
+    ]
+  },
+  "tradeProgram": {
+    "badge": "For Professionals",
+    "title": "Trade Program",
+    "description": "Exclusive benefits for interior designers, architects, and hospitality professionals. Enjoy up to 25% off, dedicated support, and early access to new collections.",
+    "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda",
+    "link": "/pages/trade-program",
+    "applyLabel": "Apply Now",
+    "learnMoreLabel": "Learn More",
+    "benefits": [
+      {
+        "icon": "BadgePercent",
+        "text": "Up to 25% off every order"
+      },
+      {
+        "icon": "Users",
+        "text": "Dedicated trade specialist"
+      },
+      {
+        "icon": "SwatchBook",
+        "text": "Complimentary sample library"
+      }
+    ]
+  },
+  "crafted": {
+    "title": "Proudly Crafted In Our Factories",
+    "description": "Every shade is custom-made to your specifications. We control quality at every step to ensure lasting beauty.",
+    "cta": "Our Story",
+    "ctaLink": "/pages/about",
+    "backgroundImage": "https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda"
+  }
+}
