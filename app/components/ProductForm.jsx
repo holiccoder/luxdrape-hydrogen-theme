@@ -6,9 +6,14 @@ import {useAside} from './Aside';
  * @param {{
  *   productOptions: MappedProductOptions[];
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
+ *   lineAttributes?: {key: string; value: string}[];
  * }}
  */
-export function ProductForm({productOptions, selectedVariant}) {
+export function ProductForm({
+  productOptions,
+  selectedVariant,
+  lineAttributes = [],
+}) {
   const navigate = useNavigate();
   const {open} = useAside();
   return (
@@ -108,6 +113,7 @@ export function ProductForm({productOptions, selectedVariant}) {
                 {
                   merchandiseId: selectedVariant.id,
                   quantity: 1,
+                  attributes: lineAttributes,
                   selectedVariant,
                 },
               ]

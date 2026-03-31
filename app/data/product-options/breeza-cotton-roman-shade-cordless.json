@@ -1,0 +1,348 @@
+{
+  "handle": "breeza-cotton-roman-shade-cordless",
+  "colors": [
+    {
+      "name": "899-0-Snow White",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/899-0_1000x.png?v=1774517887",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/899-0_1000x.png?v=1774517887"
+    },
+    {
+      "name": "899-1-Ecru",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70841_b9ad2f19-03be-4574-86ba-c6f65e8c05fb_1000x.jpg?v=1771059652",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70841_b9ad2f19-03be-4574-86ba-c6f65e8c05fb_1000x.jpg?v=1771059652"
+    },
+    {
+      "name": "899-4-Cream",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70844_8aa6a490-1322-4f9f-a9dc-297f9e56315d_1000x.jpg?v=1771059653",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70844_8aa6a490-1322-4f9f-a9dc-297f9e56315d_1000x.jpg?v=1771059653"
+    },
+    {
+      "name": "899-6-Ivory White",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70846_5b0a53b7-4be9-4aaa-837a-5445692c7c5d_1000x.jpg?v=1771059653",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70846_5b0a53b7-4be9-4aaa-837a-5445692c7c5d_1000x.jpg?v=1771059653"
+    },
+    {
+      "name": "899-7-Pearl White",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70847_ec534f63-062b-44f9-93d8-f8be4425063b_1000x.jpg?v=1771059654",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70847_ec534f63-062b-44f9-93d8-f8be4425063b_1000x.jpg?v=1771059654"
+    },
+    {
+      "name": "899-8-Eggshell",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70848_83ba620c-039e-4231-9581-e23922545719_1000x.jpg?v=1771059654",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70848_83ba620c-039e-4231-9581-e23922545719_1000x.jpg?v=1771059654"
+    },
+    {
+      "name": "899-9-Mother-of-Pearl",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/899-9_1000x.png?v=1774517986",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/899-9_1000x.png?v=1774517986"
+    },
+    {
+      "name": "899-11-Pale Gray",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708411_444110bb-9d9a-43f6-93bb-b78e243653b6_1000x.jpg?v=1771059656",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708411_444110bb-9d9a-43f6-93bb-b78e243653b6_1000x.jpg?v=1771059656"
+    },
+    {
+      "name": "899-13-Light Brown",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708413_ef056186-6994-4ed8-901b-c85816e9e434_1000x.jpg?v=1771059657",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708413_ef056186-6994-4ed8-901b-c85816e9e434_1000x.jpg?v=1771059657"
+    },
+    {
+      "name": "899-16-Dusty Blue",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708416_d596c75c-ce9b-4735-9202-96f0f7593323_1000x.jpg?v=1771059657",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708416_d596c75c-ce9b-4735-9202-96f0f7593323_1000x.jpg?v=1771059657"
+    },
+    {
+      "name": "899-18-Misty Blue",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708418_7b42c572-ce40-4085-9c0f-429f2e8f58b0_1000x.jpg?v=1771059659",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708418_7b42c572-ce40-4085-9c0f-429f2e8f58b0_1000x.jpg?v=1771059659"
+    },
+    {
+      "name": "899-19-Charcoal",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708419_b98aaa14-e0b3-450c-8d2b-5f308083ac5d_1000x.jpg?v=1771059660",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708419_b98aaa14-e0b3-450c-8d2b-5f308083ac5d_1000x.jpg?v=1771059660"
+    },
+    {
+      "name": "899-21-Lime Green",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708421_c6692aa7-7160-43fe-bd74-ace4f04a8bc7_1000x.jpg?v=1771059660",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708421_c6692aa7-7160-43fe-bd74-ace4f04a8bc7_1000x.jpg?v=1771059660"
+    },
+    {
+      "name": "899-22-Pine Green",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708422_9de511a6-8121-446c-a11d-3c338ab605f6_1000x.jpg?v=1771059673",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708422_9de511a6-8121-446c-a11d-3c338ab605f6_1000x.jpg?v=1771059673"
+    },
+    {
+      "name": "899-3-Teal",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70843_3e8e18b8-fe5c-4e13-868a-5ac97946d781_1000x.jpg?v=1771059661",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/70843_3e8e18b8-fe5c-4e13-868a-5ac97946d781_1000x.jpg?v=1771059661"
+    },
+    {
+      "name": "899-25-Emerald Green",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708425_76cb7bbd-712b-4ef8-9808-f50bb3cfe98c_1000x.jpg?v=1771059663",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708425_76cb7bbd-712b-4ef8-9808-f50bb3cfe98c_1000x.jpg?v=1771059663"
+    },
+    {
+      "name": "899-32-Ocean Blue",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708432_27fea430-9067-4394-b89e-6ad7dbbb02be_1000x.jpg?v=1771059663",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708432_27fea430-9067-4394-b89e-6ad7dbbb02be_1000x.jpg?v=1771059663"
+    },
+    {
+      "name": "899-35-Sapphire Blue",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708435_f90e7d06-e9c8-4a09-aed9-36d78b7789ae_1000x.jpg?v=1771059665",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708435_f90e7d06-e9c8-4a09-aed9-36d78b7789ae_1000x.jpg?v=1771059665"
+    },
+    {
+      "name": "899-41-Sand",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708441_cc665e7c-2193-45f4-97b7-2cc98b91c949_1000x.jpg?v=1771059666",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708441_cc665e7c-2193-45f4-97b7-2cc98b91c949_1000x.jpg?v=1771059666"
+    },
+    {
+      "name": "899-42-Sunshine Yellow",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708442_f812ff4f-489c-480c-881d-97e73edf3633_1000x.jpg?v=1771059666",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708442_f812ff4f-489c-480c-881d-97e73edf3633_1000x.jpg?v=1771059666"
+    },
+    {
+      "name": "899-46-Blush Pink",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708446_45f21ebc-7c1a-4df2-9509-84e17c93735e_1000x.jpg?v=1771059668",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708446_45f21ebc-7c1a-4df2-9509-84e17c93735e_1000x.jpg?v=1771059668"
+    },
+    {
+      "name": "899-47-Salmon Pink",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708447_ddfbd6b3-b0dd-4437-9c97-f5722e60d760_1000x.jpg?v=1771059669",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708447_ddfbd6b3-b0dd-4437-9c97-f5722e60d760_1000x.jpg?v=1771059669"
+    },
+    {
+      "name": "899-54-Crimson",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708454_fced85c5-0542-4edc-b673-9db8d7f24335_1000x.jpg?v=1771059670",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708454_fced85c5-0542-4edc-b673-9db8d7f24335_1000x.jpg?v=1771059670"
+    },
+    {
+      "name": "899-60-Jet Black",
+      "product_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708460_0e64930c-425f-4b34-93c2-5f3d9ed94c81_1000x.jpg?v=1771059672",
+      "sample_image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/708460_0e64930c-425f-4b34-93c2-5f3d9ed94c81_1000x.jpg?v=1771059672"
+    }
+  ],
+  "mount_options": [
+    {
+      "type": "Inside Mount",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS1JbnNpZGVfMS5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMCwiZml0IjoiY29udGFpbiJ9fX0.png?v=1774844486",
+      "description": "Mount inside the window frame for a clean, built-in look. Window depth must be at least 2 3/8 inches.",
+      "price": 0
+    },
+    {
+      "type": "Outside Mount",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS1PdXRzaWRlXzEucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyMDAsImZpdCI6ImNvbnRhaW4ifX19.png?v=1774844536",
+      "description": "Mount on the wall above the window frame. Provides better light blocking and makes windows appear larger.",
+      "price": 0
+    }
+  ],
+  "lift_options": [
+    {
+      "type": "Cordless Lift",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS1jb3JkbGVzcy5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMCwiZml0IjoiY29udGFpbiJ9fX0.png?v=1774844995",
+      "description": "Kid Friendly. Simply lift or pull down to adjust shade position.",
+      "price": 0
+    },
+    {
+      "type": "Motorization",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg5MjAzMjIyMTM5OS1DaGF0R1BUSW1hZ2UyMDI1NDI5MTBfNTVfMzcucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyMDAsImZpdCI6ImNvbnR.png?v=1774844996",
+      "description": "Kid Friendly. Rechargeable battery motor with remote control.",
+      "price": 139.99
+    }
+  ],
+  "motorization": [
+    {
+      "controller_type": "1-Channel Remote",
+      "description": "1-Channel Remote control ONE single shade separately.",
+      "price": 0
+    },
+    {
+      "controller_type": "15-Channel-Remote",
+      "description": "15-Channel Remote control up to 15 individual shades or groups of shades on one remote control.",
+      "price": 20.99
+    }
+  ],
+"width":[
+  { "key": "19", "price": "31" },
+  { "key": "20", "price": "32" },
+  { "key": "21", "price": "33" },
+  { "key": "22", "price": "34" },
+  { "key": "23", "price": "35" },
+  { "key": "24", "price": "36" },
+  { "key": "25", "price": "37" },
+  { "key": "26", "price": "38" },
+  { "key": "27", "price": "39" },
+  { "key": "28", "price": "40" },
+  { "key": "29", "price": "41" },
+  { "key": "30", "price": "42" },
+  { "key": "31", "price": "43" },
+  { "key": "32", "price": "44" },
+  { "key": "33", "price": "45" },
+  { "key": "34", "price": "46" },
+  { "key": "35", "price": "47" },
+  { "key": "36", "price": "48" },
+  { "key": "37", "price": "49" },
+  { "key": "38", "price": "50" },
+  { "key": "39", "price": "51" },
+  { "key": "40", "price": "102" },
+  { "key": "41", "price": "103" },
+  { "key": "42", "price": "104" },
+  { "key": "43", "price": "105" },
+  { "key": "44", "price": "127" },
+  { "key": "45", "price": "129" },
+  { "key": "46", "price": "135" },
+  { "key": "47", "price": "140" },
+  { "key": "48", "price": "142" },
+  { "key": "49", "price": "144" },
+  { "key": "50", "price": "146" },
+  { "key": "51", "price": "148" },
+  { "key": "52", "price": "150" },
+  { "key": "53", "price": "152" },
+  { "key": "54", "price": "154" },
+  { "key": "55", "price": "156" },
+  { "key": "56", "price": "158" },
+  { "key": "57", "price": "160" },
+  { "key": "58", "price": "172" },
+  { "key": "59", "price": "174" },
+  { "key": "60", "price": "176" },
+  { "key": "61", "price": "178" },
+  { "key": "62", "price": "180" },
+  { "key": "63", "price": "182" },
+  { "key": "64", "price": "184" },
+  { "key": "65", "price": "186" },
+  { "key": "66", "price": "188" },
+  { "key": "67", "price": "190" },
+  { "key": "68", "price": "192" },
+  { "key": "69", "price": "194" },
+  { "key": "70", "price": "196" },
+  { "key": "71", "price": "198" },
+  { "key": "72", "price": "200" },
+  { "key": "73", "price": "202" },
+  { "key": "74", "price": "204" },
+  { "key": "75", "price": "206" },
+  { "key": "76", "price": "208" },
+  { "key": "77", "price": "210" },
+  { "key": "78", "price": "212" }
+],
+"width_fraction": [
+ { "key": "0", "price": "0" },
+ { "key": "1/8", "price": "0" },
+ { "key": "1/4", "price": "0" },
+ { "key": "3/8", "price": "0" },
+ { "key": "1/2", "price": "0" },
+ { "key": "5/8", "price": "0" },
+ { "key": "3/4", "price": "0" },
+ { "key": "7/8", "price": "0" }
+    ],
+  "length":[
+        
+  { "key": "20", "price": "16" },
+  { "key": "21", "price": "16.5" },
+  { "key": "22", "price": "17" },
+  { "key": "23", "price": "17.5" },
+  { "key": "24", "price": "18" },
+  { "key": "25", "price": "18.5" },
+  { "key": "26", "price": "19" },
+  { "key": "27", "price": "19.5" },
+  { "key": "28", "price": "20" },
+  { "key": "29", "price": "20.5" },
+  { "key": "30", "price": "21" },
+  { "key": "31", "price": "21.5" },
+  { "key": "32", "price": "22" },
+  { "key": "33", "price": "22.5" },
+  { "key": "34", "price": "23" },
+  { "key": "35", "price": "23.5" },
+  { "key": "36", "price": "24" },
+  { "key": "37", "price": "24.5" },
+  { "key": "38", "price": "25" },
+  { "key": "39", "price": "25.5" },
+  { "key": "40", "price": "26" },
+  { "key": "41", "price": "26.5" },
+  { "key": "42", "price": "27" },
+  { "key": "43", "price": "27.5" },
+  { "key": "44", "price": "28" },
+  { "key": "45", "price": "28.5" },
+  { "key": "46", "price": "29" },
+  { "key": "47", "price": "29.5" },
+  { "key": "48", "price": "30" },
+  { "key": "49", "price": "30.5" },
+  { "key": "50", "price": "31" },
+  { "key": "51", "price": "31.5" },
+  { "key": "52", "price": "32" },
+  { "key": "53", "price": "32.5" },
+  { "key": "54", "price": "33" },
+  { "key": "55", "price": "33.5" },
+  { "key": "56", "price": "34" },
+  { "key": "57", "price": "34.5" },
+  { "key": "58", "price": "35" },
+  { "key": "59", "price": "35.5" },
+  { "key": "60", "price": "36" },
+  { "key": "61", "price": "36.5" },
+  { "key": "62", "price": "37" },
+  { "key": "63", "price": "37.5" },
+  { "key": "64", "price": "38" },
+  { "key": "65", "price": "38.5" },
+  { "key": "66", "price": "39" },
+  { "key": "67", "price": "39.5" },
+  { "key": "68", "price": "40" },
+  { "key": "69", "price": "40.5" },
+  { "key": "70", "price": "42" },
+  { "key": "71", "price": "45" },
+  { "key": "72", "price": "47" },
+  { "key": "73", "price": "49" },
+  { "key": "74", "price": "51" },
+  { "key": "75", "price": "53" },
+  { "key": "76", "price": "55" },
+  { "key": "77", "price": "57" },
+  { "key": "78", "price": "59" },
+  { "key": "79", "price": "61" },
+  { "key": "80", "price": "63" },
+  { "key": "81", "price": "65" },
+  { "key": "82", "price": "67" },
+  { "key": "83", "price": "69" },
+  { "key": "84", "price": "71" },
+  { "key": "85", "price": "73" },
+  { "key": "86", "price": "75" },
+  { "key": "87", "price": "77" },
+  { "key": "88", "price": "79" },
+  { "key": "89", "price": "81" },
+  { "key": "90", "price": "83" }
+
+    ],
+"length_fraction": [
+         { "key": "0", "price": "0" },
+          { "key": "1/8", "price": "0" },
+           { "key": "1/4", "price": "0" },
+            { "key": "3/8", "price": "0" },
+             { "key": "1/2", "price": "0" },
+              { "key": "5/8", "price": "0" },
+               { "key": "3/4", "price": "0" },
+                { "key": "7/8", "price": "0" }
+    ],
+  "lining_options": [
+    {
+      "name": "Unlined",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS1VbmxpbmVkUm9tYW5TaGFkZS5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMCwiZml0IjoiY29udGFpbiJ9fX0.png?v=1774845046",
+      "description": "No lining.",
+      "price": 0
+    },
+    {
+      "name": "Soft Shade",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS0yLnBuZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjAwLCJmaXQiOiJjb250YWluIn19fQ.png?v=1774845061",
+      "description": "893-1 Filters 60%-80% of light with premium microfiber for a balanced, inviting glow.",
+      "price": 29.99
+    },
+    {
+      "name": "Complete Block",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS11eTJ4N2Ntc2ouanBlZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjAwLCJmaXQiOiJjb250YWluIn19fQ.jpg?v=1774845094",
+      "description": "893-5 model lining, 100% shading rate, 150gsm 2-pass coated microfiber. Dense and structured, it effectively eliminates all light for a dark, undisturbed sleep.",
+      "price": 39.99
+    },
+    {
+      "name": "Thermal Shield and Noise-Reducing",
+      "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/eyJidWNrZXQiOiJiY3BvIiwia2V5IjoiemkzeW0wLWRoLm15c2hvcGlmeS5jb20vODg1MjI2ODU0ODMxMS1leUppZFdOclpYUWlPaUppWTNCdklpd2lhMlY1SWpvaWVta3plVzB3TFdSb0xtMTVjMmh2Y0dsbWVTNWpiMjB2T0RnMU1qSTJPRFU.jpg?v=1774845128",
+      "description": "893-6 model lining, 100% shading rate, 250gsm 3-pass coated microfiber. Heavyweight and thick, it provides total blackout with high-performance thermal insulation.",
+      "price": 59.99
+    }
+  ]
+}

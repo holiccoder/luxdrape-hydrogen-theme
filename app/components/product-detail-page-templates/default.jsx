@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef, useEffect} from 'react';
+﻿import React, {useState, useMemo, useRef, useEffect} from 'react';
 import {
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
@@ -7,8 +7,9 @@ import {
 } from '@shopify/hydrogen';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '~/components/ui/button';
-import {Input} from '~/components/ui/input';
 import {Label} from '~/components/ui/label';
+import {Popover, PopoverContent, PopoverTrigger} from '~/components/ui/popover';
+import {Input} from '~/components/ui/input';
 import {RadioGroup, RadioGroupItem} from '~/components/ui/radio-group';
 import {
   Accordion,
@@ -51,6 +52,11 @@ import {
   AwardIcon,
   ThumbsUpIcon,
 } from 'lucide-react';
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
 
 // ============================================
 // Product Data
@@ -534,23 +540,83 @@ const ProductDetailPage = ({product, productOptionsData}) => {
     value: specifications[spec.key] || spec.value,
   }));
 
+  const colorOptions = productOptionsData?.color || productColors;
+  const headerOptions = Array.isArray(productOptionsData?.header)
+    ? productOptionsData.header
+    : [];
+  const liningOptionsData = productOptionsData?.lining_options || liningOptions;
+  const tiebacksData = productOptionsData?.tiebacks || tieBackOptions;
+  const shapingOptionsData = productOptionsData?.shaping_options || [];
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedColorSampleImage, setSelectedColorSampleImage] =
     useState(null);
   const [selectedHeaderStyle, setSelectedHeaderStyle] = useState(null);
-  const [selectedLining, setSelectedLining] = useState(null);
-  const [selectedTieBack, setSelectedTieBack] = useState(null);
-  const [width, setWidth] = useState('50');
-  const [height, setHeight] = useState('84');
-  const [quantity, setQuantity] = useState(2);
+  const [selectedLining, setSelectedLining] = useState(
+    () => liningOptionsData[0] || null,
+  );
+  const [selectedTieBack, setSelectedTieBack] = useState(
+    () => tiebacksData[0] || null,
+  );
+  const [selectedShapingOption, setSelectedShapingOption] = useState(
+    () => shapingOptionsData[0] || null,
+  );
+  const widthOptions = useMemo(
+    () => productOptionsData?.width || [],
+    [productOptionsData],
+  );
+  const heightOptions = useMemo(
+    () => productOptionsData?.length || [],
+    [productOptionsData],
+  );
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [widthSearch, setWidthSearch] = useState('');
+  const [heightSearch, setHeightSearch] = useState('');
+  const [widthOpen, setWidthOpen] = useState(false);
+  const [heightOpen, setHeightOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const [isSwatchDialogOpen, setIsSwatchDialogOpen] = useState(false);
+  const [roomLabel, setRoomLabel] = useState('');
+  const selectedDisplayWidthOption = widthOptions.find(
+    (option) => option.key.toString() === width,
+  );
+  const selectedDisplayHeightOption = heightOptions.find(
+    (option) => option.key.toString() === height,
+  );
+  const selectedHeaderStylePrice = Number(selectedHeaderStyle?.price) || 0;
+  const selectedLiningPrice = Number(selectedLining?.price) || 0;
+  const selectedTieBackPrice = Number(selectedTieBack?.price) || 0;
+  const selectedShapingPrice = Number(selectedShapingOption?.price) || 0;
+  const selectedWidthPrice = Number(selectedDisplayWidthOption?.price) || 0;
+  const selectedHeightPrice = Number(selectedDisplayHeightOption?.price) || 0;
+  const displayedUnitPrice =
+    productPrice +
+    selectedHeaderStylePrice +
+    selectedLiningPrice +
+    selectedTieBackPrice +
+    selectedShapingPrice +
+    selectedWidthPrice +
+    selectedHeightPrice;
+  const displayedPrice = Number(
+    (displayedUnitPrice * quantity).toFixed(2),
+  );
+  const formattedDisplayedPrice = currencyFormatter.format(displayedPrice);
+
+  const filteredWidthOptions = widthOptions.filter((option) =>
+    option.key.toString().startsWith(widthSearch),
+  );
+  const filteredHeightOptions = heightOptions.filter((option) =>
+    option.key.toString().startsWith(heightSearch),
+  );
 
   // Accordion states
   const [openSections, setOpenSections] = useState([
     'color',
     'header',
     'dimensions',
+    'room-label',
   ]);
 
   const toggleSection = (section) => {
@@ -566,28 +632,81 @@ const ProductDetailPage = ({product, productOptionsData}) => {
     const headerPrice = selectedHeaderStyle?.price || 0;
     const liningPrice = Number(selectedLining?.price) || 0;
     const tieBackPrice = (Number(selectedTieBack?.price) || 0) * quantity;
+    const shapingPrice = (Number(selectedShapingOption?.price) || 0) * quantity;
 
-    const widthValue = parseFloat(width) || 50;
-    const heightValue = parseFloat(height) || 84;
-    const sizeMultiplier = (widthValue * heightValue) / (50 * 84);
+    const selectedWidthOption = widthOptions.find(
+      (w) => w.key.toString() === width,
+    );
+    const selectedHeightOption = heightOptions.find(
+      (h) => h.key.toString() === height,
+    );
+    const widthPrice = Number(selectedWidthOption?.price) || 0;
+    const heightPrice = Number(selectedHeightOption?.price) || 0;
 
     const unitPrice =
-      (basePrice + headerPrice + liningPrice) * Math.max(sizeMultiplier, 0.7);
-    return Math.round(unitPrice * quantity + tieBackPrice);
+      basePrice + headerPrice + liningPrice + widthPrice + heightPrice;
+    return parseFloat(
+      (unitPrice * quantity + tieBackPrice + shapingPrice).toFixed(2),
+    );
   }, [
     selectedHeaderStyle,
     selectedLining,
     selectedTieBack,
+    selectedShapingOption,
     width,
     height,
+    widthOptions,
+    heightOptions,
     quantity,
     productPrice,
   ]);
 
-  const colorOptions = productOptionsData?.color || productColors;
-  const headerOptions = productOptionsData?.header || headerStyles;
-  const liningOptionsData = productOptionsData?.lining_options || liningOptions;
-  const tiebacksData = productOptionsData?.tiebacks || tieBackOptions;
+  const lineAttributes = useMemo(() => {
+    const headerValue = selectedHeaderStyle?.name
+      ? Number(selectedHeaderStyle?.price) > 0
+        ? `${selectedHeaderStyle.name} | $${selectedHeaderStyle.price}`
+        : selectedHeaderStyle.name
+      : null;
+    const widthValue = selectedDisplayWidthOption?.key
+      ? Number(selectedDisplayWidthOption?.price) > 0
+        ? `${selectedDisplayWidthOption.key} | $${selectedDisplayWidthOption.price}`
+        : String(selectedDisplayWidthOption.key)
+      : null;
+    const heightValue = selectedDisplayHeightOption?.key
+      ? Number(selectedDisplayHeightOption?.price) > 0
+        ? `${selectedDisplayHeightOption.key} | $${selectedDisplayHeightOption.price}`
+        : String(selectedDisplayHeightOption.key)
+      : null;
+    const tieBackValue = selectedTieBack?.name
+      ? Number(selectedTieBack?.price) > 0
+        ? `${selectedTieBack.name} | $${selectedTieBack.price}`
+        : selectedTieBack.name
+      : null;
+    const memoryShapingValue = selectedShapingOption?.name
+      ? Number(selectedShapingOption?.price) > 0
+        ? `${selectedShapingOption.name} | $${selectedShapingOption.price}`
+        : selectedShapingOption.name
+      : null;
+    const trimmedRoomLabel = roomLabel.trim();
+
+    return [
+      headerValue ? {key: 'header', value: headerValue} : null,
+      widthValue ? {key: 'width', value: widthValue} : null,
+      heightValue ? {key: 'height', value: heightValue} : null,
+      tieBackValue ? {key: 'tie_backs', value: tieBackValue} : null,
+      memoryShapingValue
+        ? {key: 'memory_shaping', value: memoryShapingValue}
+        : null,
+      trimmedRoomLabel ? {key: 'room_label', value: trimmedRoomLabel} : null,
+    ].filter(Boolean);
+  }, [
+    roomLabel,
+    selectedDisplayHeightOption,
+    selectedDisplayWidthOption,
+    selectedHeaderStyle,
+    selectedShapingOption,
+    selectedTieBack,
+  ]);
 
   useEffect(() => {
     if (colorOptions.length > 0 && !selectedColor) {
@@ -597,22 +716,53 @@ const ProductDetailPage = ({product, productOptionsData}) => {
   }, [colorOptions, selectedColor]);
 
   useEffect(() => {
-    if (headerOptions.length > 0 && !selectedHeaderStyle) {
-      setSelectedHeaderStyle(headerOptions[0]);
+    const currentStyle = selectedHeaderStyle;
+    const isFromOldOptions =
+      currentStyle && !headerOptions.some((h) => h.name === currentStyle?.name);
+    if (isFromOldOptions) {
+      setSelectedHeaderStyle(null);
     }
   }, [headerOptions, selectedHeaderStyle]);
 
   useEffect(() => {
-    if (liningOptionsData.length > 0 && !selectedLining) {
-      setSelectedLining(liningOptionsData[0]);
+    if (liningOptionsData.length > 0) {
+      const currentLining = selectedLining;
+      const isFromOldOptions =
+        currentLining &&
+        !liningOptionsData.some((l) => l.name === currentLining?.name);
+      if (!currentLining || isFromOldOptions) {
+        setSelectedLining(liningOptionsData[0]);
+      }
     }
   }, [liningOptionsData, selectedLining]);
 
   useEffect(() => {
-    if (tiebacksData.length > 0 && !selectedTieBack) {
-      setSelectedTieBack(tiebacksData[0]);
+    if (tiebacksData.length > 0) {
+      const currentTieBack = selectedTieBack;
+      const isFromOldOptions =
+        currentTieBack &&
+        !tiebacksData.some((t) => t.name === currentTieBack?.name);
+      if (!currentTieBack || isFromOldOptions) {
+        setSelectedTieBack(tiebacksData[0]);
+      }
     }
   }, [tiebacksData, selectedTieBack]);
+
+  useEffect(() => {
+    if (shapingOptionsData.length > 0) {
+      const currentShapingOption = selectedShapingOption;
+      const isFromOldOptions =
+        currentShapingOption &&
+        !shapingOptionsData.some((option) => option.name === currentShapingOption?.name);
+      if (!currentShapingOption || isFromOldOptions) {
+        setSelectedShapingOption(shapingOptionsData[0]);
+      }
+      return;
+    }
+    if (selectedShapingOption) {
+      setSelectedShapingOption(null);
+    }
+  }, [shapingOptionsData, selectedShapingOption]);
 
   const displayImage =
     selectedColorSampleImage ||
@@ -747,7 +897,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
               </div>
               <div className="flex items-baseline gap-2 pt-2">
                 <span className="text-3xl font-semibold text-gray-900">
-                  ${totalPrice}
+                  {formattedDisplayedPrice}
                 </span>
                 <span className="text-gray-500">for {quantity} panels</span>
               </div>
@@ -776,7 +926,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       Order Free Swatches
                     </button>
                   </div>
-                  <HorizontalScroll>
+                  <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto">
                     {colorOptions.map((color, idx) => (
                       <button
                         key={idx}
@@ -786,7 +936,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                             color.product_image || null,
                           );
                         }}
-                        className={`relative w-14 h-14 shrink-0 border-2 transition-all ${selectedColor?.name === color.name ? 'border-slate-800 ring-1 ring-slate-800' : 'border-gray-200 hover:border-gray-400'}`}
+                        className={`relative w-14 h-14 shrink-0 border transition-all ${selectedColor?.name === color.name ? 'border-gray-500' : 'border-gray-200 hover:border-gray-400'}`}
                         style={{
                           backgroundColor: color.hex || 'transparent',
                           backgroundImage: color.sample_image
@@ -802,83 +952,83 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                         )}
                       </button>
                     ))}
-                  </HorizontalScroll>
+                  </div>
                 </div>
               </CollapsibleSection>
 
-              {/* 2. Header Style - with Images */}
-              <CollapsibleSection
-                title="Header Style"
-                subtitle={selectedHeaderStyle?.name || 'Select header style'}
-                isOpen={openSections.includes('header')}
-                onToggle={() => toggleSection('header')}
-              >
-                <div className="pt-4 space-y-3">
-                  <RadioGroup
-                    value={selectedHeaderStyle?.name || selectedHeaderStyle?.id}
-                    onValueChange={(val) => {
-                      const style =
-                        headerOptions.find((s) => s.name === val) ||
-                        headerStyles.find((s) => s.id === val);
-                      if (style) setSelectedHeaderStyle(style);
-                    }}
-                  >
-                    <div className="space-y-3">
-                      {(headerOptions.length > 0
-                        ? headerOptions
-                        : headerStyles
-                      ).map((style, idx) => {
-                        const styleId = style.name || style.id;
-                        return (
-                          <div key={styleId || idx}>
-                            <RadioGroupItem
-                              value={styleId}
-                              id={styleId}
-                              className="peer sr-only"
-                            />
-                            <Label
-                              htmlFor={styleId}
-                              className="flex gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
-                            >
-                              {/* Header Style Image */}
-                              <div className="w-24 h-24 shrink-0 bg-gray-100 overflow-hidden">
-                                <img
-                                  src={style.image}
-                                  alt={style.name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="font-medium text-gray-900">
-                                    {style.name}
-                                  </span>
-                                  <span className="text-sm font-medium text-gray-900">
-                                    {Number(style.price) > 0
-                                      ? `+$${style.price}`
-                                      : 'Included'}
+              {headerOptions.length > 0 ? (
+                <CollapsibleSection
+                  title="Header Style"
+                  subtitle={selectedHeaderStyle?.name || 'Select header style'}
+                  isOpen={openSections.includes('header')}
+                  onToggle={() => toggleSection('header')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup
+                      value={selectedHeaderStyle?.name || selectedHeaderStyle?.id}
+                      onValueChange={(val) => {
+                        const style = headerOptions.find((s) => s.name === val);
+                        if (style) setSelectedHeaderStyle(style);
+                      }}
+                    >
+                      <div className="space-y-3">
+                        {headerOptions.map((style, idx) => {
+                          const styleId = style.name || style.id;
+                          return (
+                            <div key={styleId || idx}>
+                              <RadioGroupItem
+                                value={styleId}
+                                id={styleId}
+                                className="peer sr-only"
+                              />
+                              <Label
+                                htmlFor={styleId}
+                                className="flex gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
+                              >
+                                {/* Header Style Image */}
+                                <div className="w-24 h-24 shrink-0 bg-gray-100 overflow-hidden">
+                                  <img
+                                    src={style.image}
+                                    alt={style.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="font-medium text-gray-900">
+                                      {style.name}
+                                    </span>
+                                    <span className="text-sm font-medium text-gray-900">
+                                      {Number(style.price) > 0
+                                        ? `+$${style.price}`
+                                        : 'Included'}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm text-gray-500 mb-2">
+                                    {style.description}
+                                  </p>
+                                  <span className="text-xs text-gray-400">
+                                    Fullness: {style.fullness}
                                   </span>
                                 </div>
-                                <p className="text-sm text-gray-500 mb-2">
-                                  {style.description}
-                                </p>
-                                <span className="text-xs text-gray-400">
-                                  Fullness: {style.fullness}
-                                </span>
-                              </div>
-                            </Label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </RadioGroup>
-                </div>
-              </CollapsibleSection>
+                              </Label>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
 
               {/* 3. Dimensions - with Visual Guide */}
               <CollapsibleSection
                 title="Panel Dimensions"
-                subtitle={`${width}" W × ${height}" H per panel`}
+                subtitle={
+                  width && height
+                    ? `${width}" W x ${height}" H per panel`
+                    : 'Please select dimensions'
+                }
                 isOpen={openSections.includes('dimensions')}
                 onToggle={() => toggleSection('dimensions')}
               >
@@ -914,47 +1064,111 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       <Label className="text-xs text-gray-500">
                         Width (inches)
                       </Label>
-                      <div className="relative mt-1">
-                        <Input
-                          type="number"
-                          step="0.5"
-                          value={width}
-                          onChange={(e) => setWidth(e.target.value)}
-                          className="h-11 pr-10"
-                          placeholder="50"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-                          in
-                        </span>
-                      </div>
+                      <Popover open={widthOpen} onOpenChange={setWidthOpen}>
+                        <PopoverTrigger asChild>
+                          <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                            {width || 'Please select'}
+                            <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                          align="start"
+                        >
+                          <div className="border-b border-gray-200">
+                            <Input
+                              placeholder="Search width..."
+                              value={widthSearch}
+                              onChange={(e) => setWidthSearch(e.target.value)}
+                              className="h-10 border-0 rounded-none focus-visible:ring-0"
+                            />
+                          </div>
+                          <div className="overflow-y-auto max-h-60">
+                            {filteredWidthOptions.length === 0 ? (
+                              <div className="py-6 text-center text-sm text-gray-500">
+                                No results found
+                              </div>
+                            ) : (
+                              filteredWidthOptions.map((option) => (
+                                <button
+                                  key={option.key}
+                                  onClick={() => {
+                                    setWidth(option.key.toString());
+                                    setWidthSearch('');
+                                    setWidthOpen(false);
+                                  }}
+                                  className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                >
+                                  {option.key}
+                                  {option.price !== '0' && (
+                                    <span className="text-gray-500 text-xs">
+                                      +${option.price}
+                                    </span>
+                                  )}
+                                </button>
+                              ))
+                            )}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                     <div>
                       <Label className="text-xs text-gray-500">
                         Height (inches)
                       </Label>
-                      <div className="relative mt-1">
-                        <Input
-                          type="number"
-                          step="0.5"
-                          value={height}
-                          onChange={(e) => setHeight(e.target.value)}
-                          className="h-11 pr-10"
-                          placeholder="84"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-                          in
-                        </span>
-                      </div>
+                      <Popover open={heightOpen} onOpenChange={setHeightOpen}>
+                        <PopoverTrigger asChild>
+                          <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                            {height || 'Please select'}
+                            <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                          align="start"
+                        >
+                          <div className="border-b border-gray-200">
+                            <Input
+                              placeholder="Search height..."
+                              value={heightSearch}
+                              onChange={(e) => setHeightSearch(e.target.value)}
+                              className="h-10 border-0 rounded-none focus-visible:ring-0"
+                            />
+                          </div>
+                          <div className="overflow-y-auto max-h-60">
+                            {filteredHeightOptions.length === 0 ? (
+                              <div className="py-6 text-center text-sm text-gray-500">
+                                No results found
+                              </div>
+                            ) : (
+                              filteredHeightOptions.map((option) => (
+                                <button
+                                  key={option.key}
+                                  onClick={() => {
+                                    setHeight(option.key.toString());
+                                    setHeightSearch('');
+                                    setHeightOpen(false);
+                                  }}
+                                  className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                >
+                                  {option.key}
+                                  {option.price !== '0' && (
+                                    <span className="text-gray-500 text-xs">
+                                      +${option.price}
+                                    </span>
+                                  )}
+                                </button>
+                              ))
+                            )}
+                          </div>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2 p-3 bg-blue-50 text-sm text-blue-800">
                     <InfoIcon className="w-4 h-4 shrink-0 mt-0.5" />
-                    <span>
-                      For a pair of panels, order 2 panels. Each panel will be
-                      made to the dimensions above. Standard pair coverage:
-                      72-96 inches window width.
-                    </span>
+                    <span>For a pair of panels, order 2 panels.</span>
                   </div>
                 </div>
               </CollapsibleSection>
@@ -1056,6 +1270,80 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                   </RadioGroup>
                 </div>
               </CollapsibleSection>
+
+              {shapingOptionsData.length > 0 ? (
+                <CollapsibleSection
+                  title="Memory Shaping"
+                  subtitle={selectedShapingOption?.name || 'Select shaping option'}
+                  isOpen={openSections.includes('shaping')}
+                  onToggle={() => toggleSection('shaping')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup
+                      value={selectedShapingOption?.name}
+                      onValueChange={(val) => {
+                        const shapingOption = shapingOptionsData.find(
+                          (option) => option.name === val,
+                        );
+                        if (shapingOption) setSelectedShapingOption(shapingOption);
+                      }}
+                    >
+                      <div className="space-y-2">
+                        {shapingOptionsData.map((shapingOption, idx) => (
+                          <div key={shapingOption.name || idx}>
+                            <RadioGroupItem
+                              value={shapingOption.name}
+                              id={`shaping-option-${shapingOption.name}`}
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor={`shaping-option-${shapingOption.name}`}
+                              className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
+                            >
+                              <div>
+                                <span className="font-medium text-gray-900">
+                                  {shapingOption.name}
+                                </span>
+                                <p className="text-sm text-gray-500">
+                                  {shapingOption.description}
+                                </p>
+                              </div>
+                              <span className="text-sm font-medium text-gray-900">
+                                {Number(shapingOption.price) > 0
+                                  ? `+$${shapingOption.price}`
+                                  : 'Included'}
+                              </span>
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
+              <CollapsibleSection
+                title="Room Label"
+                subtitle={roomLabel.trim() || 'Add room label'}
+                isOpen={openSections.includes('room-label')}
+                onToggle={() => toggleSection('room-label')}
+              >
+                <div className="pt-4 space-y-3">
+                  <Label
+                    htmlFor="room-label"
+                    className="text-sm font-medium text-gray-900"
+                  >
+                    Room Label
+                  </Label>
+                  <Input
+                    id="room-label"
+                    value={roomLabel}
+                    onChange={(event) => setRoomLabel(event.target.value)}
+                    placeholder="Enter room label"
+                    className="h-11 border-gray-300"
+                  />
+                </div>
+              </CollapsibleSection>
             </div>
 
             {/* Add to Cart */}
@@ -1085,12 +1373,13 @@ const ProductDetailPage = ({product, productOptionsData}) => {
               {/* Price & Button */}
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">Total</p>
+                  <p className="text-sm text-gray-500">Price</p>
                   <p className="text-3xl font-semibold text-gray-900">
-                    ${totalPrice}
+                    {formattedDisplayedPrice}
                   </p>
                 </div>
                 <ProductForm
+                  lineAttributes={lineAttributes}
                   productOptions={productOptions}
                   selectedVariant={selectedVariant}
                 />
@@ -1203,14 +1492,14 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>
-                            Measure width at top, middle, and bottom — use the
+                            Measure width at top, middle, and bottom 鈥?use the
                             narrowest measurement for inside mount
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>
-                            Measure height at left, center, and right — use the
+                            Measure height at left, center, and right 鈥?use the
                             longest measurement
                           </span>
                         </li>
@@ -1433,13 +1722,13 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
                         <li>
-                          • Covers manufacturing defects in materials and
+                          鈥?Covers manufacturing defects in materials and
                           workmanship
                         </li>
                         <li>
-                          • Includes header construction, stitching, and lining
+                          鈥?Includes header construction, stitching, and lining
                         </li>
-                        <li>• Hardware components covered for 1 year</li>
+                        <li>鈥?Hardware components covered for 1 year</li>
                       </ul>
                     </div>
                     <div className="p-5 bg-gray-50 rounded-xl">
@@ -1448,9 +1737,9 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                         Shipping Protection
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>• Inspect package immediately upon receipt</li>
-                        <li>• Report damage within 48 hours with photos</li>
-                        <li>• We expedite replacement at no cost</li>
+                        <li>鈥?Inspect package immediately upon receipt</li>
+                        <li>鈥?Report damage within 48 hours with photos</li>
+                        <li>鈥?We expedite replacement at no cost</li>
                       </ul>
                     </div>
                   </div>
@@ -1828,7 +2117,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
             </div>
             <div className="bg-emerald-50 p-3 flex items-center gap-2 text-sm text-emerald-800">
               <TruckIcon className="w-4 h-4" />
-              <span>Free shipping • Arrives in 3-5 days</span>
+              <span>Free shipping 鈥?Arrives in 3-5 days</span>
             </div>
             <Button
               className="w-full bg-slate-800 hover:bg-slate-700 text-white"

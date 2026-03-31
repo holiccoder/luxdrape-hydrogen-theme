@@ -94,19 +94,20 @@ export async function loader(args) {
  * @param {Route.LoaderArgs}
  */
 async function loadCriticalData({context}) {
-  const {storefront} = context;
+  const {storefront, cart} = context;
 
-  const [header] = await Promise.all([
+  const [header, cartData] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
     }),
+    cart.get(),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {header};
+  return {header, cart: cartData};
 }
 
 /**
@@ -116,7 +117,7 @@ async function loadCriticalData({context}) {
  * @param {Route.LoaderArgs}
  */
 function loadDeferredData({context}) {
-  const {storefront, customerAccount, cart} = context;
+  const {storefront, customerAccount} = context;
 
   // defer the footer query (below the fold)
   const footer = storefront
@@ -132,7 +133,6 @@ function loadDeferredData({context}) {
       return null;
     });
   return {
-    cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
   };

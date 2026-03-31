@@ -2,6 +2,7 @@ import {NavLink, Link} from 'react-router';
 import {ShoppingBagIcon, MenuIcon, SearchIcon} from 'lucide-react';
 import {Button} from '~/components/ui/button';
 import {Sheet, SheetContent, SheetTrigger} from '~/components/ui/sheet';
+import {useAside} from '~/components/Aside';
 import {useState} from 'react';
 
 function ActiveLink({to, children, className}) {
@@ -19,6 +20,7 @@ function ActiveLink({to, children, className}) {
 
 export function Header({header, cart, publicStoreDomain}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const aside = useAside();
 
   const navLinks = [
     {href: '/', label: 'Home'},
@@ -49,7 +51,13 @@ export function Header({header, cart, publicStoreDomain}) {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="hidden md:flex">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden md:flex"
+            onClick={() => aside.open('search')}
+            aria-label="Open search"
+          >
             <SearchIcon className="h-5 w-5" />
           </Button>
           <Link to="/cart">

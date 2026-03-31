@@ -10,11 +10,13 @@ import breezaCottonBlendThermalLiningInsulationCurtainPinchPleatedDrapes from '.
 import breezaCottonCompleteBlackoutLiningCurtainPinchPleatedDrapes from './breeza-cotton-complete-blackout-lining-curtain-pinch-pleated-drapes.json';
 import breezaCottonDrapeGrommet from './breeza-cotton-drape-grommet.json';
 import breezaCottonDrapePleated from './breeza-cotton-drape-pleated.json';
+import breezaCottonRomanShadeCordless from './breeza-cotton-roman-shade-cordless.json';
 import breezaCottonDrapeSoftTop from './breeza-cotton-drape-soft-top.json';
 import chevronCurtainsDrapesGrommet from './chevron-curtains-drapes-grommet.json';
 import chevronCurtainsDrapesPleated from './chevron-curtains-drapes-pleated.json';
 import chevronCurtainsDrapesSoftTop from './chevron-curtains-drapes-soft-top.json';
 import chevronHerringbonePatternLinenPleatedCafeCurtains from './chevron-herringbone-pattern-linen-pleated-cafe-curtains.json';
+import chevronHerringboneWeaveLinenRomanShadeCordless from './chevron-herringbone-weave-linen-roman-shade-cordless.json';
 import chevronTexturedLinen100BlackoutLiningCurtainPleated from './chevron-textured-linen-100-blackout-lining-curtain-pleated.json';
 import chevronTexturedLinenThermalSoundProofCurtainPleated from './chevron-textured-linen-thermal-sound-proof-curtain-pleated.json';
 import florenceBlackoutLiningCurtainsPinchPleatedDrapes from './florence-blackout-lining-curtains-pinch-pleated-drapes.json';
@@ -23,6 +25,8 @@ import florenceLinenBlendDrapeSoftTop from './florence-linen-blend-drape-soft-to
 import florenceLinenDrapesPleated from './florence-linen-drapes-pleated.json';
 import florenceLinenPleatedCafeCurtains from './florence-linen-pleated-cafe-curtains.json';
 import florenceThermalLiningInsulationCurtainPinchPleatedDrapes from './florence-thermal-lining-insulation-curtain-pinch-pleated-drapes.json';
+import linenRomanShade from './linen-roman-shade.json';
+import siennaLinenPlaidStripedRomanShadeCordless from './sienna-linen-plaid-striped-roman-shade-cordless.json';
 import siennaStripedPatternLinenBlendPleatedCafeCurtains from './sienna-striped-pattern-linen-blend-pleated-cafe-curtains.json';
 import siennaWindowpaneBandLinenBlendCurtainDraperyGrommet from './sienna-windowpane-band-linen-blend-curtain-drapery-grommet.json';
 import siennaWindowpaneBandLinenBlendCurtainDraperySoftTop from './sienna-windowpane-band-linen-blend-curtain-drapery-soft-top.json';
@@ -34,59 +38,62 @@ import velmorVelvetDrapeGrommet from './velmor-velvet-drape-grommet.json';
 import velmorVelvetDrapeSoftTop from './velmor-velvet-drape-soft-top.json';
 import velmorVelvetDrapesPleated from './velmor-velvet-drapes-pleated.json';
 
-export const productOptionsIndex = {
-  'auriel-beige-sheer-curtains-drapes-grommet':
-    aurielBeigeSheerCurtainsDrapesGrommet,
-  'auriel-beige-sheer-curtains-drapes-pleated':
-    aurielBeigeSheerCurtainsDrapesPleated,
-  'auriel-scratch-resistant-pet-friendly-semi-sheer-curtains-drapes-grommet':
-    aurielScratchResistantPetFriendlySemiSheerCurtainsDrapesGrommet,
-  'auriel-sheer-drapes-grommet': aurielSheerDrapesGrommet,
-  'auriel-sheer-drapes-pleated': aurielSheerDrapesPleated,
-  'auriel-sheer-drapes-soft-top': aurielSheerDrapesSoftTop,
-  'auriel-thick-semi-sheer-privacy-drapes-pleated':
-    aurielThickSemiSheerPrivacyDrapesPleated,
-  'breeza-cotton-blend-pleated-cafe-curtains-info':
-    breezaCottonBlendPleatedCafeCurtainsInfo,
-  'breeza-cotton-blend-thermal-lining-insulation-curtain-pinch-pleated-drapes':
-    breezaCottonBlendThermalLiningInsulationCurtainPinchPleatedDrapes,
-  'breeza-cotton-complete-blackout-lining-curtain-pinch-pleated-drapes':
-    breezaCottonCompleteBlackoutLiningCurtainPinchPleatedDrapes,
-  'breeza-cotton-drape-grommet': breezaCottonDrapeGrommet,
-  'breeza-cotton-drape-pleated': breezaCottonDrapePleated,
-  'breeza-cotton-drape-soft-top': breezaCottonDrapeSoftTop,
-  'chevron-curtains-drapes-grommet': chevronCurtainsDrapesGrommet,
-  'chevron-curtains-drapes-pleated': chevronCurtainsDrapesPleated,
-  'chevron-curtains-drapes-soft-top': chevronCurtainsDrapesSoftTop,
-  'chevron-herringbone-pattern-linen-pleated-cafe-curtains':
-    chevronHerringbonePatternLinenPleatedCafeCurtains,
-  'chevron-textured-linen-100-blackout-lining-curtain-pleated':
-    chevronTexturedLinen100BlackoutLiningCurtainPleated,
-  'chevron-textured-linen-thermal-sound-proof-curtain-pleated':
-    chevronTexturedLinenThermalSoundProofCurtainPleated,
-  'florence-blackout-lining-curtains-pinch-pleated-drapes':
-    florenceBlackoutLiningCurtainsPinchPleatedDrapes,
-  'florence-linen-blend-drape-grommet': florenceLinenBlendDrapeGrommet,
-  'florence-linen-blend-drape-soft-top': florenceLinenBlendDrapeSoftTop,
-  'florence-linen-drapes-pleated': florenceLinenDrapesPleated,
-  'florence-linen-pleated-cafe-curtains': florenceLinenPleatedCafeCurtains,
-  'florence-thermal-lining-insulation-curtain-pinch-pleated-drapes':
-    florenceThermalLiningInsulationCurtainPinchPleatedDrapes,
-  'sienna-striped-pattern-linen-blend-pleated-cafe-curtains':
-    siennaStripedPatternLinenBlendPleatedCafeCurtains,
-  'sienna-windowpane-band-linen-blend-curtain-drapery-grommet':
-    siennaWindowpaneBandLinenBlendCurtainDraperyGrommet,
-  'sienna-windowpane-band-linen-blend-curtain-drapery-soft-top':
-    siennaWindowpaneBandLinenBlendCurtainDraperySoftTop,
-  'sienna-windowpane-linen-blend-curtains-pinch-pleat-blackout-drapes':
-    siennaWindowpaneLinenBlendCurtainsPinchPleatBlackoutDrapes,
-  'sienna-windowpane-linen-thermal-curtains-pinch-pleat-drapes':
-    siennaWindowpaneLinenThermalCurtainsPinchPleatDrapes,
-  'sienna-windowpane-striped-linen-blend-curtain-drapery-pleated':
-    siennaWindowpaneStripedLinenBlendCurtainDraperyPleated,
-  'velmor-pleated-velvet-curtains-with-blackout-lining':
-    velmorPleatedVelvetCurtainsWithBlackoutLining,
-  'velmor-velvet-drape-grommet': velmorVelvetDrapeGrommet,
-  'velmor-velvet-drape-soft-top': velmorVelvetDrapeSoftTop,
-  'velmor-velvet-drapes-pleated': velmorVelvetDrapesPleated,
-};
+const productOptionsList = [
+  aurielBeigeSheerCurtainsDrapesGrommet,
+  aurielBeigeSheerCurtainsDrapesPleated,
+  aurielScratchResistantPetFriendlySemiSheerCurtainsDrapesGrommet,
+  aurielSheerDrapesGrommet,
+  aurielSheerDrapesPleated,
+  aurielSheerDrapesSoftTop,
+  aurielThickSemiSheerPrivacyDrapesPleated,
+  breezaCottonBlendPleatedCafeCurtainsInfo,
+  breezaCottonBlendThermalLiningInsulationCurtainPinchPleatedDrapes,
+  breezaCottonCompleteBlackoutLiningCurtainPinchPleatedDrapes,
+  breezaCottonDrapeGrommet,
+  breezaCottonDrapePleated,
+  breezaCottonRomanShadeCordless,
+  breezaCottonDrapeSoftTop,
+  chevronCurtainsDrapesGrommet,
+  chevronCurtainsDrapesPleated,
+  chevronCurtainsDrapesSoftTop,
+  chevronHerringbonePatternLinenPleatedCafeCurtains,
+  chevronHerringboneWeaveLinenRomanShadeCordless,
+  chevronTexturedLinen100BlackoutLiningCurtainPleated,
+  chevronTexturedLinenThermalSoundProofCurtainPleated,
+  florenceBlackoutLiningCurtainsPinchPleatedDrapes,
+  florenceLinenBlendDrapeGrommet,
+  florenceLinenBlendDrapeSoftTop,
+  florenceLinenDrapesPleated,
+  florenceLinenPleatedCafeCurtains,
+  florenceThermalLiningInsulationCurtainPinchPleatedDrapes,
+  linenRomanShade,
+  siennaLinenPlaidStripedRomanShadeCordless,
+  siennaStripedPatternLinenBlendPleatedCafeCurtains,
+  siennaWindowpaneBandLinenBlendCurtainDraperyGrommet,
+  siennaWindowpaneBandLinenBlendCurtainDraperySoftTop,
+  siennaWindowpaneLinenBlendCurtainsPinchPleatBlackoutDrapes,
+  siennaWindowpaneLinenThermalCurtainsPinchPleatDrapes,
+  siennaWindowpaneStripedLinenBlendCurtainDraperyPleated,
+  velmorPleatedVelvetCurtainsWithBlackoutLining,
+  velmorVelvetDrapeGrommet,
+  velmorVelvetDrapeSoftTop,
+  velmorVelvetDrapesPleated,
+];
+
+export const productOptionsIndex = productOptionsList.reduce(
+  (index, productOptionsData) => {
+    const productHandle = productOptionsData?.handle?.toLowerCase();
+
+    if (!productHandle) {
+      throw new Error('Product options data is missing a handle');
+    }
+
+    if (index[productHandle]) {
+      throw new Error(`Duplicate product options handle: ${productHandle}`);
+    }
+
+    index[productHandle] = productOptionsData;
+    return index;
+  },
+  {},
+);

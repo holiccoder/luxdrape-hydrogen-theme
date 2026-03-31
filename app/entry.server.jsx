@@ -22,6 +22,13 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    // Add the imgSrc directive here:
+    imgSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://luxdrape.myshopify.com', // Your specific domain
+      'data:', // Highly recommended to allow base64 placeholders
+    ],
   });
 
   const body = await renderToReadableStream(

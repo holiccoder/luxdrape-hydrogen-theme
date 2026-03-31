@@ -1,6 +1,6 @@
 import {CartForm, Money} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
-import {Form, useFetcher} from 'react-router';
+import {Form} from 'react-router';
 
 /**
  * @param {CartSummaryProps}
@@ -12,7 +12,6 @@ export function CartSummary({cart, layout}) {
   const discountsHeadingId = useId();
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
-  const giftCardInputId = useId();
 
   return (
     <div aria-labelledby={summaryId} className={className}>
@@ -35,7 +34,6 @@ export function CartSummary({cart, layout}) {
       <CartGiftCard
         giftCardCodes={cart?.appliedGiftCards}
         giftCardHeadingId={giftCardHeadingId}
-        giftCardInputId={giftCardInputId}
       />
       <CartCheckoutActions cartId={cart?.id} checkoutUrl={cart?.checkoutUrl} />
     </div>
@@ -147,23 +145,12 @@ function UpdateDiscountForm({discountCodes, children}) {
  * @param {{
  *   giftCardCodes: CartApiQueryFragment['appliedGiftCards'] | undefined;
  *   giftCardHeadingId: string;
- *   giftCardInputId: string;
  * }}
  */
-function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
-  const giftCardCodeInput = useRef(null);
+function CartGiftCard({giftCardCodes, giftCardHeadingId}) {
   const removeButtonRefs = useRef(new Map());
   const previousCardIdsRef = useRef([]);
-  const giftCardAddFetcher = useFetcher({key: 'gift-card-add'});
   const [removedCardIndex, setRemovedCardIndex] = useState(null);
-
-  useEffect(() => {
-    if (giftCardAddFetcher.data) {
-      if (giftCardCodeInput.current !== null) {
-        giftCardCodeInput.current.value = '';
-      }
-    }
-  }, [giftCardAddFetcher.data]);
 
   useEffect(() => {
     const currentCardIds = giftCardCodes?.map((card) => card.id) || [];
@@ -180,8 +167,6 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
 
       if (focusButton) {
         focusButton.focus();
-      } else if (giftCardCodeInput.current) {
-        giftCardCodeInput.current.focus();
       }
 
       setRemovedCardIndex(null);
@@ -224,48 +209,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
           ))}
         </dl>
       )}
-
-      <AddGiftCardForm fetcherKey="gift-card-add">
-        <div>
-          <label htmlFor={giftCardInputId} className="sr-only">
-            Gift card code
-          </label>
-          <input
-            id={giftCardInputId}
-            type="text"
-            name="giftCardCode"
-            placeholder="Gift card code"
-            ref={giftCardCodeInput}
-          />
-          &nbsp;
-          <button
-            type="submit"
-            disabled={giftCardAddFetcher.state !== 'idle'}
-            aria-label="Apply gift card code"
-          >
-            Apply
-          </button>
-        </div>
-      </AddGiftCardForm>
     </section>
-  );
-}
-
-/**
- * @param {{
- *   fetcherKey?: string;
- *   children: React.ReactNode;
- * }}
- */
-function AddGiftCardForm({fetcherKey, children}) {
-  return (
-    <CartForm
-      fetcherKey={fetcherKey}
-      route="/cart"
-      action={CartForm.ACTIONS.GiftCardCodesAdd}
-    >
-      {children}
-    </CartForm>
   );
 }
 

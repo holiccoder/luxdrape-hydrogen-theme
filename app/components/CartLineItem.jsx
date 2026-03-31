@@ -1,4 +1,6 @@
 import {CartForm, Image} from '@shopify/hydrogen';
+import {Trash2Icon} from 'lucide-react';
+import {cloneElement, isValidElement} from 'react';
 import {useVariantUrl} from '~/lib/variants';
 import {Link} from 'react-router';
 import {ProductPrice} from './ProductPrice';
@@ -99,30 +101,32 @@ function CartLineQuantity({line}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="cart-line-quantity mt-3 flex items-center gap-1.5">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
+          className="flex h-8 min-w-8 items-center justify-center rounded-md border border-gray-200 bg-white px-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <span>&#8722; </span>
+          -
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      <div className="flex h-8 min-w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-2.5 text-sm font-semibold text-gray-900 shadow-sm">
+        {quantity}
+      </div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
           disabled={!!isOptimistic}
+          className="flex h-8 min-w-8 items-center justify-center rounded-md border border-gray-200 bg-white px-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <span>&#43;</span>
+          +
         </button>
       </CartLineUpdateButton>
-      &nbsp;
       <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
@@ -140,14 +144,21 @@ function CartLineQuantity({line}) {
 function CartLineRemoveButton({lineIds, disabled}) {
   return (
     <CartForm
-      fetcherKey={getUpdateKey(lineIds)}
+      fetcherKey={getCartActionKey(CartForm.ACTIONS.LinesRemove, lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
-        Remove
-      </button>
+      {(fetcher) => (
+        <button
+          aria-label="Remove item"
+          disabled={disabled || fetcher.state !== 'idle'}
+          type="submit"
+          className="ml-1 flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <Trash2Icon className="h-3.5 w-3.5" />
+        </button>
+      )}
     </CartForm>
   );
 }
@@ -163,12 +174,19 @@ function CartLineUpdateButton({children, lines}) {
 
   return (
     <CartForm
-      fetcherKey={getUpdateKey(lineIds)}
+      fetcherKey={getCartActionKey(CartForm.ACTIONS.LinesUpdate, lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
       inputs={{lines}}
     >
-      {children}
+      {(fetcher) => {
+        if (!isValidElement(children)) return children;
+
+        return cloneElement(children, {
+          disabled:
+            children.props.disabled || fetcher.state !== 'idle',
+        });
+      }}
     </CartForm>
   );
 }
@@ -178,10 +196,11 @@ function CartLineUpdateButton({children, lines}) {
  * items are not run concurrently, but cancel each other. For example, if the user clicks "Increase quantity"
  * and "Decrease quantity" in rapid succession, the actions will cancel each other and only the last one will run.
  * @returns
+ * @param {string} action - cart form action type
  * @param {string[]} lineIds - line ids affected by the update
  */
-function getUpdateKey(lineIds) {
-  return [CartForm.ACTIONS.LinesUpdate, ...lineIds].join('-');
+function getCartActionKey(action, lineIds) {
+  return [action, ...lineIds].join('-');
 }
 
 /** @typedef {OptimisticCartLine<CartApiQueryFragment>} CartLine */
@@ -192,3 +211,4 @@ function getUpdateKey(lineIds) {
 /** @typedef {import('@shopify/hydrogen').OptimisticCartLine} OptimisticCartLine */
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
 /** @typedef {import('storefrontapi.generated').CartLineFragment} CartLineFragment */
+

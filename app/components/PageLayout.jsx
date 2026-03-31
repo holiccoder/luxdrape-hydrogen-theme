@@ -1,5 +1,5 @@
-import {Await, Link} from 'react-router';
-import {Suspense, useId} from 'react';
+import {Link} from 'react-router';
+import {useId} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header} from '~/components/Header';
@@ -43,13 +43,7 @@ export function PageLayout({
 function CartAside({cart}) {
   return (
     <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
+      <CartMain cart={cart} layout="aside" />
     </Aside>
   );
 }
@@ -59,11 +53,11 @@ function SearchAside() {
   return (
     <Aside type="search" heading="SEARCH">
       <div className="predictive-search">
-        <br />
         <SearchFormPredictive>
           {({fetchResults, goToSearch, inputRef}) => (
-            <>
+            <div className="predictive-search-toolbar">
               <input
+                className="predictive-search-input"
                 name="q"
                 onChange={fetchResults}
                 onFocus={fetchResults}
@@ -72,9 +66,14 @@ function SearchAside() {
                 type="search"
                 list={queriesDatalistId}
               />
-              &nbsp;
-              <button onClick={goToSearch}>Search</button>
-            </>
+              <button
+                className="predictive-search-button"
+                onClick={goToSearch}
+                type="button"
+              >
+                Search
+              </button>
+            </div>
           )}
         </SearchFormPredictive>
 
@@ -83,7 +82,7 @@ function SearchAside() {
             const {articles, collections, pages, products, queries} = items;
 
             if (state === 'loading' && term.current) {
-              return <div>Loading...</div>;
+              return <div className="predictive-search-loading">Loading...</div>;
             }
 
             if (!total) {
@@ -118,10 +117,11 @@ function SearchAside() {
                 />
                 {term.current && total ? (
                   <Link
+                    className="predictive-search-view-all"
                     onClick={closeSearch}
                     to={`${SEARCH_ENDPOINT}?q=${term.current}`}
                   >
-                    <p>
+                    <p className="predictive-search-view-all-text">
                       View all results for <q>{term.current}</q>
                       &nbsp; →
                     </p>

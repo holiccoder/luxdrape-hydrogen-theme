@@ -2,7 +2,11 @@ import {useLoaderData} from 'react-router';
 import {getSelectedProductOptions} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import DefaultProductTemplate from '~/components/product-detail-page-templates/default';
+import ShadesTemplate from '~/components/product-detail-page-templates/shades-template';
+import HardwareTemplate from '~/components/product-detail-page-templates/hardware-template';
+import BookletTemplate from '~/components/product-detail-page-templates/booklet-template';
 import {productOptionsIndex} from '~/data/product-options/index.js';
+import bambooProductOptions from '~/data/product-options/bamboo/bamboo.json';
 
 /**
  * @type {Route.MetaFunction}
@@ -49,9 +53,13 @@ async function loadCriticalData({context, params, request}) {
 
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
-  const handleLower = handle.toLowerCase();
-  const productOptions =
-    productOptionsIndex[handleLower] || productOptionsIndex[handle] || null;
+  const productHandle = product?.handle?.toLowerCase() || handle.toLowerCase();
+  const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle === 'woven-wood-shades',
+  );
+  const productOptions = isWovenWoodShadesProduct
+    ? bambooProductOptions
+    : productOptionsIndex[productHandle] || null;
 
   return {
     product,
@@ -69,9 +77,23 @@ function loadDeferredData() {
 export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, productOptions} = useLoaderData();
+  const productHandle = product?.handle?.toLowerCase() || '';
+  const isBookletProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'fabric-booklets',
+  );
+  const isHardwareProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'hardware',
+  );
+  const ProductTemplate = isBookletProduct
+    ? BookletTemplate
+    : isHardwareProduct
+      ? HardwareTemplate
+      : productHandle.includes('shade')
+        ? ShadesTemplate
+        : DefaultProductTemplate;
 
   return (
-    <DefaultProductTemplate
+    <ProductTemplate
       product={product}
       productOptionsData={productOptions}
     />
@@ -132,6 +154,11 @@ const PRODUCT_FRAGMENT = `#graphql
         altText
         width
         height
+      }
+    }
+    collections(first: 20) {
+      nodes {
+        handle
       }
     }
     options {

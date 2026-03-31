@@ -2,6 +2,8 @@ import {useLoaderData, data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 
+const CART_MUTATION_RETRY_DELAYS_MS = [150, 350, 700];
+
 /**
  * @type {Route.MetaFunction}
  */
@@ -33,13 +35,17 @@ export async function action({request, context}) {
 
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
-      result = await cart.addLines(inputs.lines);
+      result = await runCartMutationWithRetry(() => cart.addLines(inputs.lines));
       break;
     case CartForm.ACTIONS.LinesUpdate:
-      result = await cart.updateLines(inputs.lines);
+      result = await runCartMutationWithRetry(() =>
+        cart.updateLines(inputs.lines),
+      );
       break;
     case CartForm.ACTIONS.LinesRemove:
-      result = await cart.removeLines(inputs.lineIds);
+      result = await runCartMutationWithRetry(() =>
+        cart.removeLines(inputs.lineIds),
+      );
       break;
     case CartForm.ACTIONS.DiscountCodesUpdate: {
       const formDiscountCode = inputs.discountCode;
@@ -50,7 +56,9 @@ export async function action({request, context}) {
       // Combine discount codes already applied on cart
       discountCodes.push(...inputs.discountCodes);
 
-      result = await cart.updateDiscountCodes(discountCodes);
+      result = await runCartMutationWithRetry(() =>
+        cart.updateDiscountCodes(discountCodes),
+      );
       break;
     }
     case CartForm.ACTIONS.GiftCardCodesAdd: {
@@ -58,18 +66,24 @@ export async function action({request, context}) {
 
       const giftCardCodes = formGiftCardCode ? [formGiftCardCode] : [];
 
-      result = await cart.addGiftCardCodes(giftCardCodes);
+      result = await runCartMutationWithRetry(() =>
+        cart.addGiftCardCodes(giftCardCodes),
+      );
       break;
     }
     case CartForm.ACTIONS.GiftCardCodesRemove: {
       const appliedGiftCardIds = inputs.giftCardCodes;
-      result = await cart.removeGiftCardCodes(appliedGiftCardIds);
+      result = await runCartMutationWithRetry(() =>
+        cart.removeGiftCardCodes(appliedGiftCardIds),
+      );
       break;
     }
     case CartForm.ACTIONS.BuyerIdentityUpdate: {
-      result = await cart.updateBuyerIdentity({
-        ...inputs.buyerIdentity,
-      });
+      result = await runCartMutationWithRetry(() =>
+        cart.updateBuyerIdentity({
+          ...inputs.buyerIdentity,
+        }),
+      );
       break;
     }
     default:
@@ -107,13 +121,47 @@ export async function loader({context}) {
   return await cart.get();
 }
 
+async function runCartMutationWithRetry(mutation) {
+  for (let attempt = 0; attempt <= CART_MUTATION_RETRY_DELAYS_MS.length; attempt++) {
+    try {
+      return await mutation();
+    } catch (error) {
+      if (
+        attempt === CART_MUTATION_RETRY_DELAYS_MS.length ||
+        !isThrottleError(error)
+      ) {
+        throw error;
+      }
+
+      await wait(CART_MUTATION_RETRY_DELAYS_MS[attempt]);
+    }
+  }
+}
+
+function isThrottleError(error) {
+  if (!error) return false;
+
+  const message =
+    typeof error === 'string'
+      ? error
+      : error instanceof Error
+        ? error.message
+        : JSON.stringify(error);
+
+  return /throttled/i.test(message);
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Cart() {
   /** @type {LoaderReturnData} */
   const cart = useLoaderData();
 
   return (
-    <div className="cart">
-      <h1>Cart</h1>
+    <div className="cart cart-page">
+      <h1 className="cart-page-title">Your Cart</h1>
       <CartMain layout="page" cart={cart} />
     </div>
   );

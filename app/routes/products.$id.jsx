@@ -36,6 +36,11 @@ import {
   CalculatorIcon,
 } from 'lucide-react';
 
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 export function meta() {
   return [{title: 'Classic Roman Shades | LuxDrape'}];
 }
@@ -410,7 +415,7 @@ export default function ProductDetailPage() {
     const sizeMultiplier = (widthValue * heightValue) / (36 * 48);
     const unitPrice =
       (basePrice + liningPrice + liftPrice) * Math.max(sizeMultiplier, 0.7);
-    return Math.round(unitPrice * quantity);
+    return Number((unitPrice * quantity).toFixed(2));
   }, [selectedLining, selectedLift, width, height, quantity]);
 
   const handleAddToCart = () => {
@@ -563,7 +568,7 @@ export default function ProductDetailPage() {
             <div className="space-y-3">
               <div className="flex items-baseline gap-3">
                 <span className="text-4xl font-bold text-foreground">
-                  ${totalPrice}
+                  {currencyFormatter.format(totalPrice)}
                 </span>
                 <span className="text-lg text-muted-foreground">
                   for {width}&quot; x {height}&quot;
@@ -813,7 +818,7 @@ export default function ProductDetailPage() {
                 className="flex-1 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-base font-medium"
                 onClick={handleAddToCart}
               >
-                Add to Cart - ${totalPrice}
+                Add to Cart - {currencyFormatter.format(totalPrice)}
               </Button>
               <Button
                 size="lg"
