@@ -145,7 +145,6 @@ export function BlogPage() {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="w-full bg-[hsl(220_25%_95%)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="text-center max-w-3xl mx-auto">
@@ -160,7 +159,6 @@ export function BlogPage() {
               about custom window treatments.
             </p>
 
-            {/* Search */}
             <div className="relative max-w-xl mx-auto">
               <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
@@ -175,7 +173,6 @@ export function BlogPage() {
         </div>
       </section>
 
-      {/* Category Filter */}
       <section className="w-full border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-wrap gap-2 justify-center">
@@ -200,7 +197,6 @@ export function BlogPage() {
         </div>
       </section>
 
-      {/* Featured Posts */}
       {activeCategory === 'all' && searchQuery === '' && (
         <section className="w-full bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -253,7 +249,6 @@ export function BlogPage() {
         </section>
       )}
 
-      {/* All Posts Grid */}
       <section className="w-full bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex items-center justify-between mb-8">
@@ -320,7 +315,6 @@ export function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
       <section className="w-full bg-[hsl(220_25%_25%)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-2xl mx-auto text-center">

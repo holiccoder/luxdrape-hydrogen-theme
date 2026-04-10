@@ -7,12 +7,14 @@ import {useAside} from './Aside';
  *   productOptions: MappedProductOptions[];
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  *   lineAttributes?: {key: string; value: string}[];
+ *   quantity?: number;
  * }}
  */
 export function ProductForm({
   productOptions,
   selectedVariant,
   lineAttributes = [],
+  quantity = 1,
 }) {
   const navigate = useNavigate();
   const {open} = useAside();
@@ -112,7 +114,7 @@ export function ProductForm({
             ? [
                 {
                   merchandiseId: selectedVariant.id,
-                  quantity: 1,
+                  quantity,
                   attributes: lineAttributes,
                   selectedVariant,
                 },

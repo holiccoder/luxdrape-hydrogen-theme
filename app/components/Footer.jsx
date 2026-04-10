@@ -1,6 +1,6 @@
 import {Link} from 'react-router';
 
-export function Footer({footer, header, publicStoreDomain}) {
+export function Footer({header}) {
   return (
     <footer className="border-t bg-muted/40">
       <div className="w-[95%] max-w-[1600px] mx-auto py-12 md:py-16">
@@ -17,13 +17,13 @@ export function Footer({footer, header, publicStoreDomain}) {
             <h4 className="font-medium mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link to="/shop" className="hover:text-foreground">
+                <Link to="/collections/all" className="hover:text-foreground">
                   All Products
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/shop?category=curtains"
+                  to="/collections/custom-drapes"
                   className="hover:text-foreground"
                 >
                   Curtains
@@ -31,7 +31,7 @@ export function Footer({footer, header, publicStoreDomain}) {
               </li>
               <li>
                 <Link
-                  to="/shop?category=shades"
+                  to="/collections/custom-shades"
                   className="hover:text-foreground"
                 >
                   Shades
@@ -43,13 +43,16 @@ export function Footer({footer, header, publicStoreDomain}) {
             <h4 className="font-medium mb-4">Help</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link to="/guides/measure" className="hover:text-foreground">
+                <Link
+                  to="/pages/measurement-support"
+                  className="hover:text-foreground"
+                >
                   How to Measure
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/guides/installation"
+                  to="/pages/installation-guide"
                   className="hover:text-foreground"
                 >
                   Installation
@@ -71,7 +74,7 @@ export function Footer({footer, header, publicStoreDomain}) {
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="hover:text-foreground">
+                <Link to="/blogs/news" className="hover:text-foreground">
                   Blog
                 </Link>
               </li>

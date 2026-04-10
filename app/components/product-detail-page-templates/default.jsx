@@ -698,8 +698,10 @@ const ProductDetailPage = ({product, productOptionsData}) => {
         ? {key: 'memory_shaping', value: memoryShapingValue}
         : null,
       trimmedRoomLabel ? {key: 'room_label', value: trimmedRoomLabel} : null,
+      {key: 'custom_price', value: displayedUnitPrice.toFixed(2)},
     ].filter(Boolean);
   }, [
+    displayedUnitPrice,
     roomLabel,
     selectedDisplayHeightOption,
     selectedDisplayWidthOption,
@@ -1381,6 +1383,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 <ProductForm
                   lineAttributes={lineAttributes}
                   productOptions={productOptions}
+                  quantity={quantity}
                   selectedVariant={selectedVariant}
                 />
               </div>

@@ -19,17 +19,21 @@ export function PaginatedResourceSection({
 
         return (
           <div>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
+            <div className="paginated-resource-section__controls paginated-resource-section__controls--top">
+              <PreviousLink className="paginated-resource-section__button">
+                {isLoading ? 'Loading...' : <span>Load previous</span>}
+              </PreviousLink>
+            </div>
             {resourcesClassName ? (
               <div className={resourcesClassName}>{resourcesMarkup}</div>
             ) : (
               resourcesMarkup
             )}
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
+            <div className="paginated-resource-section__controls paginated-resource-section__controls--bottom">
+              <NextLink className="paginated-resource-section__button">
+                {isLoading ? 'Loading...' : <span>Load more</span>}
+              </NextLink>
+            </div>
           </div>
         );
       }}

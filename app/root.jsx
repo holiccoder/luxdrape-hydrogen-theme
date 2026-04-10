@@ -8,11 +8,14 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
+  Link,
 } from 'react-router';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
+import {Button} from './components/ui/button';
+import {Badge} from './components/ui/badge';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -184,6 +187,8 @@ export default function App() {
 }
 
 export function ErrorBoundary() {
+  /** @type {RootLoader | undefined} */
+  const data = useRouteLoaderData('root');
   const error = useRouteError();
   let errorMessage = 'Unknown error';
   let errorStatus = 500;
@@ -195,16 +200,112 @@ export function ErrorBoundary() {
     errorMessage = error.message;
   }
 
+  const content =
+    errorStatus === 404 ? (
+      <NotFoundPage />
+    ) : (
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl rounded-2xl bg-background border border-border p-8 md:p-10 shadow-sm">
+            <Badge className="mb-4 bg-[hsl(220_25%_25%)] text-white border-0 hover:bg-[hsl(220_25%_25%)]">
+              Error
+            </Badge>
+            <h1 className="font-serif text-4xl md:text-5xl font-semibold text-foreground mb-4">
+              Something went wrong
+            </h1>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              We hit an unexpected error while loading this page.
+            </p>
+            {errorMessage ? (
+              <pre className="overflow-x-auto rounded-xl bg-muted p-4 text-sm text-muted-foreground mb-6">
+                {errorMessage}
+              </pre>
+            ) : null}
+            <Button asChild size="lg" className="bg-[hsl(220_25%_25%)] text-white hover:bg-[hsl(220_25%_20%)]">
+              <Link to="/">Back to Home</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+
+  if (!data) {
+    return content;
+  }
+
   return (
-    <div className="route-error">
-      <h1>Oops</h1>
-      <h2>{errorStatus}</h2>
-      {errorMessage && (
-        <fieldset>
-          <pre>{errorMessage}</pre>
-        </fieldset>
-      )}
-    </div>
+    <PageLayout {...data}>
+      {content}
+    </PageLayout>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <section className="py-16 md:py-24 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_420px] items-center">
+          <div className="max-w-2xl">
+            <Badge className="mb-4 bg-[hsl(220_25%_25%)] text-white border-0 hover:bg-[hsl(220_25%_25%)]">
+              404
+            </Badge>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-4">
+              This page was not found
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+              The link may be outdated, the page may have moved, or the URL may be
+              incorrect. Start from one of the main collection paths below.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <Button asChild size="lg" className="bg-[hsl(220_25%_25%)] text-white hover:bg-[hsl(220_25%_20%)]">
+                <Link to="/">Back to Home</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-[hsl(220_25%_25%)] bg-transparent text-[hsl(220_25%_25%)] hover:bg-[hsl(220_25%_25%)] hover:text-white">
+                <Link to="/collections">Browse Collections</Link>
+              </Button>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-4">
+              <Link
+                to="/collections"
+                className="rounded-2xl border border-border bg-background p-5 transition-colors hover:border-[hsl(220_25%_25%)]"
+              >
+                <div className="text-sm text-muted-foreground mb-2">Explore</div>
+                <div className="font-medium text-foreground">Collections</div>
+              </Link>
+              <Link
+                to="/collections/all"
+                className="rounded-2xl border border-border bg-background p-5 transition-colors hover:border-[hsl(220_25%_25%)]"
+              >
+                <div className="text-sm text-muted-foreground mb-2">View all</div>
+                <div className="font-medium text-foreground">Products</div>
+              </Link>
+              <Link
+                to="/buying-guide"
+                className="rounded-2xl border border-border bg-background p-5 transition-colors hover:border-[hsl(220_25%_25%)]"
+              >
+                <div className="text-sm text-muted-foreground mb-2">Need help</div>
+                <div className="font-medium text-foreground">Buying Guide</div>
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] overflow-hidden bg-[hsl(220_25%_25%)] text-white p-8 md:p-10 shadow-sm">
+            <div className="text-[5rem] md:text-[7rem] font-serif leading-none mb-4">
+              404
+            </div>
+            <p className="text-white/80 leading-relaxed mb-8">
+              Keep browsing custom drapery, shades, and fabric booklets from the
+              main storefront sections.
+            </p>
+            <div className="space-y-3">
+              <div className="rounded-xl bg-white/10 px-4 py-3">Custom curtains and drapes</div>
+              <div className="rounded-xl bg-white/10 px-4 py-3">Room and fabric collections</div>
+              <div className="rounded-xl bg-white/10 px-4 py-3">Swatches and fabric booklets</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

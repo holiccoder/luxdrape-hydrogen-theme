@@ -1,6 +1,7 @@
 import {useLoaderData, Link} from 'react-router';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {Badge} from '~/components/ui/badge';
 
 /**
  * @param {Route.LoaderArgs} args
@@ -22,7 +23,7 @@ export async function loader(args) {
  */
 async function loadCriticalData({context, request}) {
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
+    pageBy: 20,
   });
 
   const [{collections}] = await Promise.all([
@@ -50,20 +51,36 @@ export default function Collections() {
   const {collections} = useLoaderData();
 
   return (
-    <div className="collections">
-      <h1>Collections</h1>
-      <PaginatedResourceSection
-        connection={collections}
-        resourcesClassName="collections-grid"
-      >
-        {({node: collection, index}) => (
-          <CollectionItem
-            key={collection.id}
-            collection={collection}
-            index={index}
-          />
-        )}
-      </PaginatedResourceSection>
+    <div className="bg-background">
+      <section className="py-16 md:py-20 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <Badge className="mb-4 bg-[hsl(220_25%_25%)] text-white border-0 hover:bg-[hsl(220_25%_25%)]">
+              Collections
+            </Badge>
+            <h1 className="font-serif text-4xl md:text-5xl font-semibold mb-4">
+              Shop by Collection
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              Explore curated fabric stories, materials, and room-ready looks in a
+              layout that matches the rest of the collection experience.
+            </p>
+          </div>
+
+          <PaginatedResourceSection
+            connection={collections}
+            resourcesClassName="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10"
+          >
+            {({node: collection, index}) => (
+              <CollectionItem
+                key={collection.id}
+                collection={collection}
+                index={index}
+              />
+            )}
+          </PaginatedResourceSection>
+        </div>
+      </section>
     </div>
   );
 }
@@ -77,21 +94,32 @@ export default function Collections() {
 function CollectionItem({collection, index}) {
   return (
     <Link
-      className="collection-item"
+      className="group cursor-pointer"
       key={collection.id}
       to={`/collections/${collection.handle}`}
       prefetch="intent"
     >
-      {collection?.image && (
-        <Image
-          alt={collection.image.altText || collection.title}
-          aspectRatio="1/1"
-          data={collection.image}
-          loading={index < 3 ? 'eager' : undefined}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h5>{collection.title}</h5>
+      <div className="relative aspect-[3/4] overflow-hidden bg-muted mb-4">
+        {collection?.image ? (
+          <Image
+            alt={collection.image.altText || collection.title}
+            data={collection.image}
+            loading={index < 3 ? 'eager' : undefined}
+            sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-muted" />
+        )}
+      </div>
+      <div className="space-y-2">
+        <h2 className="font-medium text-lg text-foreground transition-colors group-hover:text-[hsl(220_25%_25%)]">
+          {collection.title}
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Browse handcrafted styles tailored to this collection.
+        </p>
+      </div>
     </Link>
   );
 }

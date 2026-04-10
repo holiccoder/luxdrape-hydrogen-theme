@@ -133,6 +133,16 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      mobileBannerUrl: metafield(namespace: "custom", key: "mobile_banner_url") {
+        value
+      }
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
       products(
         first: $first,
         last: $last,

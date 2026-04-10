@@ -1,7 +1,16 @@
 {
   "hero": {
     "title": "Installation Guide",
-    "subtitle": "Professional results with DIY simplicity. Follow our step-by-step instructions for a perfect installation every time."
+    "subtitle": "Professional results with DIY simplicity. Follow our step-by-step instructions for a perfect installation every time.",
+    "startCtaLabel": "Start Installation",
+    "measureCtaLabel": "Measuring Guide"
+  },
+  "installMethodsSection": {
+    "title": "Choose Your Mount Type",
+    "subtitle": "Select the installation method that works best for your windows and style preferences.",
+    "prosLabel": "Pros",
+    "consLabel": "Considerations",
+    "selectedLabel": "Selected"
   },
   "installMethods": [
     {
@@ -21,6 +30,13 @@
       "image": "https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda"
     }
   ],
+  "toolsSection": {
+    "title": "Tools You'll Need",
+    "subtitle": "Gather these tools before you begin. Most are common household items.",
+    "requiredLabel": "Required",
+    "proTipTitle": "Pro Tip",
+    "downloadCtaLabel": "Download Template"
+  },
   "toolsList": [
     { "name": "Power Drill", "essential": true },
     { "name": "Phillips Head Screwdriver", "essential": true },
@@ -51,5 +67,57 @@
       "thumbnail": "https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda"
     }
   ],
+  "videoTutorialsSection": {
+    "title": "Video Tutorials",
+    "subtitle": "Watch our detailed video guides for visual step-by-step instructions."
+  },
+  "stepByStepSection": {
+    "title": "Step-by-Step Instructions",
+    "subtitle": "Follow these {count} simple steps for a professional installation.",
+    "proTipLabel": "Pro Tip",
+    "previousLabel": "Previous",
+    "nextLabel": "Next Step",
+    "steps": [
+      {
+        "title": "Prepare Your Space",
+        "content": "Clear the area around your window. Lay down a drop cloth if needed. Have all your tools within reach. Remove any existing window treatments.",
+        "tip": "Take photos of your window before starting for reference."
+      },
+      {
+        "title": "Mark Your Bracket Positions",
+        "contentByMethod": {
+          "inside": "Hold the bracket inside the window frame, about 2-3 inches from each side. Mark the screw holes with a pencil. Ensure brackets are level.",
+          "outside": "Measure and mark 2-3 inches above the window frame. Extend 3-4 inches beyond the window width on each side for optimal coverage. Use a level to ensure straight placement."
+        },
+        "tip": "For wide windows, add a center bracket for extra support."
+      },
+      {
+        "title": "Pre-Drill Holes",
+        "content": "Using a drill bit slightly smaller than your screws, pre-drill holes at your marked positions. If not drilling into a stud, insert drywall anchors.",
+        "tip": "Start with a smaller drill bit and work up to avoid splitting the wood."
+      },
+      {
+        "title": "Mount the Brackets",
+        "content": "Attach the brackets using the provided screws. Ensure they are secure and level. Double-check alignment before fully tightening.",
+        "tip": "Do not overtighten - stop when the bracket is snug against the surface."
+      },
+      {
+        "title": "Install the Shade/Curtain",
+        "content": "Carefully align the shade or curtain rod with the mounted brackets. For roller shades, insert the pin end first, then snap the control end into place.",
+        "tip": "Have a helper hold the shade steady while you secure it."
+      },
+      {
+        "title": "Test and Adjust",
+        "content": "Operate your shade or curtain several times to ensure smooth movement. Check that it hangs level and straight. Make any necessary adjustments to the brackets.",
+        "tip": "If the shade binds, loosen the brackets slightly and reposition."
+      }
+    ]
+  },
+  "needHelpSection": {
+    "title": "Need Help?",
+    "subtitle": "Our installation experts are here to assist. Schedule a free video consultation or visit our help center for more resources.",
+    "contactCtaLabel": "Contact Support",
+    "faqCtaLabel": "View FAQs"
+  },
   "proTip": "Always double-check your measurements before drilling. It's easier to adjust a pencil mark than to fill unnecessary holes. If you're unsure, order our installation template for perfect bracket placement every time."
 }

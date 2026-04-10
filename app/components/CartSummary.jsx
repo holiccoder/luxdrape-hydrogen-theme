@@ -12,15 +12,17 @@ export function CartSummary({cart, layout}) {
   const discountsHeadingId = useId();
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
+  const subtotal = getDisplayedSubtotal(cart);
+  const subtotalCurrencyCode = cart?.cost?.subtotalAmount?.currencyCode || 'USD';
 
   return (
     <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>Totals</h4>
+      {layout === 'page' ? <h4 id={summaryId}>Totals</h4> : null}
       <dl role="group" className="cart-subtotal">
         <dt>Subtotal</dt>
         <dd>
-          {cart?.cost?.subtotalAmount?.amount ? (
-            <Money data={cart?.cost?.subtotalAmount} />
+          {subtotal !== null ? (
+            formatCurrency(subtotal, subtotalCurrencyCode)
           ) : (
             '-'
           )}
@@ -249,6 +251,35 @@ function RemoveGiftCardForm({
       </button>
     </CartForm>
   );
+}
+
+function getDisplayedSubtotal(cart) {
+  const lines = cart?.lines?.nodes || [];
+
+  if (!lines.length) {
+    return null;
+  }
+
+  return lines.reduce((sum, line) => {
+    const customPriceAttribute = (line?.attributes || []).find(
+      (attribute) => attribute?.key === 'custom_price' && attribute?.value,
+    );
+    const customUnitPrice = Number(customPriceAttribute?.value);
+
+    if (Number.isFinite(customUnitPrice) && customUnitPrice > 0) {
+      return sum + customUnitPrice * (line?.quantity || 0);
+    }
+
+    const lineTotal = Number(line?.cost?.totalAmount?.amount || 0);
+    return sum + lineTotal;
+  }, 0);
+}
+
+function formatCurrency(amount, currencyCode = 'USD') {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currencyCode,
+  }).format(amount);
 }
 
 /**

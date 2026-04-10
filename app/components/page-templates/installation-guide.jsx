@@ -31,7 +31,7 @@ function HeroSection({onStartClick, onMeasureClick}) {
               className="bg-white text-[hsl(220_25%_25%)] hover:bg-white/90"
               onClick={onStartClick}
             >
-              Start Installation
+              {installGuideData.hero.startCtaLabel}
               <ArrowRightIcon className="h-4 w-4 ml-2" />
             </Button>
             <Button
@@ -40,7 +40,7 @@ function HeroSection({onStartClick, onMeasureClick}) {
               onClick={onMeasureClick}
             >
               <RulerIcon className="h-4 w-4 mr-2" />
-              Measuring Guide
+              {installGuideData.hero.measureCtaLabel}
             </Button>
           </div>
         </div>
@@ -55,11 +55,10 @@ function InstallMethodsSection({selectedMethod, setSelectedMethod}) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
-            Choose Your Mount Type
+            {installGuideData.installMethodsSection.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Select the installation method that works best for your windows and
-            style preferences.
+            {installGuideData.installMethodsSection.subtitle}
           </p>
         </div>
 
@@ -97,7 +96,7 @@ function InstallMethodsSection({selectedMethod, setSelectedMethod}) {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <h4 className="text-sm font-medium text-[hsl(220_25%_35%)] mb-2">
-                      Pros
+                      {installGuideData.installMethodsSection.prosLabel}
                     </h4>
                     <ul className="space-y-1">
                       {method.pros.map((pro, i) => (
@@ -113,7 +112,7 @@ function InstallMethodsSection({selectedMethod, setSelectedMethod}) {
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                      Considerations
+                      {installGuideData.installMethodsSection.consLabel}
                     </h4>
                     <ul className="space-y-1">
                       {method.cons.map((con, i) => (
@@ -144,11 +143,10 @@ function ToolsSection() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-3xl font-semibold mb-4">
-              Tools You'll Need
+              {installGuideData.toolsSection.title}
             </h2>
             <p className="text-muted-foreground mb-8">
-              Gather these tools before you begin. Most are common household
-              items.
+              {installGuideData.toolsSection.subtitle}
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -162,7 +160,7 @@ function ToolsSection() {
                     <span className="text-sm font-medium">{tool.name}</span>
                     {tool.essential && (
                       <span className="text-xs text-[hsl(220_25%_35%)] ml-2">
-                        Required
+                        {installGuideData.toolsSection.requiredLabel}
                       </span>
                     )}
                   </div>
@@ -172,14 +170,16 @@ function ToolsSection() {
           </div>
 
           <div className="bg-[hsl(220_25%_25%)] p-8 text-white">
-            <h3 className="font-semibold text-xl mb-4">Pro Tip</h3>
+            <h3 className="font-semibold text-xl mb-4">
+              {installGuideData.toolsSection.proTipTitle}
+            </h3>
             <p className="text-white/80 mb-6">{installGuideData.proTip}</p>
             <Button
               variant="secondary"
               className="bg-white text-[hsl(220_25%_25%)] hover:bg-white/90"
             >
               <DownloadIcon className="h-4 w-4 mr-2" />
-              Download Template
+              {installGuideData.toolsSection.downloadCtaLabel}
             </Button>
           </div>
         </div>
@@ -194,11 +194,10 @@ function VideoTutorialsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
-            Video Tutorials
+            {installGuideData.videoTutorialsSection.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Watch our detailed video guides for visual step-by-step
-            instructions.
+            {installGuideData.videoTutorialsSection.subtitle}
           </p>
         </div>
 
@@ -238,62 +237,26 @@ function VideoTutorialsSection() {
 
 function StepByStepSection({selectedMethod}) {
   const [activeStep, setActiveStep] = useState(0);
-
-  const steps = [
-    {
-      title: 'Prepare Your Space',
-      content:
-        'Clear the area around your window. Lay down a drop cloth if needed. Have all your tools within reach. Remove any existing window treatments.',
-      tip: 'Take photos of your window before starting for reference.',
-    },
-    {
-      title: 'Mark Your Bracket Positions',
-      content:
-        selectedMethod === 'inside'
-          ? 'Hold the bracket inside the window frame, about 2-3 inches from each side. Mark the screw holes with a pencil. Ensure brackets are level.'
-          : 'Measure and mark 2-3 inches above the window frame. Extend 3-4 inches beyond the window width on each side for optimal coverage. Use a level to ensure straight placement.',
-      tip: 'For wide windows, add a center bracket for extra support.',
-    },
-    {
-      title: 'Pre-Drill Holes',
-      content:
-        'Using a drill bit slightly smaller than your screws, pre-drill holes at your marked positions. If not drilling into a stud, insert drywall anchors.',
-      tip: 'Start with a smaller drill bit and work up to avoid splitting the wood.',
-    },
-    {
-      title: 'Mount the Brackets',
-      content:
-        'Attach the brackets using the provided screws. Ensure they are secure and level. Double-check alignment before fully tightening.',
-      tip: 'Do not overtighten - stop when the bracket is snug against the surface.',
-    },
-    {
-      title: 'Install the Shade/Curtain',
-      content:
-        'Carefully align the shade or curtain rod with the mounted brackets. For roller shades, insert the pin end first, then snap the control end into place.',
-      tip: 'Have a helper hold the shade steady while you secure it.',
-    },
-    {
-      title: 'Test and Adjust',
-      content:
-        'Operate your shade or curtain several times to ensure smooth movement. Check that it hangs level and straight. Make any necessary adjustments to the brackets.',
-      tip: 'If the shade binds, loosen the brackets slightly and reposition.',
-    },
-  ];
-
-  const scrollToSteps = () => {
-    document.getElementById('steps')?.scrollIntoView({behavior: 'smooth'});
-  };
+  const steps = installGuideData.stepByStepSection.steps.map((step) => ({
+    ...step,
+    content:
+      step.contentByMethod?.[selectedMethod] ||
+      step.contentByMethod?.inside ||
+      step.content,
+  }));
 
   return (
     <section id="steps" className="w-full py-16 md:py-24 bg-muted/30">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
-            Step-by-Step Instructions
+            {installGuideData.stepByStepSection.title}
           </h2>
           <p className="text-muted-foreground">
-            Follow these {steps.length} simple steps for a professional
-            installation.
+            {installGuideData.stepByStepSection.subtitle.replace(
+              '{count}',
+              String(steps.length),
+            )}
           </p>
         </div>
 
@@ -340,7 +303,9 @@ function StepByStepSection({selectedMethod}) {
 
           <div className="bg-[hsl(220_25%_95%)] p-4 border-l-4 border-[hsl(220_25%_35%)]">
             <p className="text-sm text-[hsl(220_25%_25%)]">
-              <span className="font-semibold">Pro Tip: </span>
+              <span className="font-semibold">
+                {installGuideData.stepByStepSection.proTipLabel}:{' '}
+              </span>
               {steps[activeStep].tip}
             </p>
           </div>
@@ -354,7 +319,7 @@ function StepByStepSection({selectedMethod}) {
             disabled={activeStep === 0}
           >
             <ChevronLeftIcon className="h-4 w-4 mr-2" />
-            Previous
+            {installGuideData.stepByStepSection.previousLabel}
           </Button>
           <Button
             onClick={() =>
@@ -363,7 +328,7 @@ function StepByStepSection({selectedMethod}) {
             disabled={activeStep === steps.length - 1}
             className="bg-[hsl(220_25%_35%)]"
           >
-            Next Step
+            {installGuideData.stepByStepSection.nextLabel}
             <ChevronRightIcon className="h-4 w-4 ml-2" />
           </Button>
         </div>
@@ -377,11 +342,10 @@ function NeedHelpSection({onContactClick, onFaqClick}) {
     <section className="w-full py-16 bg-[hsl(220_25%_25%)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="font-serif text-3xl font-semibold text-white mb-4">
-          Need Help?
+          {installGuideData.needHelpSection.title}
         </h2>
         <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-          Our installation experts are here to assist. Schedule a free video
-          consultation or visit our help center for more resources.
+          {installGuideData.needHelpSection.subtitle}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Button
@@ -389,14 +353,14 @@ function NeedHelpSection({onContactClick, onFaqClick}) {
             className="bg-white text-[hsl(220_25%_25%)] hover:bg-white/90"
             onClick={onContactClick}
           >
-            Contact Support
+            {installGuideData.needHelpSection.contactCtaLabel}
           </Button>
           <Button
             variant="outline"
             className="border-white text-white hover:bg-white/10"
             onClick={onFaqClick}
           >
-            View FAQs
+            {installGuideData.needHelpSection.faqCtaLabel}
           </Button>
         </div>
       </div>

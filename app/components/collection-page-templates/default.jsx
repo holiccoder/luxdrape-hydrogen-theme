@@ -257,37 +257,20 @@ function getProductPrice(product) {
   );
 }
 
-function ProductCard({product, onQuickView}) {
+function ProductCard({product}) {
   const navigate = useNavigate();
-  const {addToCart} = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const productImage = getProductImage(product);
   const productPrice = getProductPrice(product);
   const productColors = product.colors || [];
   const [selectedColor, setSelectedColor] = useState(productColors[0] || null);
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: `${product.id}-${Date.now()}`,
-      productId: product.id,
-      productName: product.name,
-      fabric: product.material || 'Standard',
-      dimensions: {width: 54, height: 84, unit: 'inches'},
-      lining: 'standard',
-      mounting: 'grommet',
-      quantity: 1,
-      unitPrice: Number(productPrice),
-      image: productImage,
-    });
-    toast.success(`${product.name} added to cart`);
-  };
-
   const visibleColors = productColors.slice(0, 6);
   const hasMoreColors = productColors.length > 6;
 
   return (
     <div
-      className="group"
+      className="group cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -303,25 +286,6 @@ function ProductCard({product, onQuickView}) {
             {product.badge}
           </div>
         ) : null}
-
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-          <Button
-            variant="secondary"
-            size="sm"
-            className="bg-white text-foreground hover:bg-white/90 border-0"
-            onClick={() => onQuickView(product)}
-          >
-            Quick View
-          </Button>
-          <Button
-            size="sm"
-            className="bg-[hsl(220_25%_25%)] text-white hover:bg-[hsl(220_25%_20%)] border-0"
-            onClick={handleAddToCart}
-          >
-            <ShoppingBagIcon className="h-4 w-4 mr-2" />
-            Add
-          </Button>
-        </div>
       </div>
 
       <div>
@@ -384,6 +348,11 @@ export default function DefaultCollectionPageTemplate({collection}) {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState({materials: [], priceRange: [0, 400]});
+  const desktopHeroImage =
+    collection?.image?.url ||
+    'https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda';
+  const mobileHeroImage = collection?.mobileBannerUrl?.value || desktopHeroImage;
+  const heroImageAlt = collection?.image?.altText || collection?.title || 'Curtains Collection';
 
   const products = useMemo(() => {
     const collectionProducts =
@@ -449,9 +418,14 @@ export default function DefaultCollectionPageTemplate({collection}) {
     <>
       <section className="relative h-[400px] md:h-[500px] overflow-hidden">
         <Image
-          src="https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda"
-          alt="Curtains Collection"
-          className="w-full h-full object-cover"
+          src={mobileHeroImage}
+          alt={heroImageAlt}
+          className="w-full h-full object-cover md:hidden"
+        />
+        <Image
+          src={desktopHeroImage}
+          alt={heroImageAlt}
+          className="hidden w-full h-full object-cover md:block"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
         <div className="absolute inset-0 flex items-center">
@@ -470,19 +444,9 @@ export default function DefaultCollectionPageTemplate({collection}) {
               <div className="flex gap-3">
                 <Button
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90 border-0"
-                  onClick={() => {
-                    const el = document.getElementById('products');
-                    el?.scrollIntoView({behavior: 'smooth'});
-                  }}
-                >
-                  Shop Now
-                </Button>
-                <Button
-                  size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white/10"
-                  onClick={() => navigate('/products/prod-2/swatches')}
+                  onClick={() => navigate('/collections/fabric-booklets')}
                 >
                   <SwatchBookIcon className="h-4 w-4 mr-2" />
                   Order Swatches
@@ -603,11 +567,7 @@ export default function DefaultCollectionPageTemplate({collection}) {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10">
                   {filteredProducts.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      onQuickView={setQuickViewProduct}
-                    />
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               )}

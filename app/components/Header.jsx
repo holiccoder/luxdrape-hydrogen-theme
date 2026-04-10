@@ -18,14 +18,15 @@ function ActiveLink({to, children, className}) {
   );
 }
 
-export function Header({header, cart, publicStoreDomain}) {
+export function Header({header, cart}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const aside = useAside();
+  const isCartOpen = aside.type === 'cart';
 
   const navLinks = [
     {href: '/', label: 'Home'},
-    {href: '/shop', label: 'Shop'},
-    {href: '/buying-guide', label: 'Buying Guide'},
+    {href: '/collections/all', label: 'Shop'},
+    {href: '/pages/buying-guide', label: 'Buying Guide'},
     {href: '/pages/brand-story', label: 'About'},
   ];
 
@@ -60,16 +61,27 @@ export function Header({header, cart, publicStoreDomain}) {
           >
             <SearchIcon className="h-5 w-5" />
           </Button>
-          <Link to="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingBagIcon className="h-5 w-5" />
-              {cart?.totalQuantity > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
-                  {cart.totalQuantity}
-                </span>
-              )}
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            onClick={() => {
+              if (isCartOpen) {
+                aside.close();
+                return;
+              }
+              aside.open('cart');
+            }}
+            aria-label={isCartOpen ? 'Close cart' : 'Open cart'}
+            aria-expanded={isCartOpen}
+          >
+            <ShoppingBagIcon className="h-5 w-5" />
+            {cart?.totalQuantity > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                {cart.totalQuantity}
+              </span>
+            )}
+          </Button>
 
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">

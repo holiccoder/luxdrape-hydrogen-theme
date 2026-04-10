@@ -3,6 +3,35 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import AboutTemplate from '~/components/page-templates/About';
 import InstallationGuideTemplate from '~/components/page-templates/installation-guide';
 import ContactTemplate from '~/components/page-templates/contact';
+import TradeProgramTemplate from '~/components/page-templates/TradeProgram.jsx';
+import MeasurementSupportTemplate from '~/components/page-templates/MeasurementSupport.jsx';
+
+const CUSTOM_PAGE_CONFIG = {
+  'brand-story': {
+    title: 'Brand Story',
+    template: AboutTemplate,
+  },
+  'installation-guide': {
+    title: 'Installation Guide',
+    template: InstallationGuideTemplate,
+  },
+  contact: {
+    title: 'Contact',
+    template: ContactTemplate,
+  },
+  'trade-program': {
+    title: 'Trade Program',
+    template: TradeProgramTemplate,
+  },
+  'measurement-support': {
+    title: 'Measurement Support',
+    template: MeasurementSupportTemplate,
+  },
+  'measurment-support': {
+    title: 'Measurement Support',
+    template: MeasurementSupportTemplate,
+  },
+};
 
 /**
  * @type {Route.MetaFunction}
@@ -34,6 +63,23 @@ async function loadCriticalData({context, request, params}) {
     throw new Error('Missing page handle');
   }
 
+  const customPage = CUSTOM_PAGE_CONFIG[params.handle];
+
+  if (customPage) {
+    return {
+      page: {
+        id: `custom-page-${params.handle}`,
+        handle: params.handle,
+        title: customPage.title,
+        body: '',
+        seo: {
+          title: customPage.title,
+          description: '',
+        },
+      },
+    };
+  }
+
   const [{page}] = await Promise.all([
     context.storefront.query(PAGE_QUERY, {
       variables: {
@@ -58,29 +104,18 @@ async function loadCriticalData({context, request, params}) {
  * Load data for rendering content below the fold. This data is deferred and will be
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData() {
   return {};
 }
 
 export default function Page() {
   /** @type {LoaderReturnData} */
   const {page} = useLoaderData();
+  const Template = CUSTOM_PAGE_CONFIG[page.handle]?.template;
 
-  // Use custom template for brand-story page
-  if (page.handle === 'brand-story') {
-    return <AboutTemplate />;
-  }
-
-  // Use custom template for installation-guide page
-  if (page.handle === 'installation-guide') {
-    return <InstallationGuideTemplate />;
-  }
-
-  // Use custom template for contact page
-  if (page.handle === 'contact') {
-    return <ContactTemplate />;
+  if (Template) {
+    return <Template />;
   }
 
   return (

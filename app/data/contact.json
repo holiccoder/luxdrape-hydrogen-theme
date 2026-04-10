@@ -3,6 +3,23 @@
     "title": "Contact Us",
     "subtitle": "We're here to help. Reach out and we'll get back to you within 24 hours."
   },
+  "supportHoursSection": {
+    "title": "Support Hours"
+  },
+  "officeAddressSection": {
+    "title": "Office Address"
+  },
+  "quickLinksSection": {
+    "title": "Quick Links"
+  },
+  "subjectsSection": {
+    "title": "Common Inquiry Topics",
+    "subtitle": "These are the main topics our team can help you with."
+  },
+  "primaryCta": {
+    "label": "Email Support",
+    "href": "mailto:support@luxdrape.com"
+  },
   "contactCards": [
     {
       "icon": "Mail",

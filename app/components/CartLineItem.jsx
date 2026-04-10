@@ -18,12 +18,19 @@ import {useAside} from './Aside';
  * }}
  */
 export function CartLineItem({layout, line, childrenMap}) {
-  const {id, merchandise} = line;
+  const {id, merchandise, attributes = []} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
+  const customAttributes = attributes.filter(
+    (attribute) => attribute?.key && attribute?.value,
+  );
+  const customUnitPrice = getCustomUnitPrice(customAttributes);
+  const displayedLinePrice = customUnitPrice
+    ? formatCurrency(customUnitPrice * line.quantity, line?.cost?.totalAmount?.currencyCode)
+    : null;
 
   return (
     <li key={id} className="cart-line">
@@ -53,14 +60,27 @@ export function CartLineItem({layout, line, childrenMap}) {
               <strong>{product.title}</strong>
             </p>
           </Link>
-          <ProductPrice price={line?.cost?.totalAmount} />
+          {displayedLinePrice ? (
+            <p className="product-price">{displayedLinePrice}</p>
+          ) : (
+            <ProductPrice price={line?.cost?.totalAmount} />
+          )}
           <ul>
             {selectedOptions.map((option) => (
               <li key={option.name}>
                 <small>
-                  {option.name}: {option.value}
+                  {option.name}:{option.value}
                 </small>
               </li>
+            ))}
+            {customAttributes.map((attribute) => (
+              attribute.key === 'custom_price' ? null : (
+              <li key={`${attribute.key}-${attribute.value}`}>
+                <small>
+                  {attribute.key}:{attribute.value}
+                </small>
+              </li>
+              )
             ))}
           </ul>
           <CartLineQuantity line={line} />
@@ -201,6 +221,19 @@ function CartLineUpdateButton({children, lines}) {
  */
 function getCartActionKey(action, lineIds) {
   return [action, ...lineIds].join('-');
+}
+
+function getCustomUnitPrice(attributes) {
+  const rawValue = attributes.find((attribute) => attribute.key === 'custom_price')?.value;
+  const parsedValue = Number(rawValue);
+  return Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
+}
+
+function formatCurrency(amount, currencyCode = 'USD') {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currencyCode,
+  }).format(amount);
 }
 
 /** @typedef {OptimisticCartLine<CartApiQueryFragment>} CartLine */

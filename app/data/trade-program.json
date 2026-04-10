@@ -2,68 +2,119 @@
   "hero": {
     "badge": "For Design Professionals",
     "title": "LuxDrape Trade Program",
-    "subtitle": "Join thousands of interior designers, decorators, and contractors who trust LuxDrape for premium custom window treatments. Exclusive pricing, dedicated support, and priority service."
+    "subtitle": "Join thousands of interior designers, decorators, and contractors who trust LuxDrape for premium custom window treatments. Exclusive pricing, dedicated support, and priority service.",
+    "primaryButton": "Apply Now",
+    "secondaryButton": "Learn More"
+  },
+  "benefitsSection": {
+    "title": "Trade Member Benefits",
+    "subtitle": "Everything you need to deliver exceptional results for your clients"
   },
   "benefits": [
-    { "icon": "Percent", "title": "Exclusive Trade Discount", "description": "Save up to 25% on all custom curtains and shades with your trade account." },
-    { "icon": "Truck", "title": "Free Shipping", "description": "Complimentary shipping on all orders, no minimum required." },
-    { "icon": "Clock", "title": "Priority Production", "description": "Skip the queue with expedited 7-day production for trade members." },
-    { "icon": "Users", "title": "Dedicated Support", "description": "Access to our trade specialists for measurements and consultations." }
-  ],
-  "qualifications": [
-    "Interior Designers & Decorators",
-    "Architects & Builders",
-    "Contractors & Renovators",
-    "Property Developers",
-    "Hospitality Professionals",
-    "Home Stagers"
-  ],
-  "stats": [
-    { "value": "25%", "label": "Trade Discount" },
-    { "value": "7", "label": "Day Production" },
-    { "value": "5K+", "label": "Trade Members" },
-    { "value": "24/7", "label": "Support Access" }
-  ],
-  "testimonials": [
     {
-      "quote": "LuxDrape has transformed how I source window treatments for my clients. The quality is exceptional and the trade pricing makes it profitable for my business.",
-      "author": "Sarah Mitchell",
-      "role": "Principal Designer, Mitchell Interiors",
-      "location": "New York, NY"
+      "icon": "Percent",
+      "title": "Trade Pricing",
+      "description": "Exclusive discounts and automatic tax exemptions on every order. No minimum purchase required."
     },
     {
-      "quote": "The dedicated support team helped me with complex measurements for a high-rise project. Their expertise saved me time and ensured perfect fit.",
-      "author": "Michael Chen",
-      "role": "Founder, Chen Design Studio",
-      "location": "San Francisco, CA"
+      "icon": "Truck",
+      "title": "Fast Delivery",
+      "description": "Our streamlined production ensures industry-leading delivery to your door in just 7 to 14 days."
     },
     {
-      "quote": "My clients love the custom options and quick turnaround. I've used LuxDrape for over 50 projects and have never been disappointed.",
-      "author": "Jennifer Walsh",
-      "role": "Interior Designer",
-      "location": "Austin, TX"
+      "icon": "Clock",
+      "title": "Free Samples",
+      "description": "Unlimited free swatches and even finished product samples to find the perfect fit for your project."
+    },
+    {
+      "icon": "Users",
+      "title": "Expert Support",
+      "description": "Get direct access to dedicated specialists for technical measurements and professional consultations."
     }
   ],
+  "qualificationsSection": {
+    "title": "Who Can Join?",
+    "subtitle": "Our trade program is designed for professionals in the design and construction industry. If you purchase window treatments for clients or projects, you qualify.",
+    "items": [
+      "Interior Designers & Decorators",
+      "Architects & Builders",
+      "Contractors & Renovators",
+      "Property Developers",
+      "Hospitality Professionals",
+      "Home Stagers"
+    ]
+  },
+  "stats": [
+    {"value": "Elite", "label": "Trade Discount"},
+    {"value": "Rapid", "label": "Day Production"},
+    {"value": "Global", "label": "Community"},
+    {"value": "24/7", "label": "Support Access"}
+  ],
+  "testimonialsSection": {
+    "title": "What Trade Members Say",
+    "subtitle": "Trusted by professionals across the country"
+  },
+  "testimonials": [
+    {
+      "quote": "Sourcing custom window treatments requires a balance of logic and aesthetics. We prioritize high-ticket quality that maintains professional margins for every project.",
+      "author": "Design Professionals",
+      "role": "Quality Standard",
+      "location": "Global Sourcing"
+    },
+    {
+      "quote": "From complex measurements to technical specifications, our trade program is built to support the rigorous demands of architects and interior firms.",
+      "author": "Technical Support",
+      "role": "Accuracy Guarantee",
+      "location": "Project Support"
+    },
+    {
+      "quote": "Efficiency is the backbone of a successful project. We ensure a streamlined production process that delivers premium drapes within industry-leading windows.",
+      "author": "Operational Excellence",
+      "role": "Reliability Standard",
+      "location": "Supply Chain"
+    }
+  ],
+  "applicationSection": {
+    "title": "Apply for Trade Access",
+    "subtitle": "Complete the form below. We'll review your application and respond within 2 business days.",
+    "successMessage": "Application submitted! We'll review and respond within 2 business days.",
+    "fields": {
+      "firstName": "First Name *",
+      "lastName": "Last Name *",
+      "email": "Email Address *",
+      "company": "Company Name *",
+      "website": "Company Website",
+      "websitePlaceholder": "https://",
+      "businessType": "Business Type *",
+      "businessTypePlaceholder": "Select your business type",
+      "yearsInBusiness": "Years in Business",
+      "yearsInBusinessPlaceholder": "Select years",
+      "projectVolume": "Annual Project Volume",
+      "projectVolumePlaceholder": "Select volume"
+    },
+    "submitButton": "Submit Application",
+    "legal": "By submitting, you agree to our Terms of Service and Privacy Policy."
+  },
   "businessTypes": [
-    { "value": "interior-designer", "label": "Interior Designer" },
-    { "value": "architect", "label": "Architect" },
-    { "value": "contractor", "label": "Contractor/Builder" },
-    { "value": "decorator", "label": "Decorator" },
-    { "value": "developer", "label": "Property Developer" },
-    { "value": "stager", "label": "Home Stager" },
-    { "value": "other", "label": "Other" }
+    {"value": "interior-designer", "label": "Interior Designer"},
+    {"value": "architect", "label": "Architect"},
+    {"value": "contractor", "label": "Contractor/Builder"},
+    {"value": "decorator", "label": "Decorator"},
+    {"value": "developer", "label": "Property Developer"},
+    {"value": "stager", "label": "Home Stager"},
+    {"value": "other", "label": "Other"}
   ],
   "yearsOptions": [
-    { "value": "0-2", "label": "Less than 2 years" },
-    { "value": "2-5", "label": "2-5 years" },
-    { "value": "5-10", "label": "5-10 years" },
-    { "value": "10+", "label": "10+ years" }
+    {"value": "0-2", "label": "Less than 2 years"},
+    {"value": "2-5", "label": "2-5 years"},
+    {"value": "5-10", "label": "5-10 years"},
+    {"value": "10+", "label": "10+ years"}
   ],
   "volumeOptions": [
-    { "value": "1-10", "label": "1-10 projects" },
-    { "value": "11-25", "label": "11-25 projects" },
-    { "value": "26-50", "label": "26-50 projects" },
-    { "value": "50+", "label": "50+ projects" }
+    {"value": "1-10", "label": "1-10 projects"},
+    {"value": "11-25", "label": "11-25 projects"},
+    {"value": "26-50", "label": "26-50 projects"},
+    {"value": "50+", "label": "50+ projects"}
   ],
   "faqTeaser": {
     "title": "Questions?",
