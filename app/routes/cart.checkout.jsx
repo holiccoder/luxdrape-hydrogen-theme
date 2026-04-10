@@ -59,6 +59,25 @@ export async function action({request, context}) {
     return redirect(invoiceUrl, 303);
   }
 
+  // Check if any line has a custom_price attribute.
+  // If so, falling back to the standard Shopify checkout would show
+  // the variant's base price instead of the custom price — causing a
+  // subtotal mismatch. Redirect back to the cart so the customer isn't
+  // charged an incorrect amount.
+  const hasCustomPricing = (cart.lines?.nodes || []).some((line) =>
+    (line?.attributes || []).some(
+      (attr) => attr?.key === 'custom_price' && attr?.value,
+    ),
+  );
+
+  if (hasCustomPricing) {
+    console.error(
+      '[cart.checkout] Draft order creation failed for cart with custom pricing. ' +
+        'Refusing to fall back to standard checkout to avoid subtotal mismatch.',
+    );
+    return redirect('/cart?error=checkout', 303);
+  }
+
   return redirect(fallbackCheckoutUrl || cart.checkoutUrl, 303);
 }
 
@@ -214,7 +233,12 @@ function buildDraftOrderLineItems(lines) {
         }));
 
       const customAttributes = (line?.attributes || [])
-        .filter((attribute) => attribute?.key && attribute?.value)
+        .filter(
+          (attribute) =>
+            attribute?.key &&
+            attribute?.value &&
+            attribute.key !== 'custom_price',
+        )
         .map((attribute) => ({
           name: formatAttributeKey(attribute.key),
           value: attribute.value,
