@@ -74,7 +74,7 @@ export function CartLineItem({layout, line, childrenMap}) {
               </li>
             ))}
             {customAttributes.map((attribute) => (
-              attribute.key === 'custom_price' ? null : (
+              attribute.key === '_custom_price' ? null : (
               <li key={`${attribute.key}-${attribute.value}`}>
                 <small>
                   {attribute.key}:{attribute.value}
@@ -224,7 +224,7 @@ function getCartActionKey(action, lineIds) {
 }
 
 function getCustomUnitPrice(attributes) {
-  const rawValue = attributes.find((attribute) => attribute.key === 'custom_price')?.value;
+  const rawValue = attributes.find((attribute) => attribute.key === '_custom_price')?.value;
   const parsedValue = Number(rawValue);
   return Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }

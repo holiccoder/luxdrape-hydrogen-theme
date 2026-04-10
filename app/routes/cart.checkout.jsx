@@ -59,14 +59,14 @@ export async function action({request, context}) {
     return redirect(invoiceUrl, 303);
   }
 
-  // Check if any line has a custom_price attribute.
+  // Check if any line has a _custom_price attribute.
   // If so, falling back to the standard Shopify checkout would show
   // the variant's base price instead of the custom price — causing a
   // subtotal mismatch. Redirect back to the cart so the customer isn't
   // charged an incorrect amount.
   const hasCustomPricing = (cart.lines?.nodes || []).some((line) =>
     (line?.attributes || []).some(
-      (attr) => attr?.key === 'custom_price' && attr?.value,
+      (attr) => attr?.key === '_custom_price' && attr?.value,
     ),
   );
 
@@ -237,7 +237,7 @@ function buildDraftOrderLineItems(lines) {
           (attribute) =>
             attribute?.key &&
             attribute?.value &&
-            attribute.key !== 'custom_price',
+            attribute.key !== '_custom_price',
         )
         .map((attribute) => ({
           name: formatAttributeKey(attribute.key),
@@ -280,7 +280,7 @@ function formatAttributeKey(key) {
  */
 function getLineItemPrice(line) {
   const customPriceAttribute = (line?.attributes || []).find(
-    (attribute) => attribute?.key === 'custom_price' && attribute?.value,
+    (attribute) => attribute?.key === '_custom_price' && attribute?.value,
   );
   const customPrice = Number(customPriceAttribute?.value);
 

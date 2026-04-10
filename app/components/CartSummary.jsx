@@ -262,7 +262,7 @@ function getDisplayedSubtotal(cart) {
 
   return lines.reduce((sum, line) => {
     const customPriceAttribute = (line?.attributes || []).find(
-      (attribute) => attribute?.key === 'custom_price' && attribute?.value,
+      (attribute) => attribute?.key === '_custom_price' && attribute?.value,
     );
     const customUnitPrice = Number(customPriceAttribute?.value);
 
