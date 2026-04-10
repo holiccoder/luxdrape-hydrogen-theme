@@ -98,6 +98,12 @@ async function createDraftOrderInvoiceUrl({env, cart, lineItems}) {
   const adminApiAccessToken = getAdminApiAccessToken(env);
   const privateAccessToken = getString(env.PRIVATE_ACCESS_TOKEN);
 
+  // Log all available env keys for debugging Oxygen variable injection
+  console.log(
+    '[cart.checkout] Available env keys: ' +
+      JSON.stringify(Object.keys(env).sort()),
+  );
+
   console.log(
     '[cart.checkout] Admin env diagnostics\n' +
       JSON.stringify(
@@ -105,6 +111,7 @@ async function createDraftOrderInvoiceUrl({env, cart, lineItems}) {
           storeDomain,
           hasPrivateAccessToken: Boolean(privateAccessToken),
           privateAccessTokenPreview: maskSecret(privateAccessToken),
+          adminApiAccessTokenPreview: maskSecret(adminApiAccessToken),
         },
         null,
         2,

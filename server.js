@@ -3,6 +3,37 @@ import {createRequestHandler, storefrontRedirect} from '@shopify/hydrogen';
 import {createHydrogenRouterContext} from '~/lib/context';
 
 /**
+ * Server-only env defaults injected by Vite at build time from .env.
+ * The actual secret is in .env (gitignored), NOT in source code.
+ * This file is part of the SSR bundle and is NEVER sent to the browser.
+ *
+ * @see vite.config.js `define` option
+ */
+const SERVER_ENV_DEFAULTS = {
+  /* global __PRIVATE_ACCESS_TOKEN__ */
+  PRIVATE_ACCESS_TOKEN:
+    typeof __PRIVATE_ACCESS_TOKEN__ !== 'undefined'
+      ? __PRIVATE_ACCESS_TOKEN__
+      : '',
+};
+
+/**
+ * Merge fallback env vars into the Oxygen env object.
+ * Existing Oxygen-provided values always take precedence.
+ * @param {Env} env
+ * @returns {Env}
+ */
+function withServerEnvDefaults(env) {
+  const merged = {...env};
+  for (const [key, value] of Object.entries(SERVER_ENV_DEFAULTS)) {
+    if (!merged[key]) {
+      merged[key] = value;
+    }
+  }
+  return merged;
+}
+
+/**
  * Export a fetch handler in module format.
  */
 export default {
@@ -14,9 +45,12 @@ export default {
    */
   async fetch(request, env, executionContext) {
     try {
+      // Apply server-only env defaults for vars Oxygen doesn't inject
+      const resolvedEnv = withServerEnvDefaults(env);
+
       const hydrogenContext = await createHydrogenRouterContext(
         request,
-        env,
+        resolvedEnv,
         executionContext,
       );
 
