@@ -5,6 +5,7 @@ import DefaultProductTemplate from '~/components/product-detail-page-templates/d
 import ShadesTemplate from '~/components/product-detail-page-templates/shades-template';
 import HardwareTemplate from '~/components/product-detail-page-templates/hardware-template';
 import BookletTemplate from '~/components/product-detail-page-templates/booklet-template';
+import StandardTemplate from '~/components/product-detail-page-templates/standard-template';
 import {productOptionsIndex} from '~/data/product-options/index.js';
 import bambooProductOptions from '~/data/product-options/bamboo/bamboo.json';
 
@@ -84,13 +85,22 @@ export default function Product() {
   const isHardwareProduct = product?.collections?.nodes?.some(
     (collection) => collection?.handle?.toLowerCase() === 'hardware',
   );
-  const ProductTemplate = isBookletProduct
+
+  // Products without custom configurator options use the standard template
+  // so they go through the default Shopify add-to-cart / checkout flow.
+  const hasCustomOptions = Boolean(productOptions);
+  const shouldUseBookletTemplate = isBookletProduct && hasCustomOptions;
+  const shouldUseShadesTemplate = hasCustomOptions && productHandle.includes('shade');
+
+  const ProductTemplate = shouldUseBookletTemplate
     ? BookletTemplate
-    : isHardwareProduct
-      ? HardwareTemplate
-      : productHandle.includes('shade')
-        ? ShadesTemplate
-        : DefaultProductTemplate;
+    : shouldUseShadesTemplate
+      ? ShadesTemplate
+      : isHardwareProduct
+        ? HardwareTemplate
+        : !hasCustomOptions
+          ? StandardTemplate
+          : DefaultProductTemplate;
 
   return (
     <ProductTemplate
@@ -156,6 +166,13 @@ const PRODUCT_FRAGMENT = `#graphql
         height
       }
     }
+    featuredImage {
+      id
+      url
+      altText
+      width
+      height
+    }
     collections(first: 20) {
       nodes {
         handle
@@ -176,6 +193,11 @@ const PRODUCT_FRAGMENT = `#graphql
             }
           }
         }
+      }
+    }
+    variants(first: 100) {
+      nodes {
+        ...ProductVariant
       }
     }
     metafields(identifiers: [

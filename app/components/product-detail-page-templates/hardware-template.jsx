@@ -1,4 +1,4 @@
-﻿import {useMemo, useState} from 'react';
+﻿ import {useCallback, useEffect, useMemo, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import { useCart } from '~/contexts/cart-context';
 import {
   CheckIcon,
-  RulerIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
   TruckIcon,
@@ -20,10 +19,6 @@ import {
   UserIcon,
   ShieldCheckIcon,
   DropletsIcon,
-  RotateCcwIcon,
-  BabyIcon,
-  ShieldIcon,
-  AwardIcon,
   WrenchIcon,
   PackageIcon,
   Ruler
@@ -54,37 +49,6 @@ const productData = {
   ],
 };
 
-// Rod finish variants
-const finishOptions = [
-  { id: 'matte-black', name: 'Matte Black', color: '#2C2C2C', price: 0 },
-  { id: 'brushed-nickel', name: 'Brushed Nickel', color: '#C0C0C0', price: 10 },
-  { id: 'antique-brass', name: 'Antique Brass', color: '#B5A642', price: 15 },
-  { id: 'oil-rubbed-bronze', name: 'Oil Rubbed Bronze', color: '#4A3728', price: 15 },
-  { id: 'polished-chrome', name: 'Polished Chrome', color: '#E8E8E8', price: 10 },
-  { id: 'satin-gold', name: 'Satin Gold', color: '#D4AF37', price: 20 },
-];
-
-// Rod diameter options
-const diameterOptions = [
-  { id: '0.75', name: '3/4" Diameter', price: 0, description: 'Standard weight, ideal for light to medium curtains' },
-  { id: '1', name: '1" Diameter', price: 15, description: 'Heavy-duty, perfect for blackout and layered curtains' },
-  { id: '1.25', name: '1-1/4" Diameter', price: 30, description: 'Extra heavy-duty, best for velvet and extra wide spans' },
-];
-
-// Rod length options
-const lengthOptions = [
-  { id: '28-48', name: '28" - 48"', price: 0, range: 'Small windows' },
-  { id: '48-84', name: '48" - 84"', price: 15, range: 'Standard windows' },
-  { id: '84-120', name: '84" - 120"', price: 35, range: 'Large windows' },
-  { id: '120-170', name: '120" - 170"', price: 65, range: 'Extra large / Patio doors' },
-];
-
-// Mounting style options
-const mountingOptions = [
-  { id: 'wall', name: 'Wall Mount', price: 0, description: 'Standard wall brackets included' },
-  { id: 'ceiling', name: 'Ceiling Mount', price: 10, description: 'Ceiling brackets for floor-to-ceiling look' },
-];
-
 const reviewsData = [
   { id: '1', author: 'Thomas H.', rating: 5, date: '2024-02-20', title: 'Solid construction', content: 'The 1-inch rod easily supports my heavy velvet curtains. Mounting hardware was high quality too.', verified: true },
   { id: '2', author: 'Maria G.', rating: 5, date: '2024-02-17', title: 'Beautiful finish', content: 'The antique brass looks stunning in my dining room. Exactly as pictured.', verified: true },
@@ -97,39 +61,205 @@ const reviewsData = [
 // ============================================
 // Main Product Page Component - Curtain Hardware
 // ============================================
-const ProductDetailHardwarePage = () => {
+const ProductDetailHardwarePage = ({product}) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
+  const parseReviewRating = (value, fallback) => {
+    if (!value) return fallback;
+    try {
+      const parsed = JSON.parse(value);
+      const rating = Number(parsed?.value);
+      if (Number.isFinite(rating)) return rating;
+    } catch {
+      // Ignore malformed review metafield values.
+    }
+
+    const rating = Number(value);
+    return Number.isFinite(rating) ? rating : fallback;
+  };
+
+  const parseReviewCount = (value, fallback) => {
+    if (value === null || value === undefined || value === '') return fallback;
+    const count = Number(value);
+    return Number.isFinite(count) ? count : fallback;
+  };
+
+  const getProductMetafieldValue = (namespace, key) =>
+    product?.metafields?.find(
+      (metafield) =>
+        metafield?.namespace === namespace && metafield?.key === key,
+    )?.value;
+
+  const productTitle = product?.title || productData.name;
+  const productRating = parseReviewRating(
+    getProductMetafieldValue('reviews', 'rating'),
+    productData.rating,
+  );
+  const productReviewCount = parseReviewCount(
+    getProductMetafieldValue('reviews', 'rating_count'),
+    productData.reviewCount,
+  );
+  const productDescription = product?.description || productData.description;
+  const variants = useMemo(
+    () => product?.variants?.nodes?.filter(Boolean) || [],
+    [product?.variants?.nodes],
+  );
+  const productImages =
+    product?.images?.nodes?.length > 0
+      ? product.images.nodes.map((img, index) => ({
+          id: img?.id || `shopify-image-${index}`,
+          url: img?.url,
+          alt: img?.altText || productTitle,
+        }))
+      : productData.images;
+
+  const optionGroups = useMemo(
+    () =>
+      (product?.options || []).filter(
+        (option) => option?.name && option.name.toLowerCase() !== 'title',
+      ),
+    [product?.options],
+  );
+
+  const colorOptionGroup = useMemo(
+    () =>
+      optionGroups.find((option) =>
+        /(color|colour|finish)/i.test(option?.name || ''),
+      ) || null,
+    [optionGroups],
+  );
+
+  const sizeOptionGroups = useMemo(
+    () => optionGroups.filter((option) => option?.name !== colorOptionGroup?.name),
+    [colorOptionGroup?.name, optionGroups],
+  );
+
+  const variantToOptionMap = (variant) =>
+    Object.fromEntries(
+      (variant?.selectedOptions || []).map((option) => [option.name, option.value]),
+    );
+
+  const [selectedOptions, setSelectedOptions] = useState(() =>
+    variantToOptionMap(product?.selectedOrFirstAvailableVariant),
+  );
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedFinish, setSelectedFinish] = useState(finishOptions[0]);
-  const [selectedDiameter, setSelectedDiameter] = useState(diameterOptions[0]);
-  const [selectedLength, setSelectedLength] = useState(lengthOptions[1]);
-  const [selectedMounting, setSelectedMounting] = useState(mountingOptions[0]);
   const [quantity, setQuantity] = useState(1);
 
+  useEffect(() => {
+    setSelectedOptions(variantToOptionMap(product?.selectedOrFirstAvailableVariant));
+  }, [product?.id, product?.selectedOrFirstAvailableVariant]);
+
+  useEffect(() => {
+    if (currentImageIndex >= productImages.length) {
+      setCurrentImageIndex(0);
+    }
+  }, [currentImageIndex, productImages.length]);
+
+  const findMatchingVariant = useCallback(
+    (optionsMap) =>
+      variants.find((variant) =>
+        optionGroups.every((option) => {
+          const targetValue = optionsMap[option.name];
+          if (!targetValue) return true;
+          return (
+            variant?.selectedOptions?.find(
+              (selectedOption) => selectedOption.name === option.name,
+            )?.value === targetValue
+          );
+        }),
+      ) || null,
+    [optionGroups, variants],
+  );
+
+  const selectedVariant = useMemo(
+    () =>
+      findMatchingVariant(selectedOptions) ||
+      product?.selectedOrFirstAvailableVariant ||
+      variants[0] ||
+      null,
+    [findMatchingVariant, product?.selectedOrFirstAvailableVariant, selectedOptions, variants],
+  );
+
+  const selectedVariantOptionMap = useMemo(
+    () => variantToOptionMap(selectedVariant),
+    [selectedVariant],
+  );
+
+  const resolveVariantForOptionValue = (optionName, optionValue) => {
+    const requestedOptions = {
+      ...selectedVariantOptionMap,
+      [optionName]: optionValue,
+    };
+
+    return (
+      findMatchingVariant(requestedOptions) ||
+      variants.find(
+        (variant) =>
+          variant?.selectedOptions?.find(
+            (selectedOption) => selectedOption.name === optionName,
+          )?.value === optionValue,
+      ) ||
+      null
+    );
+  };
+
+  const handleOptionChange = (optionName, optionValue) => {
+    const nextVariant = resolveVariantForOptionValue(optionName, optionValue);
+    if (!nextVariant) return;
+    setSelectedOptions(variantToOptionMap(nextVariant));
+  };
+
+  const selectedColorValue = colorOptionGroup
+    ? selectedVariantOptionMap[colorOptionGroup.name] || ''
+    : '';
+  const selectedSizeSummary = sizeOptionGroups
+    .map((option) => {
+      const value = selectedVariantOptionMap[option.name];
+      return value ? `${option.name}: ${value}` : null;
+    })
+    .filter(Boolean)
+    .join(' • ');
+  const selectedOptionsSummary = optionGroups
+    .map((option) => {
+      const value = selectedVariantOptionMap[option.name];
+      return value ? `${option.name}: ${value}` : null;
+    })
+    .filter(Boolean)
+    .join(' • ');
+
+  const displayImage =
+    selectedVariant?.image?.url ||
+    productImages[currentImageIndex]?.url ||
+    productData.images[0].url;
+  const displayImageAlt =
+    selectedVariant?.image?.altText ||
+    productImages[currentImageIndex]?.alt ||
+    productTitle;
+  const unitPrice = Number(selectedVariant?.price?.amount || productData.basePrice || 0);
+
   const totalPrice = useMemo(() => {
-    const finishPrice = selectedFinish.price;
-    const diameterPrice = selectedDiameter.price;
-    const lengthPrice = selectedLength.price;
-    const mountingPrice = selectedMounting.price;
-    
-    const unitPrice = productData.basePrice + finishPrice + diameterPrice + lengthPrice + mountingPrice;
-    return Math.round(unitPrice * quantity);
-  }, [selectedFinish, selectedDiameter, selectedLength, selectedMounting, quantity]);
+    return Number((unitPrice * quantity).toFixed(2));
+  }, [quantity, unitPrice]);
 
   const handleAddToCart = () => {
+    if (!selectedVariant?.id) {
+      toast.error('Please select an available hardware option.');
+      return;
+    }
+
     const cartItem = {
-      id: `${productData.id}-${Date.now()}`,
-      productId: productData.id,
-      productName: `${productData.name} - ${selectedFinish.name}`,
-      fabric: `${selectedDiameter.name}, ${selectedLength.name}, ${selectedMounting.name}`,
+      id: `${selectedVariant.id}-${Date.now()}`,
+      productId: selectedVariant.id,
+      productName: productTitle,
+      fabric: selectedOptionsSummary || selectedVariant?.title || productTitle,
       dimensions: {width: 0, height: 0, unit: 'inches'},
       lining: 'standard',
       mounting: 'rod-pocket',
       quantity,
       unitPrice: totalPrice / quantity,
-      image: productData.images[0].url,
+      image: displayImage,
     };
     addToCart(cartItem);
     toast.success('Added to cart!');
@@ -144,7 +274,7 @@ const ProductDetailHardwarePage = () => {
           <span>/</span>
           <button onClick={() => navigate('/shop')} className="hover:text-gray-900">Shop</button>
           <span>/</span>
-          <span className="text-gray-900">Curtain Hardware</span>
+          <span className="text-gray-900">{productTitle}</span>
         </nav>
       </div>
 
@@ -158,23 +288,23 @@ const ProductDetailHardwarePage = () => {
           <div className="lg:sticky lg:top-24 lg:self-start space-y-4">
             <div className="relative aspect-[4/5] bg-gray-100 overflow-hidden">
               <Image
-                src={productData.images[currentImageIndex].url}
-                alt={productData.images[currentImageIndex].alt}
+                src={displayImage}
+                alt={displayImageAlt}
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-4 left-4">
                 <span className="px-3 py-1.5 text-xs font-medium bg-slate-800 text-white">Best Seller</span>
               </div>
-              <button onClick={() => setCurrentImageIndex(prev => prev === 0 ? productData.images.length - 1 : prev - 1)} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
+              <button onClick={() => setCurrentImageIndex(prev => prev === 0 ? productImages.length - 1 : prev - 1)} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
                 <ChevronLeftIcon className="w-5 h-5 text-slate-800" />
               </button>
-              <button onClick={() => setCurrentImageIndex(prev => (prev + 1) % productData.images.length)} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
+              <button onClick={() => setCurrentImageIndex(prev => (prev + 1) % productImages.length)} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
                 <ChevronRightIcon className="w-5 h-5 text-slate-800" />
               </button>
             </div>
 
             <div className="flex gap-2">
-              {productData.images.map((img, idx) => (
+              {productImages.map((img, idx) => (
                 <button
                   key={img.id}
                   onClick={() => setCurrentImageIndex(idx)}
@@ -202,18 +332,19 @@ const ProductDetailHardwarePage = () => {
             {/* Product Header */}
             <div className="space-y-3 pb-6 border-b border-gray-200">
               <span className="text-xs font-medium text-slate-700 uppercase tracking-wide">Hardware</span>
-              <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 leading-tight">Premium Curtain Rods & Hardware</h1>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 leading-tight">{productTitle}</h1>
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(productData.rating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(productRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <span className="text-sm font-medium text-gray-900">{productData.rating}</span>
-                <span className="text-sm text-gray-500">({productData.reviewCount} reviews)</span>
+                <span className="text-sm font-medium text-gray-900">{productRating}</span>
+                <span className="text-sm text-gray-500">({productReviewCount} reviews)</span>
               </div>
+              <p className="text-gray-600">{productDescription}</p>
               <div className="flex items-baseline gap-2 pt-2">
-                <span className="text-3xl font-semibold text-gray-900">${totalPrice}</span>
+                <span className="text-3xl font-semibold text-gray-900">${totalPrice.toFixed(2)}</span>
                 <span className="text-gray-500">per set</span>
               </div>
             </div>
@@ -223,133 +354,135 @@ const ProductDetailHardwarePage = () => {
             {/* ============================================ */}
             <div className="space-y-6">
 
-              {/* 1. Finish Color */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label className="text-base font-medium text-gray-900">Finish Color</Label>
-                  <span className="text-sm text-gray-500">{selectedFinish.name}</span>
+              {colorOptionGroup ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-base font-medium text-gray-900">
+                      {colorOptionGroup.name}
+                    </Label>
+                    <span className="text-sm text-gray-500">{selectedColorValue}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    {colorOptionGroup.optionValues?.map((optionValue) => {
+                      const swatchColor = optionValue?.swatch?.color || 'transparent';
+                      const swatchImage =
+                        optionValue?.swatch?.image?.previewImage?.url || null;
+                      const candidateVariant = resolveVariantForOptionValue(
+                        colorOptionGroup.name,
+                        optionValue?.name,
+                      );
+                      const isSelected = selectedColorValue === optionValue?.name;
+                      const isAvailable = Boolean(candidateVariant?.availableForSale);
+
+                      return (
+                        <button
+                          key={optionValue?.name}
+                          type="button"
+                          onClick={() => handleOptionChange(colorOptionGroup.name, optionValue?.name)}
+                          disabled={!candidateVariant || !isAvailable}
+                          className={`relative flex items-center justify-center w-14 h-14 border-2 transition-all overflow-hidden ${
+                            isSelected
+                              ? 'border-slate-800 ring-1 ring-slate-800'
+                              : 'border-gray-200 hover:border-gray-400'
+                          } ${!isAvailable ? 'opacity-50' : ''}`}
+                          style={{
+                            backgroundColor: swatchImage ? 'transparent' : swatchColor,
+                            backgroundImage: swatchImage ? `url(${swatchImage})` : 'none',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          }}
+                          title={optionValue?.name}
+                        >
+                          {isSelected ? (
+                            <CheckIcon
+                              className={`absolute inset-0 m-auto w-5 h-5 ${
+                                ['#FFFFFF', '#E8E8E8', '#C0C0C0', 'transparent'].includes(swatchColor)
+                                  ? 'text-slate-800'
+                                  : 'text-white'
+                              }`}
+                            />
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-3">
-                  {finishOptions.map((finish) => (
-                    <button
-                      key={finish.id}
-                      onClick={() => setSelectedFinish(finish)}
-                      className={`relative w-14 h-14 border-2 transition-all ${
-                        selectedFinish.id === finish.id
-                          ? 'border-slate-800 ring-1 ring-slate-800'
-                          : 'border-gray-200 hover:border-gray-400'
-                      }`}
-                      style={{ backgroundColor: finish.color }}
-                      title={finish.name}
+              ) : null}
+
+              {sizeOptionGroups.map((optionGroup, index) => {
+                const selectedValue = selectedVariantOptionMap[optionGroup.name] || '';
+
+                return (
+                  <div
+                    key={optionGroup.name}
+                    className={index === 0 && !colorOptionGroup ? 'space-y-3' : 'space-y-3 pt-4 border-t border-gray-200'}
+                  >
+                    <Label className="text-base font-medium text-gray-900">
+                      {optionGroup.name}
+                    </Label>
+                    <RadioGroup
+                      value={selectedValue}
+                      onValueChange={(value) => handleOptionChange(optionGroup.name, value)}
                     >
-                      {selectedFinish.id === finish.id && (
-                        <CheckIcon className={`absolute inset-0 m-auto w-5 h-5 ${
-                          ['#FFFFFF', '#E8E8E8', '#C0C0C0'].includes(finish.color) ? 'text-slate-800' : 'text-white'
-                        }`} />
-                      )}
-                    </button>
-                  ))}
-                </div>
-                {selectedFinish.price > 0 && (
-                  <p className="text-sm text-gray-500">+${selectedFinish.price} for {selectedFinish.name}</p>
-                )}
-              </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {optionGroup.optionValues?.map((optionValue) => {
+                          const candidateVariant = resolveVariantForOptionValue(
+                            optionGroup.name,
+                            optionValue?.name,
+                          );
+                          const isAvailable = Boolean(candidateVariant?.availableForSale);
+                          const candidatePrice = Number(
+                            candidateVariant?.price?.amount || unitPrice,
+                          );
+                          const priceDifference = candidatePrice - unitPrice;
 
-              {/* 2. Rod Diameter */}
-              <div className="space-y-3 pt-4 border-t border-gray-200">
-                <Label className="text-base font-medium text-gray-900">Rod Diameter</Label>
-                <RadioGroup value={selectedDiameter.id} onValueChange={(val) => {
-                  const option = diameterOptions.find(o => o.id === val);
-                  if (option) setSelectedDiameter(option);
-                }}>
-                  <div className="space-y-2">
-                    {diameterOptions.map((option) => (
-                      <div key={option.id}>
-                        <RadioGroupItem value={option.id} id={`diameter-${option.id}`} className="peer sr-only" />
-                        <Label
-                          htmlFor={`diameter-${option.id}`}
-                          className="flex items-center justify-between p-4 border border-gray-200 rounded-md cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
-                        >
-                          <div>
-                            <span className="font-medium text-gray-900">{option.name}</span>
-                            <p className="text-sm text-gray-500">{option.description}</p>
-                          </div>
-                          <span className="text-sm font-medium text-gray-900">
-                            {option.price > 0 ? `+$${option.price}` : 'Included'}
-                          </span>
-                        </Label>
+                          return (
+                            <div key={`${optionGroup.name}-${optionValue?.name}`}>
+                              <RadioGroupItem
+                                value={optionValue?.name}
+                                id={`${optionGroup.name}-${optionValue?.name}`}
+                                className="peer sr-only"
+                                disabled={!candidateVariant || !isAvailable}
+                              />
+                              <Label
+                                htmlFor={`${optionGroup.name}-${optionValue?.name}`}
+                                className={`flex flex-col p-4 border border-gray-200 rounded-md cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300 ${
+                                  !candidateVariant || !isAvailable ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
+                              >
+                                <span className="font-medium text-gray-900">
+                                  {optionValue?.name}
+                                </span>
+                                <span className="text-sm font-medium text-gray-900 mt-2">
+                                  {priceDifference > 0
+                                    ? `+$${priceDifference.toFixed(2)}`
+                                    : priceDifference < 0
+                                      ? `-$${Math.abs(priceDifference).toFixed(2)}`
+                                      : 'Base Price'}
+                                </span>
+                              </Label>
+                            </div>
+                          );
+                        })}
                       </div>
-                    ))}
+                    </RadioGroup>
                   </div>
-                </RadioGroup>
-              </div>
-
-              {/* 3. Rod Length */}
-              <div className="space-y-3 pt-4 border-t border-gray-200">
-                <Label className="text-base font-medium text-gray-900">Adjustable Length</Label>
-                <RadioGroup value={selectedLength.id} onValueChange={(val) => {
-                  const option = lengthOptions.find(o => o.id === val);
-                  if (option) setSelectedLength(option);
-                }}>
-                  <div className="grid grid-cols-2 gap-3">
-                    {lengthOptions.map((option) => (
-                      <div key={option.id}>
-                        <RadioGroupItem value={option.id} id={`length-${option.id}`} className="peer sr-only" />
-                        <Label
-                          htmlFor={`length-${option.id}`}
-                          className="flex flex-col p-4 border border-gray-200 rounded-md cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
-                        >
-                          <span className="font-medium text-gray-900">{option.name}</span>
-                          <span className="text-xs text-gray-500 mt-1">{option.range}</span>
-                          <span className="text-sm font-medium text-gray-900 mt-2">
-                            {option.price > 0 ? `+$${option.price}` : 'Base Price'}
-                          </span>
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
-
-              {/* 4. Mounting Style */}
-              <div className="space-y-3 pt-4 border-t border-gray-200">
-                <Label className="text-base font-medium text-gray-900">Mounting Style</Label>
-                <RadioGroup value={selectedMounting.id} onValueChange={(val) => {
-                  const option = mountingOptions.find(o => o.id === val);
-                  if (option) setSelectedMounting(option);
-                }}>
-                  <div className="space-y-2">
-                    {mountingOptions.map((option) => (
-                      <div key={option.id}>
-                        <RadioGroupItem value={option.id} id={`mounting-${option.id}`} className="peer sr-only" />
-                        <Label
-                          htmlFor={`mounting-${option.id}`}
-                          className="flex items-center justify-between p-4 border border-gray-200 rounded-md cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
-                        >
-                          <div>
-                            <span className="font-medium text-gray-900">{option.name}</span>
-                            <p className="text-sm text-gray-500">{option.description}</p>
-                          </div>
-                          <span className="text-sm font-medium text-gray-900">
-                            {option.price > 0 ? `+$${option.price}` : 'Included'}
-                          </span>
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
+                );
+              })}
 
               {/* What's Included */}
               <div className="p-4 bg-gray-50 rounded-md border border-gray-200">
                 <h4 className="font-medium text-slate-900 mb-3 flex items-center gap-2">
                   <PackageIcon className="w-4 h-4" />
-                  What's Included
+                  What&apos;s Included
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-start gap-2">
                     <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Adjustable steel rod ({selectedLength.name})</span>
+                    <span>
+                      Selected hardware configuration
+                      {selectedSizeSummary ? ` (${selectedSizeSummary})` : ''}
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -357,7 +490,7 @@ const ProductDetailHardwarePage = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Mounting brackets ({selectedMounting.id === 'ceiling' ? 'ceiling' : 'wall'} mount)</span>
+                    <span>Mounting brackets and installation hardware</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -392,7 +525,7 @@ const ProductDetailHardwarePage = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">Total</p>
-                  <p className="text-3xl font-semibold text-gray-900">${totalPrice}</p>
+                  <p className="text-3xl font-semibold text-gray-900">${totalPrice.toFixed(2)}</p>
                 </div>
                 <Button
                   size="lg"
@@ -515,7 +648,7 @@ const ProductDetailHardwarePage = () => {
                 </div>
                 <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-md">
                   <p className="text-sm text-amber-800">
-                    <strong>Tip:</strong> For spans over 72 inches, use a center support bracket (included with 1" and 1-1/4" rods) to prevent sagging.
+                    <strong>Tip:</strong> For spans over 72 inches, use a center support bracket (included with 1&quot; and 1-1/4&quot; rods) to prevent sagging.
                   </p>
                 </div>
               </AccordionContent>
@@ -617,17 +750,17 @@ const ProductDetailHardwarePage = () => {
           <div className="mt-16 pt-16 border-t border-gray-200">
             <div className="flex items-center gap-3 mb-8">
               <h3 className="text-2xl font-semibold text-slate-900">Customer Reviews</h3>
-              <span className="text-gray-500">({productData.reviewCount})</span>
+              <span className="text-gray-500">({productReviewCount})</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-gray-50 p-6 text-center rounded-md">
-                <div className="text-5xl font-semibold text-slate-900">{productData.rating}</div>
+                <div className="text-5xl font-semibold text-slate-900">{productRating}</div>
                 <div className="flex justify-center gap-1 my-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(productData.rating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
+                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(productRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <div className="text-sm text-gray-500">Based on {productData.reviewCount} verified reviews</div>
+                <div className="text-sm text-gray-500">Based on {productReviewCount} verified reviews</div>
               </div>
               <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {reviewsData.map((review) => (

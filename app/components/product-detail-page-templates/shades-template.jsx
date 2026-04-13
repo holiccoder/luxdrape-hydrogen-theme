@@ -1,8 +1,9 @@
-﻿import {useEffect, useMemo, useRef, useState} from 'react';
+﻿import {useEffect, useMemo, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '~/components/ui/accordion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '~/components/ui/dialog';
@@ -27,19 +28,11 @@ import {
   BabyIcon,
   ShieldIcon,
   ZapIcon,
-  BatteryIcon,
-  WifiIcon,
-  SmartphoneIcon,
   VolumeXIcon,
   FileTextIcon,
   PlayIcon,
   AwardIcon,
   ThumbsUpIcon,
-  HomeIcon,
-  LayersIcon,
-  MoveVerticalIcon,
-  ScissorsIcon,
-  DrillIcon
 } from 'lucide-react';
 
 // ============================================
@@ -83,23 +76,6 @@ const productColors = [
   { id: 'sky', name: 'Sky Blue', hex: '#87CEEB' },
 ];
 
-const mountTypes = [
-  { 
-    id: 'inside', 
-    name: 'Inside Mount', 
-    price: 0, 
-    description: 'Mount inside the window frame for a clean, built-in look. Window depth must be at least 2 inches.',
-    image: 'https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda'
-  },
-  { 
-    id: 'outside', 
-    name: 'Outside Mount', 
-    price: 0, 
-    description: 'Mount on the wall above the window frame. Provides better light blocking and makes windows appear larger.',
-    image: 'https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda'
-  },
-];
-
 const liftStyles = [
   { 
     id: 'cordless', 
@@ -125,18 +101,6 @@ const liningOptions = [
   { id: 'light-filtering', name: 'Light Filtering', price: 0, description: 'Softens natural light while maintaining privacy. Perfect for living areas.' },
   { id: 'room-darkening', name: 'Room Darkening', price: 35, description: 'Blocks most light for better sleep and glare reduction. Great for bedrooms.' },
   { id: 'blackout', name: 'Blackout', price: 65, description: 'Blocks 99% of light with thermal insulation. Best for complete darkness.' },
-];
-
-const bindingOptions = [
-  { id: 'none', name: 'No Binding', price: 0, description: 'Clean edge finish with matching fabric color.' },
-  { id: 'white', name: 'White Binding', price: 15, description: 'Classic white trim along shade edges.' },
-  { id: 'matching', name: 'Matching Binding', price: 15, description: 'Binding in the same color as the shade fabric.' },
-  { id: 'contrast', name: 'Contrast Binding', price: 25, description: 'Choose a contrasting color for a designer look.' },
-];
-
-const noDrillUpgrade = [
-  { id: 'none', name: 'Standard Mounting', price: 0, description: 'Traditional bracket mounting with screws.' },
-  { id: 'nodrill', name: 'No-Drill Installation', price: 39, description: 'Damage-free mounting using adhesive brackets. Perfect for rentals. Weight limit: 15 lbs per shade.' },
 ];
 
 const reviewsData = [
@@ -194,67 +158,6 @@ const RealLifeGallery = () => (
 );
 
 // ============================================
-// Horizontal Scroll Container
-// ============================================
-const HorizontalScroll = ({children, className = ''}) => {
-  const scrollRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  useEffect(() => {
-    checkScroll();
-    const el = scrollRef.current;
-    if (el) {
-      el.addEventListener('scroll', checkScroll);
-      return () => el.removeEventListener('scroll', checkScroll);
-    }
-  }, []);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const scrollAmount = 200;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <div className={`relative ${className}`}>
-      {canScrollLeft && (
-        <button 
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white border border-gray-200 flex items-center justify-center shadow-sm"
-        >
-          <ChevronLeftIcon className="w-4 h-4 text-gray-600" />
-        </button>
-      )}
-      <div 
-        ref={scrollRef}
-        className="flex gap-3 overflow-x-auto scrollbar-hide px-1 py-1"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {children}
-      </div>
-      {canScrollRight && (
-        <button 
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white border border-gray-200 flex items-center justify-center shadow-sm"
-        >
-          <ChevronRightIcon className="w-4 h-4 text-gray-600" />
-        </button>
-      )}
-    </div>
-  );
-};
-
-// ============================================
 // Collapsible Section Component
 // ============================================
 const CollapsibleSection = ({title, subtitle, isOpen, onToggle, children}) => {
@@ -294,7 +197,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
       const parsed = JSON.parse(value);
       const rating = Number(parsed?.value);
       if (Number.isFinite(rating)) return rating;
-    } catch {}
+    } catch {
+      // Ignore malformed review metafield values.
+    }
     const rating = Number(value);
     return Number.isFinite(rating) ? rating : fallback;
   };
@@ -325,49 +230,213 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-  const mountTypeOptions = Array.isArray(productOptionsData?.mount_options)
-    ? productOptionsData.mount_options.map((option, index) => ({
-        id: toOptionId(option?.type) || `mount-${index}`,
-        name: option?.type || `Mount Option ${index + 1}`,
-        price: Number(option?.price) || 0,
-        description: option?.description || '',
-        image: option?.image || '',
-      }))
-    : [];
+  const parseMeasurementValue = (value, fallback) => {
+    const parsed = Number.parseFloat(String(value ?? ''));
+    return Number.isFinite(parsed) ? parsed : fallback;
+  };
 
-  const installationOptions = Array.isArray(productOptionsData?.installation_options)
-    ? productOptionsData.installation_options.map((option, index) => ({
-        id: toOptionId(option?.type) || `installation-${index}`,
-        name: option?.type || `Installation Option ${index + 1}`,
-        price: Number(option?.price) || 0,
-        description: option?.description || '',
-      }))
-    : [];
+  const parseFractionValue = (value) => {
+    const normalized = String(value ?? '0').trim();
+    if (!normalized || normalized === '0') return 0;
+    if (normalized.includes('/')) {
+      const [numerator, denominator] = normalized.split('/').map(Number);
+      if (Number.isFinite(numerator) && Number.isFinite(denominator) && denominator !== 0) {
+        return numerator / denominator;
+      }
+    }
+    const parsed = Number.parseFloat(normalized);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
 
-  const bindingEdgeOptions = Array.isArray(productOptionsData?.edge_binding_options)
-    ? productOptionsData.edge_binding_options.map((option, index) => ({
-        id: toOptionId(option?.type) || `binding-${index}`,
-        name: option?.type || `Binding Option ${index + 1}`,
-        price: Number(option?.price) || 0,
-        description: option?.description || '',
-      }))
-    : [];
-  
+  const formatMeasurementLabel = (whole, fraction) => {
+    const wholeValue = String(whole ?? '').trim();
+    const fractionValue = String(fraction ?? '0').trim();
+
+    if (!wholeValue) return '';
+    if (!fractionValue || fractionValue === '0') return wholeValue;
+
+    return `${wholeValue} ${fractionValue}`;
+  };
+
+  const colorOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.colors)
+        ? productOptionsData.colors.map((color, index) => ({
+            id: toOptionId(color?.name) || `color-${index}`,
+            name: color?.name || `Color ${index + 1}`,
+            hex: color?.hex || null,
+            productImage: color?.product_image || null,
+            sampleImage: color?.sample_image || null,
+          }))
+        : productColors,
+    [productOptionsData?.colors],
+  );
+
+  const mountTypeOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.mount_options)
+        ? productOptionsData.mount_options.map((option, index) => ({
+            id: toOptionId(option?.type) || `mount-${index}`,
+            name: option?.type || `Mount Option ${index + 1}`,
+            price: Number(option?.price) || 0,
+            description: option?.description || '',
+            image: option?.image || '',
+          }))
+        : [],
+    [productOptionsData?.mount_options],
+  );
+
+  const liftStyleOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.lift_options)
+        ? productOptionsData.lift_options.map((option, index) => ({
+            id: toOptionId(option?.type) || `lift-${index}`,
+            name: option?.type || `Lift Option ${index + 1}`,
+            price: Number(option?.price) || 0,
+            description: option?.description || '',
+            image: option?.image || '',
+          }))
+        : liftStyles,
+    [productOptionsData?.lift_options],
+  );
+
+  const motorizationOptions = useMemo(() => {
+    if (!Array.isArray(productOptionsData?.motorization)) {
+      return [];
+    }
+
+    return productOptionsData.motorization
+      .map((option, index) => {
+        const optionName =
+          option?.controller_type || option?.name || option?.type;
+
+        if (!optionName) return null;
+
+        return {
+          id: toOptionId(optionName) || `motorization-${index}`,
+          name: optionName,
+          price: Number(option?.price) || 0,
+          description: option?.description || '',
+        };
+      })
+      .filter(Boolean);
+  }, [productOptionsData?.motorization]);
+
+  const liningOptionsData = useMemo(() => {
+    if (!Array.isArray(productOptionsData?.lining_options)) {
+      return liningOptions;
+    }
+
+    const normalizedLiningOptions = productOptionsData.lining_options
+      .map((option, index) => {
+        const optionName = option?.name || option?.type;
+        if (!optionName) return null;
+
+        return {
+          id: toOptionId(optionName) || `lining-${index}`,
+          name: optionName,
+          price: Number(option?.price) || 0,
+          description: option?.description || '',
+          image: option?.image || '',
+        };
+      })
+      .filter(Boolean);
+
+    return normalizedLiningOptions.length > 0
+      ? normalizedLiningOptions
+      : liningOptions;
+  }, [productOptionsData?.lining_options]);
+
+  const widthOptions = useMemo(
+    () => (Array.isArray(productOptionsData?.width) ? productOptionsData.width : []),
+    [productOptionsData?.width],
+  );
+  const widthFractionOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.width_fraction)
+        ? productOptionsData.width_fraction
+        : [],
+    [productOptionsData?.width_fraction],
+  );
+  const heightOptions = useMemo(
+    () => (Array.isArray(productOptionsData?.length) ? productOptionsData.length : []),
+    [productOptionsData?.length],
+  );
+  const heightFractionOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.length_fraction)
+        ? productOptionsData.length_fraction
+        : [],
+    [productOptionsData?.length_fraction],
+  );
+
+  const installationOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.installation_options)
+        ? productOptionsData.installation_options.map((option, index) => ({
+            id: toOptionId(option?.type) || `installation-${index}`,
+            name: option?.type || `Installation Option ${index + 1}`,
+            price: Number(option?.price) || 0,
+            description: option?.description || '',
+          }))
+        : [],
+    [productOptionsData?.installation_options],
+  );
+
+  const bindingEdgeOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.edge_binding_options)
+        ? productOptionsData.edge_binding_options.map((option, index) => ({
+            id: toOptionId(option?.type) || `binding-${index}`,
+            name: option?.type || `Binding Option ${index + 1}`,
+            price: Number(option?.price) || 0,
+            description: option?.description || '',
+          }))
+        : [],
+    [productOptionsData?.edge_binding_options],
+  );
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(productColors[0]);
+  const [selectedColor, setSelectedColor] = useState(() => colorOptions[0] || null);
+  const [selectedColorPreviewImage, setSelectedColorPreviewImage] = useState(
+    () => colorOptions[0]?.productImage || colorOptions[0]?.sampleImage || null,
+  );
   const [selectedMountType, setSelectedMountType] = useState(
     mountTypeOptions[0] || null,
   );
-  const [selectedLiftStyle, setSelectedLiftStyle] = useState(liftStyles[0]);
-  const [selectedLining, setSelectedLining] = useState(liningOptions[0]);
+  const [selectedLiftStyle, setSelectedLiftStyle] = useState(
+    liftStyleOptions[0] || null,
+  );
+  const [selectedMotorization, setSelectedMotorization] = useState(null);
+  const [selectedLining, setSelectedLining] = useState(
+    () => liningOptionsData[0] || null,
+  );
   const [selectedBinding, setSelectedBinding] = useState(
     bindingEdgeOptions[0] || null,
   );
   const [selectedNoDrill, setSelectedNoDrill] = useState(
     installationOptions[0] || null,
   );
-  const [width, setWidth] = useState('36');
-  const [height, setHeight] = useState('48');
+  const [width, setWidth] = useState(
+    () => widthOptions[0]?.key?.toString() || '36',
+  );
+  const [widthFraction, setWidthFraction] = useState(
+    () => widthFractionOptions[0]?.key?.toString() || '0',
+  );
+  const [height, setHeight] = useState(
+    () => heightOptions[0]?.key?.toString() || '48',
+  );
+  const [heightFraction, setHeightFraction] = useState(
+    () => heightFractionOptions[0]?.key?.toString() || '0',
+  );
+  const [widthSearch, setWidthSearch] = useState('');
+  const [widthFractionSearch, setWidthFractionSearch] = useState('');
+  const [heightSearch, setHeightSearch] = useState('');
+  const [heightFractionSearch, setHeightFractionSearch] = useState('');
+  const [widthOpen, setWidthOpen] = useState(false);
+  const [widthFractionOpen, setWidthFractionOpen] = useState(false);
+  const [heightOpen, setHeightOpen] = useState(false);
+  const [heightFractionOpen, setHeightFractionOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isSwatchDialogOpen, setIsSwatchDialogOpen] = useState(false);
 
@@ -387,6 +456,21 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   }, [currentImageIndex, productImages.length]);
 
   useEffect(() => {
+    if (colorOptions.length > 0) {
+      const exists = colorOptions.some((option) => option.id === selectedColor?.id);
+      if (!exists) {
+        setSelectedColor(colorOptions[0]);
+        setSelectedColorPreviewImage(
+          colorOptions[0]?.productImage || colorOptions[0]?.sampleImage || null,
+        );
+      }
+    } else if (selectedColor) {
+      setSelectedColor(null);
+      setSelectedColorPreviewImage(null);
+    }
+  }, [colorOptions, selectedColor]);
+
+  useEffect(() => {
     if (mountTypeOptions.length > 0) {
       const exists = mountTypeOptions.some(
         (option) => option.id === selectedMountType?.id,
@@ -396,6 +480,57 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
       setSelectedMountType(null);
     }
   }, [mountTypeOptions, selectedMountType]);
+
+  useEffect(() => {
+    if (liftStyleOptions.length > 0) {
+      const exists = liftStyleOptions.some(
+        (option) => option.id === selectedLiftStyle?.id,
+      );
+      if (!exists) setSelectedLiftStyle(liftStyleOptions[0]);
+    } else if (selectedLiftStyle) {
+      setSelectedLiftStyle(null);
+    }
+  }, [liftStyleOptions, selectedLiftStyle]);
+
+  const isMotorizedLift = (option) => {
+    const identifier = [option?.id, option?.name, option?.type]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+
+    return identifier.includes('motor');
+  };
+
+  const showMotorizationOptions =
+    isMotorizedLift(selectedLiftStyle) && motorizationOptions.length > 0;
+
+  useEffect(() => {
+    if (!showMotorizationOptions) {
+      if (selectedMotorization) {
+        setSelectedMotorization(null);
+      }
+      return;
+    }
+
+    const exists = motorizationOptions.some(
+      (option) => option.id === selectedMotorization?.id,
+    );
+
+    if (!exists) {
+      setSelectedMotorization(motorizationOptions[0] || null);
+    }
+  }, [motorizationOptions, selectedMotorization, showMotorizationOptions]);
+
+  useEffect(() => {
+    if (liningOptionsData.length > 0) {
+      const exists = liningOptionsData.some(
+        (option) => option.id === selectedLining?.id,
+      );
+      if (!exists) setSelectedLining(liningOptionsData[0]);
+    } else if (selectedLining) {
+      setSelectedLining(null);
+    }
+  }, [liningOptionsData, selectedLining]);
 
   useEffect(() => {
     if (bindingEdgeOptions.length > 0) {
@@ -419,10 +554,71 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
     }
   }, [installationOptions, selectedNoDrill]);
 
+  useEffect(() => {
+    if (widthOptions.length > 0) {
+      const exists = widthOptions.some(
+        (option) => option?.key?.toString() === width,
+      );
+      if (!exists) setWidth(widthOptions[0]?.key?.toString() || '');
+    }
+  }, [widthOptions, width]);
+
+  useEffect(() => {
+    if (heightOptions.length > 0) {
+      const exists = heightOptions.some(
+        (option) => option?.key?.toString() === height,
+      );
+      if (!exists) setHeight(heightOptions[0]?.key?.toString() || '');
+    }
+  }, [heightOptions, height]);
+
+  useEffect(() => {
+    if (widthFractionOptions.length > 0) {
+      const exists = widthFractionOptions.some(
+        (option) => option?.key?.toString() === widthFraction,
+      );
+      if (!exists) setWidthFraction(widthFractionOptions[0]?.key?.toString() || '0');
+    }
+  }, [widthFractionOptions, widthFraction]);
+
+  useEffect(() => {
+    if (heightFractionOptions.length > 0) {
+      const exists = heightFractionOptions.some(
+        (option) => option?.key?.toString() === heightFraction,
+      );
+      if (!exists) setHeightFraction(heightFractionOptions[0]?.key?.toString() || '0');
+    }
+  }, [heightFractionOptions, heightFraction]);
+
   const selectedMountTypeId = selectedMountType?.id || 'inside';
-  
+  const selectedWidthFractionOption = widthFractionOptions.find(
+    (option) => option?.key?.toString() === widthFraction,
+  );
+  const selectedHeightFractionOption = heightFractionOptions.find(
+    (option) => option?.key?.toString() === heightFraction,
+  );
+  const filteredWidthOptions = widthOptions.filter((option) =>
+    option?.key?.toString().toLowerCase().includes(widthSearch.toLowerCase()),
+  );
+  const filteredWidthFractionOptions = widthFractionOptions.filter((option) =>
+    option?.key?.toString().toLowerCase().includes(widthFractionSearch.toLowerCase()),
+  );
+  const filteredHeightOptions = heightOptions.filter((option) =>
+    option?.key?.toString().toLowerCase().includes(heightSearch.toLowerCase()),
+  );
+  const filteredHeightFractionOptions = heightFractionOptions.filter((option) =>
+    option?.key?.toString().toLowerCase().includes(heightFractionSearch.toLowerCase()),
+  );
+  const displayWidth = formatMeasurementLabel(width, widthFraction);
+  const displayHeight = formatMeasurementLabel(height, heightFraction);
+  const liningSummary = liningOptionsData
+    .map((option) => option?.name)
+    .filter(Boolean)
+    .join(', ');
+  const selectedMotorizationSummary = selectedMotorization?.name || '';
+
   // Accordion states
-  const [openSections, setOpenSections] = useState(['mount', 'dimensions']);
+  const [openSections, setOpenSections] = useState(['color', 'mount', 'dimensions']);
 
   const toggleSection = (section) => {
     setOpenSections(prev => 
@@ -435,31 +631,53 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   const totalPrice = useMemo(() => {
     const basePrice = productBasePrice;
     const mountPrice = Number(selectedMountType?.price) || 0;
-    const liftPrice = selectedLiftStyle.price;
-    const liningPrice = selectedLining.price;
+    const liftPrice = Number(selectedLiftStyle?.price) || 0;
+    const motorizationPrice = Number(selectedMotorization?.price) || 0;
+    const liningPrice = Number(selectedLining?.price) || 0;
     const bindingPrice = Number(selectedBinding?.price) || 0;
     const noDrillPrice = Number(selectedNoDrill?.price) || 0;
-    
-    const widthValue = parseFloat(width) || 36;
-    const heightValue = parseFloat(height) || 48;
+    const widthFractionPrice = Number(selectedWidthFractionOption?.price) || 0;
+    const heightFractionPrice = Number(selectedHeightFractionOption?.price) || 0;
+
+    const widthValue =
+      parseMeasurementValue(width, 36) + parseFractionValue(widthFraction);
+    const heightValue =
+      parseMeasurementValue(height, 48) + parseFractionValue(heightFraction);
     const sizeMultiplier = (widthValue * heightValue) / (36 * 48);
     
-    const unitPrice = (basePrice + mountPrice + liftPrice + liningPrice + bindingPrice + noDrillPrice) * Math.max(sizeMultiplier, 0.6);
+    const unitPrice = (basePrice + mountPrice + liftPrice + motorizationPrice + liningPrice + bindingPrice + noDrillPrice + widthFractionPrice + heightFractionPrice) * Math.max(sizeMultiplier, 0.6);
     return Number((unitPrice * quantity).toFixed(2));
-  }, [productBasePrice, selectedMountType, selectedLiftStyle, selectedLining, selectedBinding, selectedNoDrill, width, height, quantity]);
+  }, [productBasePrice, selectedMountType, selectedLiftStyle, selectedMotorization, selectedLining, selectedBinding, selectedNoDrill, selectedWidthFractionOption, selectedHeightFractionOption, width, widthFraction, height, heightFraction, quantity]);
+
+  const displayImage =
+    selectedColorPreviewImage ||
+    productImages[currentImageIndex]?.url ||
+    productData.images[0].url;
 
   const handleAddToCart = () => {
+    if (showMotorizationOptions && !selectedMotorization) {
+      toast.error('Please select a motorization option.');
+      return;
+    }
+
     const cartItem = {
       id: `${productData.id}-${Date.now()}`,
       productId: productData.id,
       productName: productTitle,
-      fabric: selectedColor.name,
-      dimensions: { width: parseFloat(width) || 36, height: parseFloat(height) || 48, unit: 'inches' },
-      lining: selectedLining.id,
+      fabric: selectedColor?.name || productTitle,
+      dimensions: {
+        width:
+          parseMeasurementValue(width, 36) + parseFractionValue(widthFraction),
+        height:
+          parseMeasurementValue(height, 48) + parseFractionValue(heightFraction),
+        unit: 'inches',
+      },
+      lining: selectedLining?.id || '',
       mounting: selectedMountType?.id || '',
+      motorization: selectedMotorizationSummary,
       quantity,
       unitPrice: totalPrice / quantity,
-      image: productImages[0]?.url || productData.images[0].url,
+      image: displayImage,
     };
     addToCart(cartItem);
     toast.success('Added to cart!');
@@ -489,18 +707,24 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
           <div className="lg:sticky lg:top-24 lg:self-start space-y-4">
             {/* Main Image */}
             <div className="relative aspect-[4/5] bg-gray-100 overflow-hidden">
-              <img
-                src={productImages[currentImageIndex]?.url}
-                alt={productImages[currentImageIndex]?.alt}
+              <Image
+                src={displayImage}
+                alt={selectedColor?.name || productImages[currentImageIndex]?.alt}
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-4 left-4">
                 <span className="px-3 py-1.5 text-xs font-medium bg-slate-800 text-white">Custom Made</span>
               </div>
-              <button onClick={() => setCurrentImageIndex(prev => prev === 0 ? productImages.length - 1 : prev - 1)} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
+              <button onClick={() => {
+                setCurrentImageIndex(prev => prev === 0 ? productImages.length - 1 : prev - 1);
+                setSelectedColorPreviewImage(null);
+              }} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
                 <ChevronLeftIcon className="w-5 h-5 text-slate-800" />
               </button>
-              <button onClick={() => setCurrentImageIndex(prev => (prev + 1) % productImages.length)} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
+              <button onClick={() => {
+                setCurrentImageIndex(prev => (prev + 1) % productImages.length);
+                setSelectedColorPreviewImage(null);
+              }} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
                 <ChevronRightIcon className="w-5 h-5 text-slate-800" />
               </button>
             </div>
@@ -510,10 +734,13 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
               {productImages.map((img, idx) => (
                 <button 
                   key={img.id} 
-                  onClick={() => setCurrentImageIndex(idx)} 
+                  onClick={() => {
+                    setCurrentImageIndex(idx);
+                    setSelectedColorPreviewImage(null);
+                  }}
                   className={`relative w-16 h-16 overflow-hidden transition-all border-2 ${currentImageIndex === idx ? 'border-slate-800' : 'border-gray-200 opacity-60 hover:opacity-100'}`}
                 >
-                  <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
+                  <Image src={img.url} alt={img.alt} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -556,7 +783,56 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
             {/* CUSTOMIZATION OPTIONS - ACCORDION STYLE */}
             {/* ============================================ */}
             <div className="space-y-3">
-              
+              {colorOptions.length > 0 ? (
+                <CollapsibleSection
+                  title="Fabric Color"
+                  subtitle={selectedColor?.name || 'Select a color'}
+                  isOpen={openSections.includes('color')}
+                  onToggle={() => toggleSection('color')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">
+                        {colorOptions.length} colors available
+                      </span>
+                      <button
+                        onClick={() => setIsSwatchDialogOpen(true)}
+                        className="text-sm text-slate-700 underline"
+                      >
+                        Order Free Swatches
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto">
+                      {colorOptions.map((color) => (
+                        <button
+                          key={color.id}
+                          onClick={() => {
+                            setSelectedColor(color);
+                            setSelectedColorPreviewImage(
+                              color.productImage || color.sampleImage || null,
+                            );
+                          }}
+                          className={`relative w-14 h-14 shrink-0 border transition-all ${selectedColor?.id === color.id ? 'border-gray-500' : 'border-gray-200 hover:border-gray-400'}`}
+                          style={{
+                            backgroundColor: color.hex || 'transparent',
+                            backgroundImage: color.sampleImage
+                              ? `url(${color.sampleImage})`
+                              : 'none',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          }}
+                          title={color.name}
+                        >
+                          {selectedColor?.id === color.id ? (
+                            <CheckIcon className="absolute inset-0 m-auto w-4 h-4 text-white drop-shadow-md" />
+                          ) : null}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
               {/* 1. Mount Type - with Images */}
               {mountTypeOptions.length > 0 ? (
                 <CollapsibleSection
@@ -616,7 +892,11 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
               {/* 3. Dimensions - with Visual Guide */}
               <CollapsibleSection
                 title="Shade Dimensions"
-                subtitle={`${width}" W 脳 ${height}" H`}
+                subtitle={
+                  displayWidth && displayHeight
+                    ? `${displayWidth}" W × ${displayHeight}" H`
+                    : 'Please select dimensions'
+                }
                 isOpen={openSections.includes('dimensions')}
                 onToggle={() => toggleSection('dimensions')}
               >
@@ -639,8 +919,8 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                         </>
                       ) : (
                         <>
-                          <p>1. Measure desired width (add 3-4" beyond window for coverage)</p>
-                          <p>2. Measure desired height (add 3-4" above window frame)</p>
+                          <p>1. Measure desired width (add 3-4&quot; beyond window for coverage)</p>
+                          <p>2. Measure desired height (add 3-4&quot; above window frame)</p>
                           <p>3. Round to nearest 1/8 inch</p>
                         </>
                       )}
@@ -651,84 +931,380 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-xs text-gray-500">Width (inches)</Label>
-                      <div className="relative mt-1">
-                        <Input type="number" step="0.125" value={width} onChange={(e) => setWidth(e.target.value)} className="h-11 pr-10" placeholder="36" />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">in</span>
-                      </div>
+                      {widthOptions.length > 0 ? (
+                        <Popover open={widthOpen} onOpenChange={setWidthOpen}>
+                          <PopoverTrigger asChild>
+                            <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                              {width || 'Please select'}
+                              <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                            align="start"
+                          >
+                            <div className="border-b border-gray-200">
+                              <Input
+                                placeholder="Search width..."
+                                value={widthSearch}
+                                onChange={(e) => setWidthSearch(e.target.value)}
+                                className="h-10 border-0 rounded-none focus-visible:ring-0"
+                              />
+                            </div>
+                            <div className="overflow-y-auto max-h-60">
+                              {filteredWidthOptions.length === 0 ? (
+                                <div className="py-6 text-center text-sm text-gray-500">
+                                  No results found
+                                </div>
+                              ) : (
+                                filteredWidthOptions.map((option) => (
+                                  <button
+                                    key={option.key}
+                                    onClick={() => {
+                                      setWidth(option.key.toString());
+                                      setWidthSearch('');
+                                      setWidthOpen(false);
+                                    }}
+                                    className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                  >
+                                    {option.key}
+                                    {option.price !== '0' && Number(option.price) > 0 ? (
+                                      <span className="text-gray-500 text-xs">
+                                        +${option.price}
+                                      </span>
+                                    ) : null}
+                                  </button>
+                                ))
+                              )}
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      ) : (
+                        <div className="relative mt-1">
+                          <Input type="number" step="0.125" value={width} onChange={(e) => setWidth(e.target.value)} className="h-11 pr-10" placeholder="36" />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">in</span>
+                        </div>
+                      )}
+                      {widthFractionOptions.length > 0 ? (
+                        <div className="mt-3">
+                          <Label className="text-xs text-gray-500">Width Fraction</Label>
+                          <Popover open={widthFractionOpen} onOpenChange={setWidthFractionOpen}>
+                            <PopoverTrigger asChild>
+                              <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                                {widthFraction || 'Please select'}
+                                <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                              align="start"
+                            >
+                              <div className="border-b border-gray-200">
+                                <Input
+                                  placeholder="Search width fraction..."
+                                  value={widthFractionSearch}
+                                  onChange={(e) => setWidthFractionSearch(e.target.value)}
+                                  className="h-10 border-0 rounded-none focus-visible:ring-0"
+                                />
+                              </div>
+                              <div className="overflow-y-auto max-h-60">
+                                {filteredWidthFractionOptions.length === 0 ? (
+                                  <div className="py-6 text-center text-sm text-gray-500">
+                                    No results found
+                                  </div>
+                                ) : (
+                                  filteredWidthFractionOptions.map((option) => (
+                                    <button
+                                      key={option.key}
+                                      onClick={() => {
+                                        setWidthFraction(option.key.toString());
+                                        setWidthFractionSearch('');
+                                        setWidthFractionOpen(false);
+                                      }}
+                                      className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                    >
+                                      {option.key}
+                                      {option.price !== '0' && Number(option.price) > 0 ? (
+                                        <span className="text-gray-500 text-xs">
+                                          +${option.price}
+                                        </span>
+                                      ) : null}
+                                    </button>
+                                  ))
+                                )}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                      ) : null}
                     </div>
                     <div>
                       <Label className="text-xs text-gray-500">Height (inches)</Label>
-                      <div className="relative mt-1">
-                        <Input type="number" step="0.125" value={height} onChange={(e) => setHeight(e.target.value)} className="h-11 pr-10" placeholder="48" />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">in</span>
-                      </div>
+                      {heightOptions.length > 0 ? (
+                        <Popover open={heightOpen} onOpenChange={setHeightOpen}>
+                          <PopoverTrigger asChild>
+                            <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                              {height || 'Please select'}
+                              <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                            align="start"
+                          >
+                            <div className="border-b border-gray-200">
+                              <Input
+                                placeholder="Search height..."
+                                value={heightSearch}
+                                onChange={(e) => setHeightSearch(e.target.value)}
+                                className="h-10 border-0 rounded-none focus-visible:ring-0"
+                              />
+                            </div>
+                            <div className="overflow-y-auto max-h-60">
+                              {filteredHeightOptions.length === 0 ? (
+                                <div className="py-6 text-center text-sm text-gray-500">
+                                  No results found
+                                </div>
+                              ) : (
+                                filteredHeightOptions.map((option) => (
+                                  <button
+                                    key={option.key}
+                                    onClick={() => {
+                                      setHeight(option.key.toString());
+                                      setHeightSearch('');
+                                      setHeightOpen(false);
+                                    }}
+                                    className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                  >
+                                    {option.key}
+                                    {option.price !== '0' && Number(option.price) > 0 ? (
+                                      <span className="text-gray-500 text-xs">
+                                        +${option.price}
+                                      </span>
+                                    ) : null}
+                                  </button>
+                                ))
+                              )}
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      ) : (
+                        <div className="relative mt-1">
+                          <Input type="number" step="0.125" value={height} onChange={(e) => setHeight(e.target.value)} className="h-11 pr-10" placeholder="48" />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">in</span>
+                        </div>
+                      )}
+                      {heightFractionOptions.length > 0 ? (
+                        <div className="mt-3">
+                          <Label className="text-xs text-gray-500">Height Fraction</Label>
+                          <Popover open={heightFractionOpen} onOpenChange={setHeightFractionOpen}>
+                            <PopoverTrigger asChild>
+                              <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
+                                {heightFraction || 'Please select'}
+                                <ChevronDownIcon className="w-4 h-4 text-gray-400" />
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-[var(--radix-popover-trigger-width)] p-0 bg-white border border-gray-300"
+                              align="start"
+                            >
+                              <div className="border-b border-gray-200">
+                                <Input
+                                  placeholder="Search height fraction..."
+                                  value={heightFractionSearch}
+                                  onChange={(e) => setHeightFractionSearch(e.target.value)}
+                                  className="h-10 border-0 rounded-none focus-visible:ring-0"
+                                />
+                              </div>
+                              <div className="overflow-y-auto max-h-60">
+                                {filteredHeightFractionOptions.length === 0 ? (
+                                  <div className="py-6 text-center text-sm text-gray-500">
+                                    No results found
+                                  </div>
+                                ) : (
+                                  filteredHeightFractionOptions.map((option) => (
+                                    <button
+                                      key={option.key}
+                                      onClick={() => {
+                                        setHeightFraction(option.key.toString());
+                                        setHeightFractionSearch('');
+                                        setHeightFractionOpen(false);
+                                      }}
+                                      className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 flex items-center justify-between"
+                                    >
+                                      {option.key}
+                                      {option.price !== '0' && Number(option.price) > 0 ? (
+                                        <span className="text-gray-500 text-xs">
+                                          +${option.price}
+                                        </span>
+                                      ) : null}
+                                    </button>
+                                  ))
+                                )}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
               </CollapsibleSection>
 
               {/* 4. Lift Style */}
-              <CollapsibleSection
-                title="Lift Style"
-                subtitle={selectedLiftStyle.name}
-                isOpen={openSections.includes('lift')}
-                onToggle={() => toggleSection('lift')}
-              >
-                <div className="pt-4 space-y-3">
-                  <RadioGroup value={selectedLiftStyle.id} onValueChange={(val) => { const lift = liftStyles.find(l => l.id === val); if (lift) setSelectedLiftStyle(lift); }}>
-                    <div className="space-y-2">
-                      {liftStyles.map((lift) => (
-                        <div key={lift.id}>
-                          <RadioGroupItem value={lift.id} id={`lift-${lift.id}`} className="peer sr-only" />
-                          <Label htmlFor={`lift-${lift.id}`} className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
-                            <div>
-                              <span className="font-medium text-gray-900">{lift.name}</span>
-                              <p className="text-sm text-gray-500">{lift.description}</p>
-                            </div>
-                            <span className="text-sm font-medium text-gray-900">{lift.price > 0 ? `+$${lift.price}` : 'Included'}</span>
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </RadioGroup>
-                  
-                  {selectedLiftStyle.id === 'motorized' && (
-                    <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 text-sm text-emerald-800">
-                      <div className="flex items-start gap-2">
-                        <ZapIcon className="w-4 h-4 shrink-0 mt-0.5" />
-                        <span>Motorized shades include rechargeable battery, remote control, and smartphone app compatibility.</span>
+              {liftStyleOptions.length > 0 ? (
+                <CollapsibleSection
+                  title="Lift Style"
+                  subtitle={selectedLiftStyle?.name || 'Select lift style'}
+                  isOpen={openSections.includes('lift')}
+                  onToggle={() => toggleSection('lift')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup value={selectedLiftStyle?.id} onValueChange={(val) => { const lift = liftStyleOptions.find(l => l.id === val); if (lift) setSelectedLiftStyle(lift); }}>
+                      <div className="space-y-3">
+                        {liftStyleOptions.map((lift) => (
+                          <div key={lift.id}>
+                            <RadioGroupItem value={lift.id} id={`lift-${lift.id}`} className="peer sr-only" />
+                            <Label htmlFor={`lift-${lift.id}`} className="flex gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
+                              {lift.image ? (
+                                <div className="w-24 h-24 shrink-0 bg-gray-100 overflow-hidden">
+                                  <Image src={lift.image} alt={lift.name} className="w-full h-full object-cover" />
+                                </div>
+                              ) : null}
+                              <div className="flex-1 min-w-0 flex items-center justify-between gap-4">
+                                <div>
+                                  <span className="font-medium text-gray-900">{lift.name}</span>
+                                  <p className="text-sm text-gray-500">{lift.description}</p>
+                                </div>
+                                <span className="text-sm font-medium text-gray-900">{lift.price > 0 ? `+$${lift.price}` : 'Included'}</span>
+                              </div>
+                            </Label>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-                  )}
-                </div>
-              </CollapsibleSection>
+                    </RadioGroup>
+
+                    {showMotorizationOptions ? (
+                      <div className="mt-4 space-y-3 border-t border-gray-200 pt-4">
+                        <div>
+                          <p className="font-medium text-gray-900">Motorization Option</p>
+                          <p className="text-sm text-gray-500">
+                            Choose the controller type for your motorized shade.
+                          </p>
+                        </div>
+
+                        <RadioGroup
+                          value={selectedMotorization?.id}
+                          onValueChange={(val) => {
+                            const option = motorizationOptions.find((item) => item.id === val);
+                            if (option) setSelectedMotorization(option);
+                          }}
+                        >
+                          <div className="space-y-2">
+                            {motorizationOptions.map((option) => (
+                              <div key={option.id}>
+                                <RadioGroupItem
+                                  value={option.id}
+                                  id={`motorization-${option.id}`}
+                                  className="peer sr-only"
+                                />
+                                <Label
+                                  htmlFor={`motorization-${option.id}`}
+                                  className="flex items-center justify-between gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
+                                >
+                                  <div>
+                                    <span className="font-medium text-gray-900">
+                                      {option.name}
+                                    </span>
+                                    {option.description ? (
+                                      <p className="text-sm text-gray-500">
+                                        {option.description}
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                  <span className="text-sm font-medium text-gray-900">
+                                    {option.price > 0 ? `+$${option.price}` : 'Included'}
+                                  </span>
+                                </Label>
+                              </div>
+                            ))}
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    ) : null}
+
+                    {isMotorizedLift(selectedLiftStyle) ? (
+                      <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 text-sm text-emerald-800">
+                        <div className="flex items-start gap-2">
+                          <ZapIcon className="w-4 h-4 shrink-0 mt-0.5" />
+                          <span>Motorized shades include rechargeable battery, remote control, and smartphone app compatibility.</span>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </CollapsibleSection>
+              ) : null}
 
               {/* 5. Lining */}
-              <CollapsibleSection
-                title="Fabric Opacity"
-                subtitle={selectedLining.name}
-                isOpen={openSections.includes('lining')}
-                onToggle={() => toggleSection('lining')}
-              >
-                <div className="pt-4 space-y-3">
-                  <RadioGroup value={selectedLining.id} onValueChange={(val) => { const lining = liningOptions.find(l => l.id === val); if (lining) setSelectedLining(lining); }}>
-                    <div className="space-y-2">
-                      {liningOptions.map((lining) => (
-                        <div key={lining.id}>
-                          <RadioGroupItem value={lining.id} id={`lining-${lining.id}`} className="peer sr-only" />
-                          <Label htmlFor={`lining-${lining.id}`} className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
-                            <div>
-                              <span className="font-medium text-gray-900">{lining.name}</span>
-                              <p className="text-sm text-gray-500">{lining.description}</p>
-                            </div>
-                            <span className="text-sm font-medium text-gray-900">{lining.price > 0 ? `+$${lining.price}` : 'Included'}</span>
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </RadioGroup>
-                </div>
-              </CollapsibleSection>
+              {liningOptionsData.length > 0 ? (
+                <CollapsibleSection
+                  title="Lining"
+                  subtitle={selectedLining?.name || 'Select lining'}
+                  isOpen={openSections.includes('lining')}
+                  onToggle={() => toggleSection('lining')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup
+                      value={selectedLining?.id}
+                      onValueChange={(val) => {
+                        const lining = liningOptionsData.find((l) => l.id === val);
+                        if (lining) setSelectedLining(lining);
+                      }}
+                    >
+                      <div className="space-y-3">
+                        {liningOptionsData.map((lining) => (
+                          <div key={lining.id}>
+                            <RadioGroupItem
+                              value={lining.id}
+                              id={`lining-${lining.id}`}
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor={`lining-${lining.id}`}
+                              className="flex gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
+                            >
+                              {lining.image ? (
+                                <div className="w-24 h-24 shrink-0 bg-gray-100 overflow-hidden">
+                                  <Image
+                                    src={lining.image}
+                                    alt={lining.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ) : null}
+                              <div className="flex-1 min-w-0 flex items-center justify-between gap-4">
+                                <div>
+                                  <span className="font-medium text-gray-900">
+                                    {lining.name}
+                                  </span>
+                                  <p className="text-sm text-gray-500">
+                                    {lining.description}
+                                  </p>
+                                </div>
+                                <span className="text-sm font-medium text-gray-900">
+                                  {lining.price > 0
+                                    ? `+$${lining.price}`
+                                    : 'Included'}
+                                </span>
+                              </div>
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
 
               {/* 6. Binding Edge */}
               {bindingEdgeOptions.length > 0 ? (
@@ -970,7 +1546,10 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                         { label: 'Height Range', value: '12" - 96"' },
                         { label: 'Mount Types', value: 'Inside, Outside' },
                         { label: 'Lift Options', value: 'Cordless, Motorized, Chain' },
-                        { label: 'Fabric Opacity', value: 'Light Filtering, Room Darkening, Blackout' },
+                        {
+                          label: 'Lining',
+                          value: liningSummary || 'Available based on selection',
+                        },
                         { label: 'Material', value: '100% Polyester' },
                         { label: 'Warranty', value: '5 Year Limited' },
                         { label: 'Production Time', value: '7-10 business days' },
@@ -1166,7 +1745,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
                 <div className="border border-gray-200 bg-white">
                   <button className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                    <span className="font-medium text-slate-900">What's the difference between light filtering and blackout?</span>
+                    <span className="font-medium text-slate-900">What&apos;s the difference between light filtering and blackout?</span>
                     <ChevronDownIcon className="w-5 h-5 text-gray-400" />
                   </button>
                   <div className="px-6 pb-4 text-gray-600 text-sm">
@@ -1190,7 +1769,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                     <ChevronDownIcon className="w-5 h-5 text-gray-400" />
                   </button>
                   <div className="px-6 pb-4 text-gray-600 text-sm">
-                    All our shades are custom-made to your specifications. Production typically takes 5-7 business days, and shipping takes 3-5 business days. You'll receive tracking information once your order ships. Free shipping on orders over $200.
+                    All our shades are custom-made to your specifications. Production typically takes 5-7 business days, and shipping takes 3-5 business days. You&apos;ll receive tracking information once your order ships. Free shipping on orders over $200.
                   </div>
                 </div>
                 <div className="border border-gray-200 bg-white">
@@ -1199,7 +1778,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                     <ChevronDownIcon className="w-5 h-5 text-gray-400" />
                   </button>
                   <div className="px-6 pb-4 text-gray-600 text-sm">
-                    Since our shades are custom-made to your measurements, they cannot be returned unless there's a manufacturing defect. We strongly recommend ordering free fabric samples first to ensure you're happy with the color and material. If there's a defect, contact us within 30 days for a replacement.
+                    Since our shades are custom-made to your measurements, they cannot be returned unless there&apos;s a manufacturing defect. We strongly recommend ordering free fabric samples first to ensure you&apos;re happy with the color and material. If there&apos;s a defect, contact us within 30 days for a replacement.
                   </div>
                 </div>
                 <div className="border border-gray-200 bg-white">
@@ -1208,7 +1787,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                     <ChevronDownIcon className="w-5 h-5 text-gray-400" />
                   </button>
                   <div className="px-6 pb-4 text-gray-600 text-sm">
-                    Motorized shades offer convenience, safety (no cords for children/pets), and smart home integration. They're especially worth it for hard-to-reach windows, large installations, or if you want scheduled automation. Our motorized options include rechargeable batteries that last 6-12 months.
+                    Motorized shades offer convenience, safety (no cords for children/pets), and smart home integration. They&apos;re especially worth it for hard-to-reach windows, large installations, or if you want scheduled automation. Our motorized options include rechargeable batteries that last 6-12 months.
                   </div>
                 </div>
               </div>
@@ -1266,9 +1845,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="grid grid-cols-4 gap-2 max-h-60 overflow-y-auto">
-              {productColors.map((color) => (
+              {colorOptions.map((color) => (
                 <div key={color.id} className="p-2 bg-gray-50 text-center cursor-pointer hover:ring-1 hover:ring-slate-800 transition-all">
-                  <div className="w-full h-10 mb-1 border border-gray-200" style={{ backgroundColor: color.hex }} />
+                  <div className="w-full h-10 mb-1 border border-gray-200 bg-center bg-cover" style={{ backgroundColor: color.hex || 'transparent', backgroundImage: color.sampleImage ? `url(${color.sampleImage})` : 'none' }} />
                   <p className="text-xs text-gray-900 truncate">{color.name}</p>
                 </div>
               ))}
