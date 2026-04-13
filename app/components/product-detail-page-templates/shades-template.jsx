@@ -211,6 +211,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   };
 
   const productTitle = product?.title || productData.name;
+  const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'woven-wood-shades',
+  );
   const productBasePrice = Number(
     product?.selectedOrFirstAvailableVariant?.price?.amount ??
       productData.basePrice,
@@ -259,18 +262,28 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   };
 
   const colorOptions = useMemo(
-    () =>
-      Array.isArray(productOptionsData?.colors)
-        ? productOptionsData.colors.map((color, index) => ({
-            id: toOptionId(color?.name) || `color-${index}`,
-            name: color?.name || `Color ${index + 1}`,
-            hex: color?.hex || null,
-            productImage: color?.product_image || null,
-            sampleImage: color?.sample_image || null,
-          }))
-        : productColors,
-    [productOptionsData?.colors],
+    () => {
+      if (Array.isArray(productOptionsData?.colors)) {
+        return productOptionsData.colors.map((color, index) => ({
+          id: toOptionId(color?.name) || `color-${index}`,
+          name: color?.name || `Color ${index + 1}`,
+          hex: color?.hex || null,
+          productImage: color?.product_image || null,
+          sampleImage: color?.sample_image || null,
+        }));
+      }
+
+      // Custom JSON products without explicit colors (e.g. bamboo) should not show Fabric Color.
+      if (productOptionsData) {
+        return [];
+      }
+
+      return productColors;
+    },
+    [productOptionsData],
   );
+
+  const shouldShowFabricColor = !isWovenWoodShadesProduct && colorOptions.length > 0;
 
   const mountTypeOptions = useMemo(
     () =>
@@ -347,9 +360,42 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
       : liningOptions;
   }, [productOptionsData?.lining_options]);
 
-  const widthOptions = useMemo(
-    () => (Array.isArray(productOptionsData?.width) ? productOptionsData.width : []),
-    [productOptionsData?.width],
+  const valanceOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.valance)
+        ? productOptionsData.valance
+            .map((option, index) => {
+              const optionName = option?.type || option?.name;
+              if (!optionName) return null;
+
+              return {
+                id: toOptionId(optionName) || `valance-${index}`,
+                name: optionName,
+                price: Number(option?.price) || 0,
+                description: option?.description || '',
+                image: option?.image || '',
+              };
+            })
+            .filter(Boolean)
+        : [],
+    [productOptionsData?.valance],
+  );
+
+  const standardWidthOptions = useMemo(
+    () => {
+      if (Array.isArray(productOptionsData?.standard_width)) {
+        return productOptionsData.standard_width;
+      }
+      return Array.isArray(productOptionsData?.width) ? productOptionsData.width : [];
+    },
+    [productOptionsData?.standard_width, productOptionsData?.width],
+  );
+  const noDrillWidthOptions = useMemo(
+    () =>
+      Array.isArray(productOptionsData?.nodrill_width)
+        ? productOptionsData.nodrill_width
+        : [],
+    [productOptionsData?.nodrill_width],
   );
   const widthFractionOptions = useMemo(
     () =>
@@ -386,12 +432,20 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   const bindingEdgeOptions = useMemo(
     () =>
       Array.isArray(productOptionsData?.edge_binding_options)
-        ? productOptionsData.edge_binding_options.map((option, index) => ({
-            id: toOptionId(option?.type) || `binding-${index}`,
-            name: option?.type || `Binding Option ${index + 1}`,
-            price: Number(option?.price) || 0,
-            description: option?.description || '',
-          }))
+        ? productOptionsData.edge_binding_options
+            .map((option, index) => {
+              const optionName = option?.name || option?.type;
+              if (!optionName) return null;
+
+              return {
+                id: toOptionId(optionName) || `binding-${index}`,
+                name: optionName,
+                price: Number(option?.price) || 0,
+                description: option?.description || '',
+                image: option?.image || '',
+              };
+            })
+            .filter(Boolean)
         : [],
     [productOptionsData?.edge_binding_options],
   );
@@ -411,12 +465,25 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   const [selectedLining, setSelectedLining] = useState(
     () => liningOptionsData[0] || null,
   );
+  const [selectedValance, setSelectedValance] = useState(
+    () => valanceOptions[0] || null,
+  );
   const [selectedBinding, setSelectedBinding] = useState(
     bindingEdgeOptions[0] || null,
   );
   const [selectedNoDrill, setSelectedNoDrill] = useState(
     installationOptions[0] || null,
   );
+  const isNoDrillInstallationSelected = useMemo(() => {
+    const label = `${selectedNoDrill?.id || ''} ${selectedNoDrill?.name || ''}`.toLowerCase();
+    return label.includes('no-drill') || label.includes('nodrill');
+  }, [selectedNoDrill?.id, selectedNoDrill?.name]);
+  const widthOptions = useMemo(() => {
+    if (isNoDrillInstallationSelected && noDrillWidthOptions.length > 0) {
+      return noDrillWidthOptions;
+    }
+    return standardWidthOptions;
+  }, [isNoDrillInstallationSelected, noDrillWidthOptions, standardWidthOptions]);
   const [width, setWidth] = useState(
     () => widthOptions[0]?.key?.toString() || '36',
   );
@@ -533,6 +600,17 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   }, [liningOptionsData, selectedLining]);
 
   useEffect(() => {
+    if (valanceOptions.length > 0) {
+      const exists = valanceOptions.some(
+        (option) => option.id === selectedValance?.id,
+      );
+      if (!exists) setSelectedValance(valanceOptions[0]);
+    } else if (selectedValance) {
+      setSelectedValance(null);
+    }
+  }, [valanceOptions, selectedValance]);
+
+  useEffect(() => {
     if (bindingEdgeOptions.length > 0) {
       const exists = bindingEdgeOptions.some(
         (option) => option.id === selectedBinding?.id,
@@ -611,6 +689,12 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   );
   const displayWidth = formatMeasurementLabel(width, widthFraction);
   const displayHeight = formatMeasurementLabel(height, heightFraction);
+  const dimensionLabels = {
+    width: 'Width',
+    widthFraction: 'Width Fraction',
+    height: 'Height', // Height is sourced from productOptionsData.length.
+    heightFraction: 'Height Fraction', // Height Fraction is sourced from productOptionsData.length_fraction.
+  };
   const liningSummary = liningOptionsData
     .map((option) => option?.name)
     .filter(Boolean)
@@ -618,7 +702,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   const selectedMotorizationSummary = selectedMotorization?.name || '';
 
   // Accordion states
-  const [openSections, setOpenSections] = useState(['color', 'mount', 'dimensions']);
+  const [openSections, setOpenSections] = useState(() =>
+    isWovenWoodShadesProduct ? ['mount', 'dimensions'] : ['color', 'mount', 'dimensions'],
+  );
 
   const toggleSection = (section) => {
     setOpenSections(prev => 
@@ -634,6 +720,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
     const liftPrice = Number(selectedLiftStyle?.price) || 0;
     const motorizationPrice = Number(selectedMotorization?.price) || 0;
     const liningPrice = Number(selectedLining?.price) || 0;
+    const valancePrice = Number(selectedValance?.price) || 0;
     const bindingPrice = Number(selectedBinding?.price) || 0;
     const noDrillPrice = Number(selectedNoDrill?.price) || 0;
     const widthFractionPrice = Number(selectedWidthFractionOption?.price) || 0;
@@ -645,9 +732,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
       parseMeasurementValue(height, 48) + parseFractionValue(heightFraction);
     const sizeMultiplier = (widthValue * heightValue) / (36 * 48);
     
-    const unitPrice = (basePrice + mountPrice + liftPrice + motorizationPrice + liningPrice + bindingPrice + noDrillPrice + widthFractionPrice + heightFractionPrice) * Math.max(sizeMultiplier, 0.6);
+    const unitPrice = (basePrice + mountPrice + liftPrice + motorizationPrice + liningPrice + valancePrice + bindingPrice + noDrillPrice + widthFractionPrice + heightFractionPrice) * Math.max(sizeMultiplier, 0.6);
     return Number((unitPrice * quantity).toFixed(2));
-  }, [productBasePrice, selectedMountType, selectedLiftStyle, selectedMotorization, selectedLining, selectedBinding, selectedNoDrill, selectedWidthFractionOption, selectedHeightFractionOption, width, widthFraction, height, heightFraction, quantity]);
+  }, [productBasePrice, selectedMountType, selectedLiftStyle, selectedMotorization, selectedLining, selectedValance, selectedBinding, selectedNoDrill, selectedWidthFractionOption, selectedHeightFractionOption, width, widthFraction, height, heightFraction, quantity]);
 
   const displayImage =
     selectedColorPreviewImage ||
@@ -673,6 +760,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
         unit: 'inches',
       },
       lining: selectedLining?.id || '',
+      valance: selectedValance?.id || '',
       mounting: selectedMountType?.id || '',
       motorization: selectedMotorizationSummary,
       quantity,
@@ -783,7 +871,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
             {/* CUSTOMIZATION OPTIONS - ACCORDION STYLE */}
             {/* ============================================ */}
             <div className="space-y-3">
-              {colorOptions.length > 0 ? (
+              {shouldShowFabricColor ? (
                 <CollapsibleSection
                   title="Fabric Color"
                   subtitle={selectedColor?.name || 'Select a color'}
@@ -889,7 +977,51 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </CollapsibleSection>
               ) : null}
 
-              {/* 3. Dimensions - with Visual Guide */}
+              {/* 3. Install Types */}
+              {installationOptions.length > 0 ? (
+                <CollapsibleSection
+                  title={isWovenWoodShadesProduct ? 'Install Types' : 'Installation Option'}
+                  subtitle={selectedNoDrill?.name || 'Select installation option'}
+                  isOpen={openSections.includes('nodrill')}
+                  onToggle={() => toggleSection('nodrill')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup
+                      value={selectedNoDrill?.id}
+                      onValueChange={(val) => {
+                        const option = installationOptions.find((o) => o.id === val);
+                        if (option) setSelectedNoDrill(option);
+                      }}
+                    >
+                      <div className="space-y-2">
+                        {installationOptions.map((option) => (
+                          <div key={option.id}>
+                            <RadioGroupItem value={option.id} id={`nodrill-${option.id}`} className="peer sr-only" />
+                            <Label htmlFor={`nodrill-${option.id}`} className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
+                              <div>
+                                <span className="font-medium text-gray-900">{option.name}</span>
+                                <p className="text-sm text-gray-500">{option.description}</p>
+                              </div>
+                              <span className="text-sm font-medium text-gray-900">{option.price > 0 ? `+$${option.price}` : 'Included'}</span>
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </RadioGroup>
+
+                    {selectedNoDrill?.id?.includes('no-drill') ? (
+                      <div className="mt-3 p-3 bg-amber-50 border border-amber-200 text-sm text-amber-800">
+                        <div className="flex items-start gap-2">
+                          <InfoIcon className="w-4 h-4 shrink-0 mt-0.5" />
+                          <span>No-drill installation is only available for inside mount shades up to 15 lbs. Requires clean, smooth window frame surface.</span>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
+              {/* 4. Dimensions - with Visual Guide */}
               <CollapsibleSection
                 title="Shade Dimensions"
                 subtitle={
@@ -930,7 +1062,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                   {/* Dimension Inputs */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-xs text-gray-500">Width (inches)</Label>
+                      <Label className="text-xs text-gray-500">{dimensionLabels.width}(inches)</Label>
                       {widthOptions.length > 0 ? (
                         <Popover open={widthOpen} onOpenChange={setWidthOpen}>
                           <PopoverTrigger asChild>
@@ -987,7 +1119,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       )}
                       {widthFractionOptions.length > 0 ? (
                         <div className="mt-3">
-                          <Label className="text-xs text-gray-500">Width Fraction</Label>
+                          <Label className="text-xs text-gray-500">{dimensionLabels.widthFraction}</Label>
                           <Popover open={widthFractionOpen} onOpenChange={setWidthFractionOpen}>
                             <PopoverTrigger asChild>
                               <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
@@ -1039,7 +1171,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       ) : null}
                     </div>
                     <div>
-                      <Label className="text-xs text-gray-500">Height (inches)</Label>
+                      <Label className="text-xs text-gray-500">{dimensionLabels.height} (inches)</Label>
                       {heightOptions.length > 0 ? (
                         <Popover open={heightOpen} onOpenChange={setHeightOpen}>
                           <PopoverTrigger asChild>
@@ -1096,7 +1228,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       )}
                       {heightFractionOptions.length > 0 ? (
                         <div className="mt-3">
-                          <Label className="text-xs text-gray-500">Height Fraction</Label>
+                          <Label className="text-xs text-gray-500">{dimensionLabels.heightFraction}</Label>
                           <Popover open={heightFractionOpen} onOpenChange={setHeightFractionOpen}>
                             <PopoverTrigger asChild>
                               <button className="mt-1 h-11 w-full bg-white border border-gray-300 rounded-md px-3 text-left flex items-center justify-between text-sm">
@@ -1306,11 +1438,71 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </CollapsibleSection>
               ) : null}
 
+              {valanceOptions.length > 0 ? (
+                <CollapsibleSection
+                  title="Valance Styles"
+                  subtitle={selectedValance?.name || 'Select valance style'}
+                  isOpen={openSections.includes('valance')}
+                  onToggle={() => toggleSection('valance')}
+                >
+                  <div className="pt-4 space-y-3">
+                    <RadioGroup
+                      value={selectedValance?.id}
+                      onValueChange={(val) => {
+                        const valance = valanceOptions.find((v) => v.id === val);
+                        if (valance) setSelectedValance(valance);
+                      }}
+                    >
+                      <div className="space-y-3">
+                        {valanceOptions.map((valance) => (
+                          <div key={valance.id}>
+                            <RadioGroupItem
+                              value={valance.id}
+                              id={`valance-${valance.id}`}
+                              className="peer sr-only"
+                            />
+                            <Label
+                              htmlFor={`valance-${valance.id}`}
+                              className="flex gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300"
+                            >
+                              {valance.image ? (
+                                <div className="w-24 h-24 shrink-0 bg-gray-100 overflow-hidden">
+                                  <Image
+                                    src={valance.image}
+                                    alt={valance.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ) : null}
+                              <div className="flex-1 min-w-0 flex items-center justify-between gap-4">
+                                <div>
+                                  <span className="font-medium text-gray-900">
+                                    {valance.name}
+                                  </span>
+                                  {valance.description ? (
+                                    <p className="text-sm text-gray-500">
+                                      {valance.description}
+                                    </p>
+                                  ) : null}
+                                </div>
+                                <span className="text-sm font-medium text-gray-900">
+                                  {valance.price > 0 ? `+$${valance.price}` : 'Included'}
+                                </span>
+                              </div>
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
               {/* 6. Binding Edge */}
               {bindingEdgeOptions.length > 0 ? (
                 <CollapsibleSection
-                  title="Binding Edge"
-                  subtitle={selectedBinding?.name || 'Select binding edge'}
+                  title="Edge Binding Options"
+                  subtitle={selectedBinding?.name || 'Select edge binding option'}
                   isOpen={openSections.includes('binding')}
                   onToggle={() => toggleSection('binding')}
                 >
@@ -1326,10 +1518,19 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                         {bindingEdgeOptions.map((binding) => (
                           <div key={binding.id}>
                             <RadioGroupItem value={binding.id} id={`binding-${binding.id}`} className="peer sr-only" />
-                            <Label htmlFor={`binding-${binding.id}`} className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
-                              <div>
-                                <span className="font-medium text-gray-900">{binding.name}</span>
-                                <p className="text-sm text-gray-500">{binding.description}</p>
+                            <Label htmlFor={`binding-${binding.id}`} className="flex items-center justify-between gap-4 p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
+                              <div className="flex items-center gap-4">
+                                {binding.image ? (
+                                  <div className="w-16 h-16 shrink-0 bg-gray-100 overflow-hidden">
+                                    <Image src={binding.image} alt={binding.name} className="w-full h-full object-cover" />
+                                  </div>
+                                ) : null}
+                                <div>
+                                  <span className="font-medium text-gray-900">{binding.name}</span>
+                                  {binding.description ? (
+                                    <p className="text-sm text-gray-500">{binding.description}</p>
+                                  ) : null}
+                                </div>
                               </div>
                               <span className="text-sm font-medium text-gray-900">{binding.price > 0 ? `+$${binding.price}` : 'Included'}</span>
                             </Label>
@@ -1337,50 +1538,6 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                         ))}
                       </div>
                     </RadioGroup>
-                  </div>
-                </CollapsibleSection>
-              ) : null}
-
-              {/* 7. Installation Option */}
-              {installationOptions.length > 0 ? (
-                <CollapsibleSection
-                  title="Installation Option"
-                  subtitle={selectedNoDrill?.name || 'Select installation option'}
-                  isOpen={openSections.includes('nodrill')}
-                  onToggle={() => toggleSection('nodrill')}
-                >
-                  <div className="pt-4 space-y-3">
-                    <RadioGroup
-                      value={selectedNoDrill?.id}
-                      onValueChange={(val) => {
-                        const option = installationOptions.find((o) => o.id === val);
-                        if (option) setSelectedNoDrill(option);
-                      }}
-                    >
-                      <div className="space-y-2">
-                        {installationOptions.map((option) => (
-                          <div key={option.id}>
-                            <RadioGroupItem value={option.id} id={`nodrill-${option.id}`} className="peer sr-only" />
-                            <Label htmlFor={`nodrill-${option.id}`} className="flex items-center justify-between p-3 border border-gray-200 cursor-pointer transition-all peer-data-[state=checked]:border-slate-800 peer-data-[state=checked]:bg-gray-50 hover:border-gray-300">
-                              <div>
-                                <span className="font-medium text-gray-900">{option.name}</span>
-                                <p className="text-sm text-gray-500">{option.description}</p>
-                              </div>
-                              <span className="text-sm font-medium text-gray-900">{option.price > 0 ? `+$${option.price}` : 'Included'}</span>
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                    </RadioGroup>
-
-                    {selectedNoDrill?.id?.includes('no-drill') ? (
-                      <div className="mt-3 p-3 bg-amber-50 border border-amber-200 text-sm text-amber-800">
-                        <div className="flex items-start gap-2">
-                          <InfoIcon className="w-4 h-4 shrink-0 mt-0.5" />
-                          <span>No-drill installation is only available for inside mount shades up to 15 lbs. Requires clean, smooth window frame surface.</span>
-                        </div>
-                      </div>
-                    ) : null}
                   </div>
                 </CollapsibleSection>
               ) : null}

@@ -56,7 +56,7 @@ async function loadCriticalData({context, params, request}) {
 
   const productHandle = product?.handle?.toLowerCase() || handle.toLowerCase();
   const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
-    (collection) => collection?.handle === 'woven-wood-shades',
+    (collection) => collection?.handle?.toLowerCase() === 'woven-wood-shades',
   );
   const productOptions = isWovenWoodShadesProduct
     ? bambooProductOptions
@@ -79,6 +79,9 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, productOptions} = useLoaderData();
   const productHandle = product?.handle?.toLowerCase() || '';
+  const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'woven-wood-shades',
+  );
   const isBookletProduct = product?.collections?.nodes?.some(
     (collection) => collection?.handle?.toLowerCase() === 'fabric-booklets',
   );
@@ -90,7 +93,9 @@ export default function Product() {
   // so they go through the default Shopify add-to-cart / checkout flow.
   const hasCustomOptions = Boolean(productOptions);
   const shouldUseBookletTemplate = isBookletProduct && hasCustomOptions;
-  const shouldUseShadesTemplate = hasCustomOptions && productHandle.includes('shade');
+  const shouldUseShadesTemplate =
+    hasCustomOptions &&
+    (productHandle.includes('shade') || isWovenWoodShadesProduct);
 
   const ProductTemplate = shouldUseBookletTemplate
     ? BookletTemplate
