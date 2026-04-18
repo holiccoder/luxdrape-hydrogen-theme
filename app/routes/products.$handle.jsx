@@ -5,6 +5,7 @@ import DefaultProductTemplate from '~/components/product-detail-page-templates/d
 import ShadesTemplate from '~/components/product-detail-page-templates/shades-template';
 import HardwareTemplate from '~/components/product-detail-page-templates/hardware-template';
 import BookletTemplate from '~/components/product-detail-page-templates/booklet-template';
+import SwatchTemplate from '~/components/product-detail-page-templates/swatch-template';
 import StandardTemplate from '~/components/product-detail-page-templates/standard-template';
 import {productOptionsIndex} from '~/data/product-options/index.js';
 import bambooProductOptions from '~/data/product-options/bamboo/bamboo.json';
@@ -26,9 +27,9 @@ export const meta = ({data}) => {
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
-  const deferredData = loadDeferredData(args);
   const criticalData = await loadCriticalData(args);
-  return {...deferredData, ...criticalData};
+  const deferredData = await loadDeferredData(args);
+  return {...criticalData, ...deferredData};
 }
 
 /**
@@ -69,15 +70,103 @@ async function loadCriticalData({context, params, request}) {
 }
 
 /**
- * Load data for rendering content below the fold.
+ * Fetch the Judge.me review widget HTML for a given product.
+ * Uses the widget API: GET /api/v1/widgets/product_review?handle=...
+ * Returns { widget, rating, reviewCount } or null on failure.
  */
-function loadDeferredData() {
-  return {};
+async function fetchJudgeMeReviews({shopDomain, apiToken, productHandle}) {
+  if (!shopDomain || !apiToken || !productHandle) {
+    return null;
+  }
+
+  try {
+    const url = new URL('https://judge.me/api/v1/widgets/product_review');
+    url.searchParams.set('api_token', apiToken);
+    url.searchParams.set('shop_domain', shopDomain);
+    url.searchParams.set('handle', productHandle);
+
+    const response = await fetch(url.toString(), {
+      headers: {'Accept': 'application/json'},
+    });
+
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    const widgetHtml = data?.widget || '';
+
+    // Extract rating and review count from widget data attributes
+    const ratingMatch = widgetHtml.match(/data-average-rating='([^']+)'/);
+    const countMatch = widgetHtml.match(/data-number-of-reviews='([^']+)'/);
+
+    const rating = ratingMatch ? parseFloat(ratingMatch[1]) : null;
+    const reviewCount = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+    // If no reviews for this product, try to fetch shop-wide reviews as fallback
+    if (reviewCount === 0) {
+      const shopUrl = new URL('https://judge.me/api/v1/widgets/product_review');
+      shopUrl.searchParams.set('api_token', apiToken);
+      shopUrl.searchParams.set('shop_domain', shopDomain);
+      shopUrl.searchParams.set('handle', 'judgeme-shop-reviews');
+
+      const shopRes = await fetch(shopUrl.toString(), {
+        headers: {'Accept': 'application/json'},
+      });
+
+      if (shopRes.ok) {
+        const shopData = await shopRes.json();
+        const shopWidget = shopData?.widget || '';
+        const shopRatingMatch = shopWidget.match(/data-average-rating='([^']+)'/);
+        const shopCountMatch = shopWidget.match(/data-number-of-reviews='([^']+)'/);
+        const shopRating = shopRatingMatch ? parseFloat(shopRatingMatch[1]) : null;
+        const shopCount = shopCountMatch ? parseInt(shopCountMatch[1], 10) : 0;
+
+        if (shopCount > 0) {
+          return {
+            widget: shopWidget,
+            rating: shopRating,
+            reviewCount: shopCount,
+          };
+        }
+      }
+    }
+
+    return {
+      widget: widgetHtml,
+      rating,
+      reviewCount,
+    };
+  } catch (e) {
+    console.error('Failed to fetch Judge.me widget:', e);
+    return null;
+  }
+}
+
+/**
+ * Load data for rendering content below the fold.
+ * Judge.me reviews are loaded server-side using the private API token.
+ */
+async function loadDeferredData({context, params}) {
+  const {env} = context;
+  const shopDomain = env?.PUBLIC_STORE_DOMAIN || 'zi3ym0-dh.myshopify.com';
+  const apiToken = env?.JUDGEME_PRIVATE_API_TOKEN || env?.JUDGEME_PUBLIC_API_TOKEN || 'wQUmG8upJwxt78yRQmtVGpGC7ik';
+  const handle = params?.handle || '';
+
+  console.log('[Judge.me] shopDomain:', shopDomain, 'hasToken:', !!apiToken, 'handle:', handle, 'envKeys:', Object.keys(env || {}).filter(k => k.includes('JUDGE')));
+
+  const judgeMeReviews = apiToken
+    ? await fetchJudgeMeReviews({shopDomain, apiToken, productHandle: handle})
+    : null;
+
+  console.log('[Judge.me] result:', judgeMeReviews ? `widget=${judgeMeReviews.widget?.length}chars` : 'null');
+
+  return {
+    judgeMeReviews,
+  };
 }
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, productOptions} = useLoaderData();
+  const {product, productOptions, judgeMeReviews} = useLoaderData();
   const productHandle = product?.handle?.toLowerCase() || '';
   const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
     (collection) => collection?.handle?.toLowerCase() === 'woven-wood-shades',
@@ -92,14 +181,17 @@ export default function Product() {
   // Products without custom configurator options use the standard template
   // so they go through the default Shopify add-to-cart / checkout flow.
   const hasCustomOptions = Boolean(productOptions);
-  const shouldUseBookletTemplate = isBookletProduct && hasCustomOptions;
+  const shouldUseSwatchTemplate = isBookletProduct;
+  const shouldUseBookletTemplate = false; // kept for reference
   const shouldUseShadesTemplate =
     hasCustomOptions &&
     (productHandle.includes('shade') || isWovenWoodShadesProduct);
 
-  const ProductTemplate = shouldUseBookletTemplate
-    ? BookletTemplate
-    : shouldUseShadesTemplate
+  const ProductTemplate = shouldUseSwatchTemplate
+    ? SwatchTemplate
+    : shouldUseBookletTemplate
+      ? BookletTemplate
+      : shouldUseShadesTemplate
       ? ShadesTemplate
       : isHardwareProduct
         ? HardwareTemplate
@@ -111,6 +203,7 @@ export default function Product() {
     <ProductTemplate
       product={product}
       productOptionsData={productOptions}
+      judgeMeReviews={judgeMeReviews}
     />
   );
 }
@@ -222,6 +315,29 @@ const PRODUCT_FRAGMENT = `#graphql
       namespace
       key
       value
+    }
+    hydrogenGallery: metafield(namespace: "custom", key: "hydrogen_gallery") {
+      reference {
+        ... on Metaobject {
+          fields {
+            key
+            type
+            value
+            references(first: 20) {
+              nodes {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
     selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant

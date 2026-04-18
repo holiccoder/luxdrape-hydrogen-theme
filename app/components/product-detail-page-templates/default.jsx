@@ -52,6 +52,8 @@ import {
   AwardIcon,
   ThumbsUpIcon,
 } from 'lucide-react';
+import {CustomerReviews} from '~/components/shared/CustomerReviews';
+import {RealLifeGallery as RealLifeGalleryFromMetafield} from '~/components/shared/RealLifeGallery';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -237,111 +239,12 @@ const reviewsData = [
   },
 ];
 
-const galleryImages = [
-  {
-    id: '1',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/5d8c0e282d4344afb92cc3e76c72c066_ve_miaoda',
-    alt: 'Customer living room with cream drapery',
-    customer: 'Emma T.',
-    location: 'Los Angeles, CA',
-  },
-  {
-    id: '2',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/d9f0951f7cd24ef091f3b1384b20fcfa_ve_miaoda',
-    alt: 'Customer bedroom with charcoal drapes',
-    customer: 'David K.',
-    location: 'New York, NY',
-  },
-  {
-    id: '3',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/40775611ee2246cc99f56c0128eb297b_ve_miaoda',
-    alt: 'Customer dining room with sage curtains',
-    customer: 'Michelle L.',
-    location: 'Chicago, IL',
-  },
-  {
-    id: '4',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/d0cc4e03afad443e8155bdebc1dc3e72_ve_miaoda',
-    alt: 'Customer nursery with blush drapery',
-    customer: 'Rachel M.',
-    location: 'Seattle, WA',
-  },
-  {
-    id: '5',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/175e3a9252f44ba7890cc2631f892e5d_ve_miaoda',
-    alt: 'Customer home office with navy velvet',
-    customer: 'James P.',
-    location: 'Austin, TX',
-  },
-  {
-    id: '6',
-    url: 'https://miaoda.feishu.cn/aily/api/v1/files/static/be670cd2b29a4879b9cdd5817a0a2448_ve_miaoda',
-    alt: 'Customer minimalist living room',
-    customer: 'Lisa W.',
-    location: 'Denver, CO',
-  },
-];
 
-// ============================================
-// Real Life Gallery Component
-// ============================================
-const RealLifeGallery = () => (
-  <div className="space-y-6">
-    <div className="flex items-center justify-between">
-      <div>
-        <h3 className="text-2xl font-semibold text-slate-900">
-          Real-Life Gallery
-        </h3>
-        <p className="text-gray-500 mt-1">
-          See how LuxDrape transforms real homes
-        </p>
-      </div>
-      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-        Customer Photos
-      </span>
-    </div>
-
-    <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-      {galleryImages.map((img, idx) => (
-        <div key={img.id} className="break-inside-avoid">
-          <div
-            className={`relative overflow-hidden group cursor-pointer rounded-xl ${idx === 0 || idx === 3 ? 'aspect-[3/4]' : idx === 1 || idx === 4 ? 'aspect-[4/3]' : 'aspect-square'}`}
-          >
-            <img
-              src={img.url}
-              alt={img.alt}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <p className="font-medium">{img.customer}</p>
-                <p className="text-sm opacity-80">{img.location}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div className="text-center pt-4">
-      <Button
-        variant="outline"
-        className="rounded-lg border-slate-300 text-slate-700 hover:bg-slate-50"
-      >
-        <ThumbsUpIcon className="w-4 h-4 mr-2" />
-        Share Your Photos
-      </Button>
-      <p className="text-sm text-gray-500 mt-2">
-        Tag @LuxDrape and get 10% off your next order
-      </p>
-    </div>
-  </div>
-);
 
 // ============================================
 // Collapsible Section Component
 // ============================================
-const CollapsibleSection = ({title, subtitle, isOpen, onToggle, children}) => {
+const CollapsibleSection = ({title, subtitle, isOpen, onToggle, children, required}) => {
   return (
     <div className="border border-gray-200 bg-white">
       <button
@@ -349,7 +252,7 @@ const CollapsibleSection = ({title, subtitle, isOpen, onToggle, children}) => {
         className="w-full px-4 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
       >
         <div>
-          <span className="font-medium text-gray-900">{title}</span>
+          <span className="font-medium text-gray-900">{title}{required && <span className="text-red-500 ml-0.5">*</span>}</span>
           {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
         </div>
         <ChevronDownIcon
@@ -430,7 +333,7 @@ const HorizontalScroll = ({children, className = ''}) => {
 // ============================================
 // Main Product Page Component - V7
 // ============================================
-const ProductDetailPage = ({product, productOptionsData}) => {
+const ProductDetailPage = ({product, productOptionsData, judgeMeReviews}) => {
   const navigate = useNavigate();
 
   // Use Shopify product data
@@ -535,10 +438,100 @@ const ProductDetailPage = ({product, productOptionsData}) => {
   ];
 
   // Build specs array with metafield data
-  const productSpecs = defaultSpecs.map((spec) => ({
+  const defaultProductSpecs = defaultSpecs.map((spec) => ({
     label: spec.label,
     value: specifications[spec.key] || spec.value,
   }));
+
+  // Parse product description into key-value specification pairs
+  const descriptionSpecs = useMemo(() => {
+    const html = product?.descriptionHtml;
+    const plainText = product?.description;
+    const specs = [];
+
+    if (html) {
+      let match;
+
+      // 1. Flex-div rows: <div style="display: flex;..."><div>Label</div><div>Value</div></div>
+      const flexRowRegex = /<div[^>]*display:\s*flex[^>]*>\s*<div[^>]*>([\s\S]*?)<\/div>\s*<div[^>]*>([\s\S]*?)<\/div>\s*<\/div>/gi;
+      while ((match = flexRowRegex.exec(html)) !== null) {
+        const label = match[1].replace(/<[^>]*>/g, '').trim();
+        const value = match[2].replace(/<[^>]*>/g, '').trim();
+        if (label && value) specs.push({ label, value });
+      }
+
+      // 2. HTML tables
+      if (specs.length === 0) {
+        const tableRowRegex = /<tr[^>]*>\s*<t[dh][^>]*>([\s\S]*?)<\/t[dh]>\s*<t[dh][^>]*>([\s\S]*?)<\/t[dh]>\s*<\/tr>/gi;
+        while ((match = tableRowRegex.exec(html)) !== null) {
+          const label = match[1].replace(/<[^>]*>/g, '').trim();
+          const value = match[2].replace(/<[^>]*>/g, '').trim();
+          if (label && value) specs.push({ label, value });
+        }
+      }
+
+      // 3. <strong>Key:</strong> Value
+      if (specs.length === 0) {
+        const boldRegex = /<(?:strong|b)[^>]*>\s*([\s\S]*?)\s*<\/(?:strong|b)>\s*[:：]?\s*([^<]+)/gi;
+        while ((match = boldRegex.exec(html)) !== null) {
+          const label = match[1].replace(/<[^>]*>/g, '').trim().replace(/[:：]\s*$/, '');
+          const value = match[2].trim();
+          if (label && value && value.length > 1) specs.push({ label, value });
+        }
+      }
+
+      // 4. <li>/<p> with "Key: Value" text
+      if (specs.length === 0) {
+        const tagRegex = /<(?:li|p|span)[^>]*>([\s\S]*?)<\/(?:li|p|span)>/gi;
+        while ((match = tagRegex.exec(html)) !== null) {
+          const text = match[1].replace(/<[^>]*>/g, '').trim();
+          const colonIdx = text.indexOf(':');
+          const chineseColonIdx = text.indexOf('：');
+          const idx = colonIdx !== -1 && (chineseColonIdx === -1 || colonIdx < chineseColonIdx) ? colonIdx : chineseColonIdx;
+          if (idx > 0 && idx < text.length - 1) {
+            const label = text.substring(0, idx).trim();
+            const value = text.substring(idx + 1).trim();
+            if (label && value && label.length < 60) specs.push({ label, value });
+          }
+        }
+      }
+    }
+
+    // 5. Fallback: plain text
+    if (specs.length === 0 && plainText) {
+      const knownLabels = ['Material', 'Heavyweight', 'Bottom Hem', 'Side Tuck', 'Sold Individually', 'Shading Rate', 'Pattern Options', 'Max Width', 'Max Length', 'Care', 'Width Range', 'Height Range', 'Mount Types', 'Lift Options', 'Lining', 'Warranty', 'Production Time', 'Shipping'];
+      const labelPattern = new RegExp(`(${knownLabels.join('|')})\\s+`, 'g');
+      const parts = plainText.split(labelPattern).filter(Boolean);
+      if (parts.length > 1) {
+        for (let i = 0; i < parts.length - 1; i += 2) {
+          const label = parts[i].trim();
+          const value = parts[i + 1].trim();
+          if (label && value && knownLabels.includes(label)) specs.push({ label, value });
+        }
+      }
+      if (specs.length === 0) {
+        const lines = plainText.split(/[\n\r]+/).map((l) => l.trim()).filter(Boolean);
+        for (const line of lines) {
+          const colonIdx = line.indexOf(':');
+          const chineseColonIdx = line.indexOf('：');
+          const idx = colonIdx !== -1 && (chineseColonIdx === -1 || colonIdx < chineseColonIdx) ? colonIdx : chineseColonIdx;
+          if (idx > 0 && idx < line.length - 1) {
+            const label = line.substring(0, idx).trim();
+            const value = line.substring(idx + 1).trim();
+            if (label && value && label.length < 60) specs.push({ label, value });
+          }
+        }
+      }
+    }
+
+    return specs;
+  }, [product?.descriptionHtml, product?.description]);
+
+  const productSpecs = descriptionSpecs.length > 0 ? descriptionSpecs : defaultProductSpecs;
+
+  const isCustomShadesProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'custom-shades',
+  );
 
   const colorOptions = productOptionsData?.color || productColors;
   const headerOptions = Array.isArray(productOptionsData?.header)
@@ -709,6 +702,18 @@ const ProductDetailPage = ({product, productOptionsData}) => {
     selectedShapingOption,
     selectedTieBack,
   ]);
+
+  // Validation: all options required except room label
+  const missingRequiredOptions = useMemo(() => {
+    const missing = [];
+    if (!selectedColor) missing.push('Color');
+    if (headerOptions.length > 0 && !selectedHeaderStyle) missing.push('Header Style');
+    if (widthOptions.length > 0 && !width) missing.push('Width');
+    if (heightOptions.length > 0 && !height) missing.push('Height');
+    return missing;
+  }, [selectedColor, selectedHeaderStyle, width, height, headerOptions, widthOptions, heightOptions]);
+
+  const isFormValid = missingRequiredOptions.length === 0;
 
   useEffect(() => {
     if (colorOptions.length > 0 && !selectedColor) {
@@ -915,6 +920,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 subtitle={selectedColor?.name || 'Select a color'}
                 isOpen={openSections.includes('color')}
                 onToggle={() => toggleSection('color')}
+                required
               >
                 <div className="pt-4 space-y-3">
                   <div className="flex items-center justify-between">
@@ -964,6 +970,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                   subtitle={selectedHeaderStyle?.name || 'Select header style'}
                   isOpen={openSections.includes('header')}
                   onToggle={() => toggleSection('header')}
+                  required
                 >
                   <div className="pt-4 space-y-3">
                     <RadioGroup
@@ -1033,6 +1040,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 }
                 isOpen={openSections.includes('dimensions')}
                 onToggle={() => toggleSection('dimensions')}
+                required
               >
                 <div className="pt-4 space-y-4">
                   {/* Visual Guide Placeholder */}
@@ -1181,6 +1189,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 subtitle={selectedLining?.name || 'Select lining'}
                 isOpen={openSections.includes('lining')}
                 onToggle={() => toggleSection('lining')}
+                required
               >
                 <div className="pt-4 space-y-3">
                   <RadioGroup
@@ -1385,8 +1394,15 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                   productOptions={productOptions}
                   quantity={quantity}
                   selectedVariant={selectedVariant}
+                  disabled={!isFormValid}
                 />
               </div>
+
+              {!isFormValid && (
+                <p className="text-sm text-red-600">
+                  Please select: {missingRequiredOptions.join(', ')}
+                </p>
+              )}
 
               <div className="flex items-center gap-2 text-sm text-emerald-700">
                 <TruckIcon className="w-4 h-4" />
@@ -1439,9 +1455,9 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {/* Left: Content */}
-                  <div className="lg:col-span-2 space-y-6">
+                <div className="space-y-6">
+                  {/* Content */}
+                  <div className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="p-5 bg-gray-50 rounded-xl">
                         <div className="flex items-center gap-3 mb-3">
@@ -1495,14 +1511,14 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>
-                            Measure width at top, middle, and bottom 鈥?use the
+                            Measure width at top, middle, and bottom –use the
                             narrowest measurement for inside mount
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>
-                            Measure height at left, center, and right 鈥?use the
+                            Measure height at left, center, and right –use the
                             longest measurement
                           </span>
                         </li>
@@ -1524,32 +1540,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                     </div>
                   </div>
 
-                  {/* Right: Image & Resources */}
-                  <div className="space-y-4">
-                    <div className="aspect-video bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                      <PlayIcon className="w-12 h-12 text-gray-400 mb-2" />
-                      <p className="text-gray-600 font-medium">
-                        Installation Video
-                      </p>
-                      <p className="text-sm text-gray-500">2-minute guide</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-slate-400 transition-colors text-center">
-                        <FileTextIcon className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium text-slate-900">
-                          PDF Guide
-                        </p>
-                        <p className="text-xs text-gray-500">Download</p>
-                      </button>
-                      <button className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-slate-400 transition-colors text-center">
-                        <RulerIcon className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium text-slate-900">
-                          Measuring
-                        </p>
-                        <p className="text-xs text-gray-500">Tutorial</p>
-                      </button>
-                    </div>
-                  </div>
+
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -1575,32 +1566,19 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                      {productSpecs.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex justify-between py-3 border-b border-gray-100"
-                        >
-                          <span className="text-gray-500">{item.label}</span>
-                          <span className="font-medium text-slate-900 text-right">
-                            {item.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="aspect-square bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                      <InfoIcon className="w-12 h-12 text-gray-400 mb-2" />
-                      <p className="text-gray-600 font-medium">
-                        Technical Diagram
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Panel construction details
-                      </p>
-                    </div>
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                    {productSpecs.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex justify-between py-3 border-b border-gray-100"
+                      >
+                        <span className="text-gray-500">{item.label}</span>
+                        <span className="font-medium text-slate-900 text-right">
+                          {item.value}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </AccordionContent>
@@ -1627,8 +1605,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-3">
                         Regular Maintenance
@@ -1684,13 +1662,6 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       </p>
                     </div>
                   </div>
-                  <div className="aspect-[4/5] bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                    <DropletsIcon className="w-12 h-12 text-gray-400 mb-2" />
-                    <p className="text-gray-600 font-medium">
-                      Care Instructions
-                    </p>
-                    <p className="text-sm text-gray-500">Visual care guide</p>
-                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -1716,8 +1687,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="p-5 bg-gray-50 rounded-xl">
                       <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                         <ShieldCheckIcon className="w-4 h-4 text-emerald-600" />
@@ -1725,13 +1696,13 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
                         <li>
-                          鈥?Covers manufacturing defects in materials and
+                          –Covers manufacturing defects in materials and
                           workmanship
                         </li>
                         <li>
-                          鈥?Includes header construction, stitching, and lining
+                          –Includes header construction, stitching, and lining
                         </li>
-                        <li>鈥?Hardware components covered for 1 year</li>
+                        <li>–Hardware components covered for 1 year</li>
                       </ul>
                     </div>
                     <div className="p-5 bg-gray-50 rounded-xl">
@@ -1740,21 +1711,18 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                         Shipping Protection
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>鈥?Inspect package immediately upon receipt</li>
-                        <li>鈥?Report damage within 48 hours with photos</li>
-                        <li>鈥?We expedite replacement at no cost</li>
+                        <li>–Inspect package immediately upon receipt</li>
+                        <li>–Report damage within 48 hours with photos</li>
+                        <li>–We expedite replacement at no cost</li>
                       </ul>
                     </div>
-                  </div>
-                  <div className="aspect-video bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                    <ShieldCheckIcon className="w-12 h-12 text-gray-400 mb-2" />
-                    <p className="text-gray-600 font-medium">Warranty Badge</p>
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
             {/* Safety */}
+            {isCustomShadesProduct && (
             <AccordionItem
               value="safety"
               className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
@@ -1806,8 +1774,10 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionContent>
             </AccordionItem>
+            )}
 
             {/* Motorized */}
+            {isCustomShadesProduct && (
             <AccordionItem
               value="motorized"
               className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
@@ -1828,8 +1798,8 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 space-y-4">
+                <div className="grid grid-cols-1 gap-6">
+                  <div className="space-y-4">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                       {[
                         {
@@ -1893,21 +1863,16 @@ const ProductDetailPage = ({product, productOptionsData}) => {
                       </div>
                     </div>
                   </div>
-                  <div className="aspect-[3/4] bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                    <ZapIcon className="w-12 h-12 text-gray-400 mb-2" />
-                    <p className="text-gray-600 font-medium">Motor System</p>
-                    <p className="text-sm text-gray-500">
-                      Product demonstration
-                    </p>
-                  </div>
+
                 </div>
               </AccordionContent>
             </AccordionItem>
+            )}
           </Accordion>
 
           {/* Real-Life Gallery */}
           <div className="mt-16 pt-16 border-t border-gray-200">
-            <RealLifeGallery />
+            <RealLifeGalleryFromMetafield product={product} />
           </div>
 
           {/* FAQ Section */}
@@ -2019,71 +1984,9 @@ const ProductDetailPage = ({product, productOptionsData}) => {
             </div>
           </div>
 
+
           {/* Reviews Section */}
-          <div className="mt-16 pt-16 border-t border-gray-200">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-semibold text-slate-900">
-                Customer Reviews
-              </h3>
-              <span className="text-gray-500">({productData.reviewCount})</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-gray-50 p-6 text-center rounded-xl">
-                <div className="text-5xl font-semibold text-slate-900">
-                  {productData.rating}
-                </div>
-                <div className="flex justify-center gap-1 my-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${i < Math.floor(productData.rating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
-                    />
-                  ))}
-                </div>
-                <div className="text-sm text-gray-500">
-                  Based on {productData.reviewCount} verified reviews
-                </div>
-              </div>
-              <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {reviewsData.map((review) => (
-                  <div
-                    key={review.id}
-                    className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                        <UserIcon className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-slate-900">
-                          {review.author}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-3 h-3 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      {review.verified && (
-                        <span className="ml-auto text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
-                          Verified
-                        </span>
-                      )}
-                    </div>
-                    <h4 className="font-medium text-slate-900 mb-1">
-                      {review.title}
-                    </h4>
-                    <p className="text-gray-600 text-sm line-clamp-3">
-                      {review.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CustomerReviews judgeMeReviews={judgeMeReviews} />
         </div>
       </section>
 
@@ -2120,7 +2023,7 @@ const ProductDetailPage = ({product, productOptionsData}) => {
             </div>
             <div className="bg-emerald-50 p-3 flex items-center gap-2 text-sm text-emerald-800">
               <TruckIcon className="w-4 h-4" />
-              <span>Free shipping 鈥?Arrives in 3-5 days</span>
+              <span>Free shipping –Arrives in 3-5 days</span>
             </div>
             <Button
               className="w-full bg-slate-800 hover:bg-slate-700 text-white"

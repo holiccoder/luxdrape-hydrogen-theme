@@ -477,32 +477,7 @@ function SamplesSection() {
             {homeData.samples.browseAllLabel}
           </Button>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
-          {homeData.samples.fabrics.map((fabric) => (
-            <div
-              key={fabric.id}
-              className="group cursor-pointer"
-              onClick={() => navigate(fabric.href)}
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-muted mb-4">
-                <img
-                  src={fabric.image}
-                  alt={fabric.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-foreground px-5 py-2.5 text-sm font-medium">
-                    Order Sample
-                  </span>
-                </div>
-              </div>
-              <h3 className="font-medium text-base mb-1">{fabric.name}</h3>
-              <p className="text-sm text-muted-foreground">
-                {fabric.colors} Colors
-              </p>
-            </div>
-          ))}
-        </div>
+
       </div>
     </section>
   );

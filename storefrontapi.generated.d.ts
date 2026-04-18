@@ -546,6 +546,21 @@ export type CollectionQuery = {
       image?: StorefrontAPI.Maybe<
         Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
       >;
+      customTitle?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Metafield, 'value' | 'type'>
+      >;
+      customDescription?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Metafield, 'value' | 'type'>
+      >;
+      customImage?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Metafield, 'value' | 'type'> & {
+          reference?: StorefrontAPI.Maybe<{
+            image?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText'>
+            >;
+          }>;
+        }
+      >;
       products: {
         nodes: Array<
           Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
@@ -574,6 +589,21 @@ export type CollectionQuery = {
       };
     }
   >;
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'handle'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<{
+              image?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.Image, 'url' | 'altText'>
+              >;
+            }>;
+          }
+        >;
+      }
+    >;
+  };
 };
 
 export type CollectionFragment = Pick<
@@ -1316,7 +1346,7 @@ interface GeneratedQueryTypes {
     return: BlogsQuery;
     variables: BlogsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      mobileBannerUrl: metafield(namespace: "custom", key: "mobile_banner_url") {\n        value\n      }\n      image {\n        id\n        url\n        altText\n        width\n        height\n      }\n      products(\n        first: $first,\n        last: $last,\n        before: $startCursor,\n        after: $endCursor\n      ) {\n        nodes {\n          ...ProductItem\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      mobileBannerUrl: metafield(namespace: "custom", key: "mobile_banner_url") {\n        value\n      }\n      image {\n        id\n        url\n        altText\n        width\n        height\n      }\n      # Query specific metafields - add your custom metafield namespace and key here\n      customTitle: metafield(namespace: "custom", key: "collection_title") {\n        value\n        type\n      }\n      customDescription: metafield(namespace: "custom", key: "collection_description") {\n        value\n        type\n      }\n      customImage: metafield(namespace: "custom", key: "collection_image") {\n        value\n        type\n        reference {\n          ... on MediaImage {\n            image {\n              url\n              altText\n            }\n          }\n        }\n      }\n      products(\n        first: $first,\n        last: $last,\n        before: $startCursor,\n        after: $endCursor\n      ) {\n        nodes {\n          ...ProductItem\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n    metaobjects(type: "collection_info", first: 1) {\n      nodes {\n        handle\n        fields {\n          key\n          value\n          reference {\n            ... on MediaImage {\n              image {\n                url\n                altText\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: CollectionQuery;
     variables: CollectionQueryVariables;
   };

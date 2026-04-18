@@ -44,7 +44,7 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
-      allowedHosts: ['.tryhydrogen.dev', 'luxdrape.com'],
+      allowedHosts: ['.tryhydrogen.dev', 'luxdrape.com', 'web.gmaigc.cn'],
     },
   };
 });

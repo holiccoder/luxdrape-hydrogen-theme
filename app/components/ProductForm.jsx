@@ -15,6 +15,7 @@ export function ProductForm({
   selectedVariant,
   lineAttributes = [],
   quantity = 1,
+  disabled = false,
 }) {
   const navigate = useNavigate();
   const {open} = useAside();
@@ -105,7 +106,7 @@ export function ProductForm({
         );
       })}
       <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
+        disabled={disabled || !selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           open('cart');
         }}

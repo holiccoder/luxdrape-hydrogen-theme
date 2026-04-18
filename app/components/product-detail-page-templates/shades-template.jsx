@@ -34,6 +34,7 @@ import {
   AwardIcon,
   ThumbsUpIcon,
 } from 'lucide-react';
+import {CustomerReviews} from '~/components/shared/CustomerReviews';
 
 // ============================================
 // Product Data - Shades
@@ -181,7 +182,7 @@ const CollapsibleSection = ({title, subtitle, isOpen, onToggle, children}) => {
 // ============================================
 // Main Product Page Component - Shades
 // ============================================
-const ProductDetailShadesPage = ({product, productOptionsData}) => {
+const ProductDetailShadesPage = ({product, productOptionsData, judgeMeReviews}) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -213,6 +214,9 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
   const productTitle = product?.title || productData.name;
   const isWovenWoodShadesProduct = product?.collections?.nodes?.some(
     (collection) => collection?.handle?.toLowerCase() === 'woven-wood-shades',
+  );
+  const isCustomDrapesProduct = product?.collections?.nodes?.some(
+    (collection) => collection?.handle?.toLowerCase() === 'custom-shades',
   );
   const productBasePrice = Number(
     product?.selectedOrFirstAvailableVariant?.price?.amount ??
@@ -700,6 +704,97 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
     .filter(Boolean)
     .join(', ');
   const selectedMotorizationSummary = selectedMotorization?.name || '';
+
+  // Parse product description into key-value specification pairs
+  const descriptionSpecs = useMemo(() => {
+    const html = product?.descriptionHtml;
+    const plainText = product?.description;
+    const specs = [];
+
+    if (html) {
+      let match;
+
+      // 1. Flex-div rows: <div style="display: flex;..."><div style="...bold...">Label</div><div>Value</div></div>
+      //    This is the most common Shopify product description format
+      const flexRowRegex = /<div[^>]*display:\s*flex[^>]*>\s*<div[^>]*>([\s\S]*?)<\/div>\s*<div[^>]*>([\s\S]*?)<\/div>\s*<\/div>/gi;
+      while ((match = flexRowRegex.exec(html)) !== null) {
+        const label = match[1].replace(/<[^>]*>/g, '').trim();
+        const value = match[2].replace(/<[^>]*>/g, '').trim();
+        if (label && value) specs.push({ label, value });
+      }
+
+      // 2. HTML tables: <tr><td>Key</td><td>Value</td></tr>
+      if (specs.length === 0) {
+        const tableRowRegex = /<tr[^>]*>\s*<t[dh][^>]*>([\s\S]*?)<\/t[dh]>\s*<t[dh][^>]*>([\s\S]*?)<\/t[dh]>\s*<\/tr>/gi;
+        while ((match = tableRowRegex.exec(html)) !== null) {
+          const label = match[1].replace(/<[^>]*>/g, '').trim();
+          const value = match[2].replace(/<[^>]*>/g, '').trim();
+          if (label && value) specs.push({ label, value });
+        }
+      }
+
+      // 3. <strong>Key:</strong> Value or <b>Key:</b> Value
+      if (specs.length === 0) {
+        const boldRegex = /<(?:strong|b)[^>]*>\s*([\s\S]*?)\s*<\/(?:strong|b)>\s*[:：]?\s*([^<]+)/gi;
+        while ((match = boldRegex.exec(html)) !== null) {
+          const label = match[1].replace(/<[^>]*>/g, '').trim().replace(/[:：]\s*$/, '');
+          const value = match[2].trim();
+          if (label && value && value.length > 1) specs.push({ label, value });
+        }
+      }
+
+      // 4. <li>/<p> with "Key: Value" text
+      if (specs.length === 0) {
+        const tagRegex = /<(?:li|p|span)[^>]*>([\s\S]*?)<\/(?:li|p|span)>/gi;
+        while ((match = tagRegex.exec(html)) !== null) {
+          const text = match[1].replace(/<[^>]*>/g, '').trim();
+          const colonIdx = text.indexOf(':');
+          const chineseColonIdx = text.indexOf('：');
+          const idx = colonIdx !== -1 && (chineseColonIdx === -1 || colonIdx < chineseColonIdx) ? colonIdx : chineseColonIdx;
+          if (idx > 0 && idx < text.length - 1) {
+            const label = text.substring(0, idx).trim();
+            const value = text.substring(idx + 1).trim();
+            if (label && value && label.length < 60) specs.push({ label, value });
+          }
+        }
+      }
+    }
+
+    // 5. Fallback: parse plain text description line by line
+    if (specs.length === 0 && plainText) {
+      // Split on known spec labels to handle single-line descriptions
+      const knownLabels = ['Material', 'Heavyweight', 'Bottom Hem', 'Side Tuck', 'Sold Individually', 'Shading Rate', 'Pattern Options', 'Max Width', 'Max Length', 'Care', 'Width Range', 'Height Range', 'Mount Types', 'Lift Options', 'Lining', 'Warranty', 'Production Time', 'Shipping'];
+      const labelPattern = new RegExp(`(${knownLabels.join('|')})\\s+`, 'g');
+      const parts = plainText.split(labelPattern).filter(Boolean);
+
+      if (parts.length > 1) {
+        for (let i = 0; i < parts.length - 1; i += 2) {
+          const label = parts[i].trim();
+          const value = parts[i + 1].trim();
+          if (label && value && knownLabels.includes(label)) {
+            specs.push({ label, value });
+          }
+        }
+      }
+
+      // Also try newline-separated "Key: Value" lines
+      if (specs.length === 0) {
+        const lines = plainText.split(/[\n\r]+/).map((l) => l.trim()).filter(Boolean);
+        for (const line of lines) {
+          const colonIdx = line.indexOf(':');
+          const chineseColonIdx = line.indexOf('：');
+          const idx = colonIdx !== -1 && (chineseColonIdx === -1 || colonIdx < chineseColonIdx) ? colonIdx : chineseColonIdx;
+          if (idx > 0 && idx < line.length - 1) {
+            const label = line.substring(0, idx).trim();
+            const value = line.substring(idx + 1).trim();
+            if (label && value && label.length < 60) specs.push({ label, value });
+          }
+        }
+      }
+    }
+
+    return specs;
+  }, [product?.descriptionHtml, product?.description]);
 
   // Accordion states
   const [openSections, setOpenSections] = useState(() =>
@@ -1316,7 +1411,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       </div>
                     </RadioGroup>
 
-                    {showMotorizationOptions ? (
+                    {isCustomDrapesProduct && showMotorizationOptions ? (
                       <div className="mt-4 space-y-3 border-t border-gray-200 pt-4">
                         <div>
                           <p className="font-medium text-gray-900">Motorization Option</p>
@@ -1607,8 +1702,8 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 space-y-6">
+                <div className="space-y-6">
+                  <div className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="p-5 bg-gray-50 rounded-xl">
                         <div className="flex items-center gap-3 mb-3">
@@ -1640,7 +1735,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       <ul className="space-y-2 text-gray-700">
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                          <span>For inside mount: Measure width at top, middle, and bottom 鈥?use the narrowest</span>
+                          <span>For inside mount: Measure width at top, middle, and bottom –use the narrowest</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
@@ -1658,25 +1753,6 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="aspect-video bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                      <PlayIcon className="w-12 h-12 text-gray-400 mb-2" />
-                      <p className="text-gray-600 font-medium">Installation Video</p>
-                      <p className="text-sm text-gray-500">3-minute guide</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-slate-400 transition-colors text-center">
-                        <FileTextIcon className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium text-slate-900">PDF Guide</p>
-                        <p className="text-xs text-gray-500">Download</p>
-                      </button>
-                      <button className="p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-slate-400 transition-colors text-center">
-                        <RulerIcon className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium text-slate-900">Measuring</p>
-                        <p className="text-xs text-gray-500">Tutorial</p>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -1695,38 +1771,32 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                      {[
-                        { label: 'Width Range', value: '12" - 96"' },
-                        { label: 'Height Range', value: '12" - 96"' },
-                        { label: 'Mount Types', value: 'Inside, Outside' },
-                        { label: 'Lift Options', value: 'Cordless, Motorized, Chain' },
-                        {
-                          label: 'Lining',
-                          value: liningSummary || 'Available based on selection',
-                        },
-                        { label: 'Material', value: '100% Polyester' },
-                        { label: 'Warranty', value: '5 Year Limited' },
-                        { label: 'Production Time', value: '7-10 business days' },
-                        { label: 'Shipping', value: 'Free on orders over $200' },
-                        { label: 'Max Weight', value: '25 lbs (standard), 15 lbs (no-drill)' },
-                      ].map((item, idx) => (
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                    {(descriptionSpecs.length > 0
+                      ? descriptionSpecs
+                      : [
+                          { label: 'Width Range', value: '12" - 96"' },
+                          { label: 'Height Range', value: '12" - 96"' },
+                          { label: 'Mount Types', value: 'Inside, Outside' },
+                          { label: 'Lift Options', value: 'Cordless, Motorized, Chain' },
+                          {
+                            label: 'Lining',
+                            value: liningSummary || 'Available based on selection',
+                          },
+                          { label: 'Material', value: '100% Polyester' },
+                          { label: 'Warranty', value: '5 Year Limited' },
+                          { label: 'Production Time', value: '7-10 business days' },
+                          { label: 'Shipping', value: 'Free on orders over $200' },
+                          { label: 'Max Weight', value: '25 lbs (standard), 15 lbs (no-drill)' },
+                        ]
+                    ).map((item, idx) => (
                         <div key={idx} className="flex justify-between py-3 border-b border-gray-100">
                           <span className="text-gray-500">{item.label}</span>
                           <span className="font-medium text-slate-900 text-right">{item.value}</span>
                         </div>
                       ))}
                     </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="aspect-square bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                      <InfoIcon className="w-12 h-12 text-gray-400 mb-2" />
-                      <p className="text-gray-600 font-medium">Technical Diagram</p>
-                      <p className="text-sm text-gray-500">Shade construction details</p>
-                    </div>
-                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -1745,8 +1815,8 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-3">Regular Maintenance</h4>
                       <ul className="space-y-2 text-gray-600">
@@ -1786,11 +1856,6 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                       <p className="text-sm text-amber-800">Do not submerge roller shades in water. Avoid harsh chemicals that may damage fabric. Never use abrasive scrubbers.</p>
                     </div>
                   </div>
-                  <div className="aspect-[4/5] bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                    <DropletsIcon className="w-12 h-12 text-gray-400 mb-2" />
-                    <p className="text-gray-600 font-medium">Care Instructions</p>
-                    <p className="text-sm text-gray-500">Visual care guide</p>
-                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -1809,17 +1874,17 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="p-5 bg-gray-50 rounded-xl">
                       <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                         <ShieldCheckIcon className="w-4 h-4 text-emerald-600" />
                         5-Year Limited Warranty
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>鈥?Covers roller mechanism and fabric defects</li>
-                        <li>鈥?Motor warranty: 2 years</li>
-                        <li>鈥?Fabric color fastness guaranteed</li>
+                        <li>–Covers roller mechanism and fabric defects</li>
+                        <li>–Motor warranty: 2 years</li>
+                        <li>–Fabric color fastness guaranteed</li>
                       </ul>
                     </div>
                     <div className="p-5 bg-gray-50 rounded-xl">
@@ -1828,21 +1893,18 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                         Shipping Protection
                       </h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>鈥?Inspect package immediately upon receipt</li>
-                        <li>鈥?Report damage within 48 hours with photos</li>
-                        <li>鈥?We expedite replacement at no cost</li>
+                        <li>–Inspect package immediately upon receipt</li>
+                        <li>–Report damage within 48 hours with photos</li>
+                        <li>–We expedite replacement at no cost</li>
                       </ul>
                     </div>
-                  </div>
-                  <div className="aspect-video bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                    <ShieldCheckIcon className="w-12 h-12 text-gray-400 mb-2" />
-                    <p className="text-gray-600 font-medium">Warranty Badge</p>
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
             {/* Safety */}
+            {isCustomDrapesProduct && (
             <AccordionItem value="safety" className="border border-gray-200 rounded-md overflow-hidden bg-white shadow-sm">
               <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-gray-50 [&[data-state=open]]:bg-gray-50">
                 <div className="flex items-center gap-4">
@@ -1875,6 +1937,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
                 </div>
               </AccordionContent>
             </AccordionItem>
+            )}
 
           </Accordion>
 
@@ -1952,43 +2015,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
           </div>
 
           {/* Reviews Section */}
-          <div className="mt-16 pt-16 border-t border-gray-200">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-semibold text-slate-900">Customer Reviews</h3>
-              <span className="text-gray-500">({productReviewCount})</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-gray-50 p-6 text-center rounded-xl">
-                <div className="text-5xl font-semibold text-slate-900">{productRating}</div>
-                <div className="flex justify-center gap-1 my-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(productRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
-                  ))}
-                </div>
-                <div className="text-sm text-gray-500">Based on {productReviewCount} verified reviews</div>
-              </div>
-              <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {reviewsData.map((review) => (
-                  <div key={review.id} className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                        <UserIcon className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-slate-900">{review.author}</div>
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />)}
-                        </div>
-                      </div>
-                      {review.verified && <span className="ml-auto text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">Verified</span>}
-                    </div>
-                    <h4 className="font-medium text-slate-900 mb-1">{review.title}</h4>
-                    <p className="text-gray-600 text-sm line-clamp-3">{review.content}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CustomerReviews judgeMeReviews={judgeMeReviews} />
 
         </div>
       </section>
@@ -2011,7 +2038,7 @@ const ProductDetailShadesPage = ({product, productOptionsData}) => {
             </div>
             <div className="bg-emerald-50 p-3 flex items-center gap-2 text-sm text-emerald-800">
               <TruckIcon className="w-4 h-4" />
-              <span>Free shipping 鈥?Arrives in 3-5 days</span>
+              <span>Free shipping –Arrives in 3-5 days</span>
             </div>
             <Button className="w-full bg-slate-800 hover:bg-slate-700 text-white" onClick={() => { toast.success('Samples added to cart!'); setIsSwatchDialogOpen(false); }}>
               Add Samples to Cart

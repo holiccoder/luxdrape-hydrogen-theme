@@ -1,0 +1,163 @@
+{
+  "topBar": {
+    "items": [
+      { "text": "Free shipping Sitewide", "url": "https://luxdrape.com/collections/best-selling-products" },
+      { "text": "Get samples and lock your discount for 30 days", "url": "https://luxdrape.com/collections/fabric-booklets" }
+    ]
+  },
+  "navigation": [
+    {
+      "label": "Drapery",
+      "type": "mega_menu",
+      "url": "https://luxdrape.com/collections/custom-drapes",
+      "columns": [
+        {
+          "title": "By Fabric",
+          "items": [
+            { "label": "Linen Collection", "url": "https://luxdrape.com/collections/custom-linen-drapes", "badge": "Best Seller" },
+            { "label": "Classic Linen", "url": "https://luxdrape.com/collections/florence-1" },
+            { "label": "Herringbone Linen", "url": "https://luxdrape.com/collections/chevron-herringbone-weave" },
+            { "label": "Plaid & Striped Linen Curtains", "url": "https://luxdrape.com/collections/plaid-striped-curtains" },
+            { "label": "Cotton", "url": "https://luxdrape.com/collections/custom-cotton-drapes" },
+            { "label": "Velvet", "url": "https://luxdrape.com/collections/custom-velvet-drapes" },
+            { "label": "Sheer", "url": "https://luxdrape.com/collections/custom-sheer-drapes" }
+          ]
+        },
+        {
+        "title": "By Style",
+        "layoutType": "visual_grid",
+        "blocks": [
+          {
+            "label": "Pleat",
+            "subLabel":"Classic vertical folds",
+            "imageUrl": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/3PinchPleatNatural_1024x1024_22606f1e-a937-403a-b3d2-d08cd11238bb.webp?v=1776145544", 
+            "url": "https://luxdrape.com/collections/pleated-drapes"
+          },
+          {
+            "label": "Grommet",
+            "subLabel":"Modern metal rings",
+            "imageUrl": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/Grommets_OrganicCotton_Ivory_1024x1024_15a7c98f-7166-4cc1-a1ac-d47fe8b170fd.webp?v=1776145549", 
+            "url": "https://luxdrape.com/collections/grommet-drapes"
+          },
+          {
+            "label": "Soft Top",
+            "subLabel":"Elegant wave finish",
+            "imageUrl": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/BelgianFlaxLinen_MistGray_SoftTop_1024x1024_67e5b93e-019e-4b3e-8a50-befb4a5de1df.webp?v=1776145553", 
+            "url": "https://luxdrape.com/collections/soft-top-drapes"
+          }
+        ]
+      },
+  {
+    "title": "By Function",
+    "layoutType": "visual_grid",     
+    "blocks":[
+  { 
+    "label": "100% Blackout", 
+    "subLabel": "With Complete Blackout Lining", 
+    "url": "https://luxdrape.com/collections/blackout-curtains" 
+  },
+  { 
+    "label": "Thermal Insulated", 
+    "subLabel": "With Thermal Lining", 
+    "url": "https://luxdrape.com/collections/thermal-curtains" 
+  },
+  { 
+    "label": "See-through Sheer", 
+    "subLabel": "Ultra-light & Transparent", 
+    "url": "https://luxdrape.com/collections/thermal-curtains" 
+  },
+  { 
+    "label": "Semi-Sheer", 
+    "subLabel": "Light Filtering Privacy", 
+    "url": "https://luxdrape.com/collections/semi-sheer" 
+  }
+]
+  }
+      ],
+      "featuredCard": {
+        "title": "Florence Collection",
+        "subtitle":"Classic Solid Linen Collection",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/26.3.19drapes1.webp?v=1773906430",
+        "url": "https://luxdrape.com/collections/florence-1"
+      }
+    },
+    {
+      "label": "Shades",
+      "type": "mega_menu",
+      "columns": [
+        {
+          "title": "Roman Shades",
+          "items": [
+            { "label": "Shop All Roman Shades", "url": "https://luxdrape.com/collections/roman-shades" },
+            { "label": "Motorized Option", "url": "pages/motorized-roman", "badge": "Tech" }
+          ]
+        },
+        {
+          "title": "Woven Wood Shades",
+          "items": [
+            { "label": "Woven Wood Shades", "url": "https://luxdrape.com/collections/woven-wood-shades" },
+            { "label": "No-Drill Option", "url": "pages/no-drill", "badge": "Rental Friendly" }
+          ]
+        }
+      ],
+      "featuredCard": {
+        "title": "Motorized Roman Shades",
+        "subTitle": "Effortless Control, Modern Convenience",
+        "image": "https://cdn.shopify.com/s/files/1/0744/8598/9591/files/motorized.webp?v=1773910993",
+        "url": "pages/motorized-roman"
+      }
+    },
+    {
+      "label": "Shop By",
+      "type": "mega_menu",
+      "columns": [
+        {
+          "title": "Shop By Space",
+          "items": [
+            { "label": "Living Room", "url": "pages/living-room", "icon": "living-room-icon" },
+            { "label": "Bedroom", "url": "pages/bedroom", "badge": "Blackout", "icon": "bedroom-icon" },
+            { "label": "Children's Room", "url": "pages/nursery", "badge": "Safety", "icon": "nursery-icon" },
+            { "label": "Home Office", "url": "pages/office", "icon": "office-icon" },
+            {"label": "Kitchen", "url": "pages/kitchen", "icon": "kitchen-icon" },
+            {"label": "Dining Room", "url": "pages/dining-room", "icon": "diningroom-icon" }
+          ]
+        },
+        {
+          "title": "Shop By Feature",
+          "items": [
+            { "label": "No-Drill", "url": "/no-drill" },
+            { "label": "Motorized", "url": "/motorized" },
+            { "label": "Energy Efficient", "url": "/energy" }
+          ]
+        }
+      ],
+      "featuredCard": {
+        "title": "FIT Protection",
+        "subTitle": "Fits right, or replaced",
+        "image": "/images/menu-shop-by.jpg",
+        "url": "/fit-protection"
+      }
+    },
+    { "label": "Motorization", "type": "link", "url": "/motorization", "icon": "bolt" },
+    { "label": "Samples", "type": "link", "url": "/samples", "icon": "swatches" },
+    {
+      "label": "For Business",
+      "type": "dropdown",
+      "items": [
+        { "label": "Get Quote", "url": "/quote", "icon": "file-text" },
+        { "label": "Trade Program", "url": "/trade", "icon": "briefcase" },
+        { "label": "Influencer Program", "url": "/influencer", "icon": "users" }
+      ]
+    },
+    {
+      "label": "How to",
+      "type": "dropdown",
+      "items": [
+        { "label": "Measuring Guide", "url": "/measuring-guide", "icon": "ruler" },
+        { "label": "Installation Guide", "url": "/installation-guide", "icon": "wrench" },
+        { "label": "Buying Guide", "url": "/buying-guide", "icon": "shopping-cart" },
+        { "label": "Fabric Guide", "url": "/fabric-guide", "icon": "layers" }
+      ]
+    }
+  ]
+}

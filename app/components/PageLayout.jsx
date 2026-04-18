@@ -3,6 +3,7 @@ import {useId} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header} from '~/components/Header';
+import {TopBar} from '~/components/TopBar';
 import {CartMain} from '~/components/CartMain';
 import {
   SEARCH_ENDPOINT,
@@ -17,17 +18,24 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  topBar,
+  navigation,
 }) {
+  const topBarItems = topBar?.items || [];
+  const navItems = navigation || [];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Aside.Provider>
         <CartAside cart={cart} />
         <SearchAside />
+        <TopBar items={topBarItems} />
         <Header
           header={header}
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          navigation={navItems}
         />
         <main className="flex-1">{children}</main>
         <Footer

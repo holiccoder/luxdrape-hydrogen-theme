@@ -16,6 +16,7 @@ import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {Button} from './components/ui/button';
 import {Badge} from './components/ui/badge';
+import headerData from '~/data/header.json';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -88,6 +89,8 @@ export async function loader(args) {
       country: args.context.storefront.i18n.country,
       language: args.context.storefront.i18n.language,
     },
+    topBar: headerData.topBar || { items: [] },
+    navigation: headerData.navigation || [],
   };
 }
 

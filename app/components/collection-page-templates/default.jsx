@@ -3,8 +3,6 @@ import {useNavigate} from 'react-router-dom';
 import {
   ShoppingBagIcon,
   StarIcon,
-  PlayIcon,
-  ArrowRightIcon,
   SwatchBookIcon,
   XIcon,
   SlidersHorizontalIcon,
@@ -193,45 +191,6 @@ const sampleProducts = [
   },
 ];
 
-const shoppableVideos = [
-  {
-    id: 'v1',
-    thumbnail:
-      'https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda',
-    productId: '1',
-    productName: 'Belgian Linen Curtain',
-    duration: '0:45',
-    title: 'How to Measure Your Windows',
-  },
-  {
-    id: 'v2',
-    thumbnail:
-      'https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda',
-    productId: '4',
-    productName: 'Velvet Luxe Drape',
-    duration: '1:12',
-    title: 'Velvet Curtain Styling Tips',
-  },
-  {
-    id: 'v3',
-    thumbnail:
-      'https://miaoda.feishu.cn/aily/api/v1/files/static/5f909e47df72474caafcd3b191e077fd_ve_miaoda',
-    productId: '7',
-    productName: 'Blackout Cotton Curtain',
-    duration: '0:58',
-    title: 'Installing Blackout Curtains',
-  },
-  {
-    id: 'v4',
-    thumbnail:
-      'https://miaoda.feishu.cn/aily/api/v1/files/static/6310ecde128b4463aff2428e6a1327a2_ve_miaoda',
-    productId: '6',
-    productName: 'Sheer Linen Panel',
-    duration: '0:36',
-    title: 'Layering Sheer & Blackout',
-  },
-];
-
 const materialOptions = [
   'Linen',
   'Cotton',
@@ -255,6 +214,53 @@ function getProductPrice(product) {
     product?.price ||
     0
   );
+}
+
+/**
+ * Converts Shopify rich text JSON to HTML string.
+ */
+function richTextToHtml(richText) {
+  if (!richText) return '';
+  try {
+    const parsed = typeof richText === 'string' ? JSON.parse(richText) : richText;
+    return renderRichTextNode(parsed);
+  } catch {
+    // If it's not valid JSON, return as-is (might already be HTML or plain text)
+    return richText;
+  }
+}
+
+function renderRichTextNode(node) {
+  if (!node) return '';
+  if (typeof node === 'string') return node;
+
+  if (node.type === 'text') {
+    let text = node.value || '';
+    if (node.bold) text = `<strong>${text}</strong>`;
+    if (node.italic) text = `<em>${text}</em>`;
+    return text;
+  }
+
+  const children = (node.children || []).map(renderRichTextNode).join('');
+
+  switch (node.type) {
+    case 'root':
+      return children;
+    case 'paragraph':
+      return `<p>${children}</p>`;
+    case 'heading':
+      const tag = `h${node.level || 2}`;
+      return `<${tag}>${children}</${tag}>`;
+    case 'list':
+      const listTag = node.listType === 'ordered' ? 'ol' : 'ul';
+      return `<${listTag}>${children}</${listTag}>`;
+    case 'list-item':
+      return `<li>${children}</li>`;
+    case 'link':
+      return `<a href="${node.url || '#'}" target="${node.target || '_self'}">${children}</a>`;
+    default:
+      return children;
+  }
 }
 
 function ProductCard({product}) {
@@ -341,7 +347,7 @@ function ProductCard({product}) {
   );
 }
 
-export default function DefaultCollectionPageTemplate({collection}) {
+export default function DefaultCollectionPageTemplate({collection, metaobjects, collectionMetafields}) {
   const navigate = useNavigate();
   const {addToCart} = useCart();
   const [quickViewProduct, setQuickViewProduct] = useState(null);
@@ -576,83 +582,201 @@ export default function DefaultCollectionPageTemplate({collection}) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-6">
-                Find Your Perfect Fabric
-              </h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                From breathable linen to luxurious velvet, our curated collection offers
-                something for every style and space.
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => navigate('/products/prod-2/swatches')}
-              >
-                Order Free Swatches
-                <ArrowRightIcon className="h-4 w-4 ml-2" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Image
-                src="https://miaoda.feishu.cn/aily/api/v1/files/static/39ca6344fda4409e8177e7359d39c6f1_ve_miaoda"
-                alt="Fabric detail"
-                className="w-full aspect-[3/4] object-cover"
-              />
-              <Image
-                src="https://miaoda.feishu.cn/aily/api/v1/files/static/190087f6844e4a6d9e9eecd6e38fdad3_ve_miaoda"
-                alt="Fabric detail"
-                className="w-full aspect-[3/4] object-cover mt-8"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      {collectionMetafields && collectionMetafields.length > 0 && (() => {
+        const samplesDisplayMf = collectionMetafields.find(
+          (mf) => mf?.key === 'hydrogen_collections_samples_display',
+        );
+        const samplesMetaobject = samplesDisplayMf?.reference;
 
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
-              Shop the Look
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {shoppableVideos.map((video) => (
-              <button
-                key={video.id}
-                className="group cursor-pointer"
-                onClick={() => navigate(`/products/${video.productId}`)}
-              >
-                <div className="relative aspect-[3/4] overflow-hidden bg-muted mb-3">
+        if (!samplesMetaobject) return null;
+
+        const fields = samplesMetaobject.fields || [];
+        const samplesTextRaw = fields.find((f) => f.key === 'samples_text')?.value || '';
+        const samplesText = richTextToHtml(samplesTextRaw);
+        const imageField = fields.find((f) => f.key === 'image');
+        const imageUrl = imageField?.reference?.image?.url || '';
+        const imageAlt = imageField?.reference?.image?.altText || collection?.title || '';
+        const buttonUrl = fields.find((f) => f.key === 'button_url')?.value || '';
+
+        return (
+          <section className="pt-4 pb-16 md:pt-6 md:pb-20 bg-background">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid md:grid-cols-2 gap-12 items-start">
+                {imageUrl ? (
                   <Image
-                  src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    src={imageUrl}
+                    alt={imageAlt}
+                    className="w-full aspect-[4/3] object-cover rounded-lg shadow-sm"
                   />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-14 h-14 bg-white flex items-center justify-center">
-                      <PlayIcon className="h-6 w-6 text-foreground ml-1" />
+                ) : null}
+                <div>
+                  {samplesText ? (
+                    <div
+                      className="text-muted-foreground leading-relaxed prose max-w-none [&>h1:first-child]:text-4xl [&>h1:first-child]:font-semibold [&>h1:first-child]:text-foreground [&>h2:first-child]:text-4xl [&>h2:first-child]:font-semibold [&>h2:first-child]:text-foreground"
+                      dangerouslySetInnerHTML={{__html: samplesText}}
+                    />
+                  ) : null}
+                  {buttonUrl ? (
+                    <Button
+                      className="mt-6"
+                      onClick={() => {
+                        if (buttonUrl.startsWith('http')) {
+                          window.location.href = buttonUrl;
+                          return;
+                        }
+                        navigate(buttonUrl);
+                      }}
+                    >
+                      Order Samples
+                    </Button>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
+
+      {metaobjects && metaobjects.length > 0 && (
+        <section className="py-16 md:py-24 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {metaobjects.map((metaobject, index) => {
+              const fields = metaobject.fields || [];
+              const titleField = fields.find(f => f.key === 'title')?.value || '';
+              const descriptionField = fields.find(f => f.key === 'description')?.value || '';
+              const imageField = fields.find(f => f.key === 'image');
+              const imageUrl = imageField?.reference?.image?.url || '';
+              const imageAlt = imageField?.reference?.image?.altText || '';
+
+              return (
+                <div key={metaobject.handle || index} className="mb-16 last:mb-0">
+                  <div className="grid md:grid-cols-2 gap-12 items-center">
+                    {imageUrl && (
+                      <div className="order-2 md:order-1">
+                        <Image
+                          src={imageUrl}
+                          alt={imageAlt || titleField}
+                          className="w-full aspect-[4/3] object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
+                    <div className={imageUrl ? 'order-1 md:order-2' : ''}>
+                      {titleField && (
+                        <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
+                          {titleField}
+                        </h2>
+                      )}
+                      {descriptionField && (
+                        <div
+                          className="text-muted-foreground leading-relaxed prose prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{__html: descriptionField}}
+                        />
+                      )}
                     </div>
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1">
-                    {video.duration}
-                  </div>
-                  <div className="absolute top-3 left-3 bg-[hsl(220_25%_25%)] text-white text-xs px-2 py-1 flex items-center gap-1">
-                    <ShoppingBagIcon className="h-3 w-3" />
-                    Shop
-                  </div>
                 </div>
-                <h3 className="font-medium text-sm mb-1 group-hover:text-[hsl(220_25%_25%)] transition-colors">
-                  {video.title}
-                </h3>
-                <p className="text-xs text-muted-foreground">{video.productName}</p>
-              </button>
-            ))}
+              );
+            })}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {collectionMetafields && collectionMetafields.length > 0 && (() => {
+        const imageAndContentMf = collectionMetafields.find((mf) => mf?.key === 'image_and_content_section');
+        const metaobjectNodes = imageAndContentMf?.references?.nodes || [];
+
+        if (metaobjectNodes.length === 0) return null;
+
+        return (
+          <section className="py-16 md:py-24 bg-background">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {metaobjectNodes.map((metaobj, index) => {
+                const fields = metaobj.fields || [];
+                const title = fields.find(f => f.key === 'title')?.value || '';
+                const descriptionRaw = fields.find(f => f.key === 'description')?.value || '';
+                const description = richTextToHtml(descriptionRaw);
+                const imageField = fields.find(f => f.key === 'image');
+                const imageUrl = imageField?.reference?.image?.url || '';
+                const imageAlt = imageField?.reference?.image?.altText || '';
+                const isImageRight = index % 2 === 1;
+
+                return (
+                  <div key={metaobj.handle || index} className="mb-16 last:mb-0">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                      {imageUrl && (
+                        <div className={isImageRight ? 'order-1 md:order-2' : 'order-1'}>
+                          <Image
+                            src={imageUrl}
+                            alt={imageAlt || title}
+                            className="w-full aspect-[4/3] object-cover rounded-lg shadow-sm"
+                          />
+                        </div>
+                      )}
+                      <div className={imageUrl ? (isImageRight ? 'order-2 md:order-1' : 'order-2') : ''}>
+                        {title && (
+                          <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
+                            {title}
+                          </h2>
+                        )}
+                        {description && (
+                          <div
+                            className="text-muted-foreground leading-relaxed prose prose-sm max-w-none"
+                            dangerouslySetInnerHTML={{__html: description}}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
+      {collectionMetafields && collectionMetafields.length > 0 && (() => {
+        const faqMf = collectionMetafields.find((mf) => mf?.key === 'hydrogen_collections_faq');
+        const faqNodes = faqMf?.references?.nodes || [];
+
+        if (faqNodes.length === 0) return null;
+
+        return (
+          <section className="py-16 md:py-24 bg-muted/30">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="font-serif text-3xl md:text-4xl font-semibold mb-10 text-center">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-6">
+                {faqNodes.map((faqObj, index) => {
+                  const fields = faqObj.fields || [];
+                  const question = fields.find(f => f.key === 'question')?.value || '';
+                  const answerRaw = fields.find(f => f.key === 'answer')?.value || '';
+                  const answer = richTextToHtml(answerRaw);
+
+                  return (
+                    <details
+                      key={faqObj.handle || index}
+                      className="group border border-border/50 rounded-lg"
+                    >
+                      <summary className="flex items-center justify-between cursor-pointer px-6 py-4 font-medium text-foreground hover:text-[hsl(220_25%_25%)] transition-colors list-none">
+                        {question}
+                        <span className="ml-4 shrink-0 text-muted-foreground group-open:rotate-180 transition-transform">
+                          ▾
+                        </span>
+                      </summary>
+                      <div
+                        className="px-6 pb-4 text-muted-foreground leading-relaxed prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{__html: answer}}
+                      />
+                    </details>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       <section className="py-16 bg-[hsl(220_25%_25%)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

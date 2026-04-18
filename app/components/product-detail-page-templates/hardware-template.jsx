@@ -23,6 +23,7 @@ import {
   PackageIcon,
   Ruler
 } from 'lucide-react';
+import {CustomerReviews} from '~/components/shared/CustomerReviews';
 
 // ============================================
 // Product Data - Curtain Hardware
@@ -61,7 +62,7 @@ const reviewsData = [
 // ============================================
 // Main Product Page Component - Curtain Hardware
 // ============================================
-const ProductDetailHardwarePage = ({product}) => {
+const ProductDetailHardwarePage = ({product, judgeMeReviews}) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -725,19 +726,19 @@ const ProductDetailHardwarePage = ({product}) => {
                   <div className="p-5 bg-gray-50 rounded-md">
                     <h4 className="font-semibold text-slate-900 mb-3">5-Year Limited Warranty</h4>
                     <ul className="space-y-2 text-sm text-gray-600">
-                      <li>鈥?Covers manufacturing defects</li>
-                      <li>鈥?Finish peeling or flaking</li>
-                      <li>鈥?Bracket or hardware failure</li>
-                      <li>鈥?Rod bending under rated weight</li>
+                      <li>–Covers manufacturing defects</li>
+                      <li>–Finish peeling or flaking</li>
+                      <li>–Bracket or hardware failure</li>
+                      <li>–Rod bending under rated weight</li>
                     </ul>
                   </div>
                   <div className="p-5 bg-gray-50 rounded-md">
                     <h4 className="font-semibold text-slate-900 mb-3">30-Day Returns</h4>
                     <ul className="space-y-2 text-sm text-gray-600">
-                      <li>鈥?Unused items in original packaging</li>
-                      <li>鈥?Free return shipping</li>
-                      <li>鈥?Full refund or exchange</li>
-                      <li>鈥?Defective items replaced at no cost</li>
+                      <li>–Unused items in original packaging</li>
+                      <li>–Free return shipping</li>
+                      <li>–Full refund or exchange</li>
+                      <li>–Defective items replaced at no cost</li>
                     </ul>
                   </div>
                 </div>
@@ -747,43 +748,7 @@ const ProductDetailHardwarePage = ({product}) => {
           </Accordion>
 
           {/* Reviews Section */}
-          <div className="mt-16 pt-16 border-t border-gray-200">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-semibold text-slate-900">Customer Reviews</h3>
-              <span className="text-gray-500">({productReviewCount})</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-gray-50 p-6 text-center rounded-md">
-                <div className="text-5xl font-semibold text-slate-900">{productRating}</div>
-                <div className="flex justify-center gap-1 my-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(productRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
-                  ))}
-                </div>
-                <div className="text-sm text-gray-500">Based on {productReviewCount} verified reviews</div>
-              </div>
-              <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {reviewsData.map((review) => (
-                  <div key={review.id} className="bg-white p-5 rounded-md border border-gray-200 shadow-sm">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                        <UserIcon className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-slate-900">{review.author}</div>
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />)}
-                        </div>
-                      </div>
-                      {review.verified && <span className="ml-auto text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">Verified</span>}
-                    </div>
-                    <h4 className="font-medium text-slate-900 mb-1">{review.title}</h4>
-                    <p className="text-gray-600 text-sm line-clamp-3">{review.content}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CustomerReviews judgeMeReviews={judgeMeReviews} />
 
         </div>
       </section>

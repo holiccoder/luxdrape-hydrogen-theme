@@ -39,12 +39,19 @@ async function loadCriticalData({context, params, request}) {
     throw redirect('/collections');
   }
 
-  const [{collection}] = await Promise.all([
+  const [{collection, metaobjects}] = await Promise.all([
     storefront.query(COLLECTION_QUERY, {
       variables: {handle, ...paginationVariables},
-      // Add other queries here, so that they are loaded in parallel
     }),
   ]);
+
+  // Extract metafields from the Storefront API response
+  const collectionMetafields = collection?.metafields?.filter(Boolean) || [];
+
+  console.log('=== COLLECTION METAFIELDS (Storefront API) ===');
+  console.log('Collection handle:', handle);
+  console.log('Metafields:', JSON.stringify(collectionMetafields, null, 2));
+  console.log('===============================================');
 
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
@@ -57,6 +64,8 @@ async function loadCriticalData({context, params, request}) {
 
   return {
     collection,
+    metaobjects: metaobjects?.nodes || [],
+    collectionMetafields,
   };
 }
 
@@ -72,11 +81,15 @@ function loadDeferredData() {
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {collection} = useLoaderData();
+  const {collection, metaobjects, collectionMetafields} = useLoaderData();
 
   return (
     <>
-      <DefaultCollectionPageTemplate collection={collection} />
+      <DefaultCollectionPageTemplate 
+        collection={collection} 
+        metaobjects={metaobjects}
+        collectionMetafields={collectionMetafields}
+      />
       <Analytics.CollectionView
         data={{
           collection: {
@@ -143,6 +156,87 @@ const COLLECTION_QUERY = `#graphql
         width
         height
       }
+      # Query specific metafields by namespace and key
+      customTitle: metafield(namespace: "custom", key: "collection_title") {
+        value
+        type
+      }
+      customDescription: metafield(namespace: "custom", key: "collection_description") {
+        value
+        type
+      }
+      customImage: metafield(namespace: "custom", key: "collection_image") {
+        value
+        type
+        reference {
+          ... on MediaImage {
+            image {
+              url
+              altText
+            }
+          }
+        }
+      }
+      # Fetch multiple metafields at once
+      metafields(identifiers: [
+        { namespace: "custom", key: "collection_title" }
+        { namespace: "custom", key: "collection_description" }
+        { namespace: "custom", key: "collection_image" }
+        { namespace: "custom", key: "mobile_banner_url" }
+        { namespace: "custom", key: "image_and_content_section" }
+        { namespace: "custom", key: "hydrogen_collections_faq" }
+        { namespace: "custom", key: "hydrogen_collections_samples_display" }
+        { namespace: "custom", key: "features" }
+      ]) {
+        namespace
+        key
+        value
+        type
+        reference {
+          ... on MediaImage {
+            image {
+              url
+              altText
+            }
+          }
+          ... on Metaobject {
+            handle
+            type
+            fields {
+              key
+              value
+              reference {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+        references(first: 10) {
+          nodes {
+            ... on Metaobject {
+              handle
+              type
+              fields {
+                key
+                value
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       products(
         first: $first,
         last: $last,
@@ -157,6 +251,23 @@ const COLLECTION_QUERY = `#graphql
           hasNextPage
           endCursor
           startCursor
+        }
+      }
+    }
+    metaobjects(type: "collection_info", first: 1) {
+      nodes {
+        handle
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+              }
+            }
+          }
         }
       }
     }
