@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@import './tailwind-theme.css';
+@import './typography.css';
+
+@layer base {
 
 :root {
   --aside-width: 440px;
@@ -987,7 +991,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .blog-article-content {
-  color: hsl(var(--foreground));
+  color: var(--foreground);
   font-size: 1rem;
   line-height: 1.8;
   max-width: 100%;
@@ -1014,7 +1018,7 @@ button.reset:hover:not(:has(> *)) {
 .blog-article-content h4,
 .blog-article-content h5,
 .blog-article-content h6 {
-  color: hsl(var(--foreground));
+  color: var(--foreground);
   font-family: var(--font-serif, Georgia, serif);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -1034,7 +1038,7 @@ button.reset:hover:not(:has(> *)) {
 .blog-article-content p,
 .blog-article-content li,
 .blog-article-content blockquote {
-  color: hsl(var(--muted-foreground));
+  color: var(--muted-foreground);
 }
 
 .blog-article-content a {
@@ -1125,3 +1129,6 @@ button.reset:hover:not(:has(> *)) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+} /* end @layer base */
+

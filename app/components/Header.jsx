@@ -33,7 +33,7 @@ export function Header({header, cart, navigation}) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="w-[95%] max-w-[1600px] mx-auto flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="font-serif text-xl font-semibold">
